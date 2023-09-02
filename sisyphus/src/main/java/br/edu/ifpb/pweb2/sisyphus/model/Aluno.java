@@ -8,6 +8,10 @@ public class Aluno {
     private String login;
     private String senha;
 
+    public Aluno() {
+        
+    }
+
     public Aluno(String nome, String fone, String matricula, String login, String senha) {
         this.nome = nome;
         this.fone = fone;
