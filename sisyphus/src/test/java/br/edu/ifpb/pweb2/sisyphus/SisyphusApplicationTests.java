@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.sisyphus.sisyphus;
+package br.edu.ifpb.pweb2.sisyphus;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
