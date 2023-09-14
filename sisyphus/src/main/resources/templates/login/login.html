@@ -1,0 +1,16 @@
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <h1>Login</h1>
+    <form th:action="@{/login}" method="POST" th:object="${login}">
+        <input type="hidden" th:field="*{id}"/>
+        Email: <input type="text" th:field="*{email}"/> <br/> <br/>
+        Password: <input type="password" th:field="*{password}"/> <br/> <br/>
+        Admin: <input type="checkbox" th:field="*{admin}"/> <br/> <br/>
+        <input type="submit" value="Entrar"/>
+    </form>
+</body>
