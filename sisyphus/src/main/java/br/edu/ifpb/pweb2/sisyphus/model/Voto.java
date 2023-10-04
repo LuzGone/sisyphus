@@ -15,4 +15,12 @@ public class Voto {
     public boolean isAusente() {
         return ausente;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
