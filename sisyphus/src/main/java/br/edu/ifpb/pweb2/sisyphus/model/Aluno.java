@@ -1,15 +1,7 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
-public class Aluno {
-    private int id;
-    private String nome;
-    private String fone;
-    private String matricula;
-    private String login;
-    private String senha;
-
-    public Aluno() {
-        
+public class Aluno extends Usuario{
+    public Aluno() { 
     }
 
     public Aluno(String nome, String fone, String matricula, String login, String senha) {
