@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar coordenador</title>
+    <link rel="stylesheet" href="/sisyphus/src/main/resources/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+       
+        <h1>Coordenadores</h1>
+        <hr>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Criar coordenador</button>
+        <table class="table">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Matrícula</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Opções</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Fred Carvalho</td>
+                <td>124578625</td>
+                <td>(83)98657-7412</td>
+                <td><button type="button" class="btn btn-danger">Excluir</button>
+                    <button type="button" class="btn btn-primary">Editar</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Novo coordenador</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Nome:</label>
+                                        <input type="text" id="nome" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Matrícula:</label>
+                                        <input type="text" id="mat" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Telefone:</label>
+                                        <input type="tel" id="nome" class="form-control">
+                                    </div>
+                                    
+                                </div>
+                                <button type="button" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+    </div>
+    <script src="/sisyphus/src/main/resources/js/bootstrap.bundle.min.js"></script>
+    <script src="/sisyphus/src/main/resources/js/popper.min.js"></script>
+    <script src="/sisyphus/src/main/resources/js/bootstrap.min.js"></script>
+</body>
+</html>

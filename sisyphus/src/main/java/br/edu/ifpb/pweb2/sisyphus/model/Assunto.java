@@ -4,11 +4,9 @@ public class Assunto {
     private int id;
     private String nome;
 
-    public Assunto() {
 
-    }
-
-    public Assunto(String nome) {
+    public Assunto(int id,String nome) {
+        this.id = id;
         this.nome = nome;
     }
 

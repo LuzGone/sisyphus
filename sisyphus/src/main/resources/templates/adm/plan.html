@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planejar Reuniões</title>
+    <link rel="stylesheet" href="/sisyphus/src/main/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Planejamento de Reuniões</h1>
+        <hr>
+        <table class="table">
+            <div class="d-flex justify-content-between align-items-center">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nova</button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
+                    Status
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><button class="dropdown-item" type="button">Action</button></li>
+                    <li><button class="dropdown-item" type="button">Another action</button></li>
+                    <li><button class="dropdown-item" type="button">Something else here</button></li>
+                  </ul>
+                 
+                </div>
+              </div>
+            </div>
+            
+            <thead>
+              <tr>
+                <th scope="col">Reuniões</th>
+                <th scope="col">Data</th>
+                <th scope="col">#Processos</th>
+                <th scope="col">Status</th>
+                <th scope="col">Operações</th>
+                <th scope="col">Excluir</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Reunião 05/2016</td>
+                <td>08/06/2016</td>
+                <td>5</td>
+                <td>PLAN</td>
+                <td><button type="button" class="btn btn-primary">PDF</button></td>
+                <td><button type="button" class="btn btn-danger">X</button></td>
+              </tr>
+              <tr>
+                <td>Reunião 05/2016</td>
+                <td>08/06/2016</td>
+                <td>5</td>
+                <td>PLAN</td>
+                <td><button type="button" class="btn btn-primary">PDF</button></td>
+                <td><button type="button" class="btn btn-danger">X</button></td>
+              </tr>
+            </tbody>
+          </table>
+        
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Reunião</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Reunião:</label>
+                                <input type="text" id="meeting" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="datepicker" class="form-label">Data:</label>
+                                <input type="text" id="datepicker" class="form-control" data-provide="datepicker">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Observações</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </form>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Processos </label>
+
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
+                        45787894, Carlos Almeida
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><button class="dropdown-item" type="button">Action</button></li>
+                        <li><button class="dropdown-item" type="button">Another action</button></li>
+                        <li><button class="dropdown-item" type="button">Something else here</button></li>
+                    </ul>
+                    <button type="button" class="btn btn-success">+</button>
+
+                </div>
+                <table class="table">
+                    
+                    <thead>
+                      <tr>
+                        <th scope="col">Nº</th>
+                        <th scope="col">Requisitante</th>
+                        <th scope="col">Assunto</th>
+                        <th scope="col">Relator</th>
+                        <th scope="col">Excluir</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>45154565</td>
+                        <td>Carlos Almeida</td>
+                        <td>Trancamento de disciplina</td>
+                        <td>Frederico João</td>
+                        <td><button type="button" class="btn btn-danger">X</button></td>
+                      </tr>
+                    
+                    </tbody>
+                  </table>
+                
+                  <button type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+    <script>
+        // Inicializar o DatePicker
+        $('#datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+    </script>
+
+    <script src="/sisyphus/src/main/resources/js/bootstrap.bundle.min.js"></script>
+    <script src="/sisyphus/src/main/resources/js/popper.min.js"></script>
+    <script src="/sisyphus/src/main/resources/js/bootstrap.min.js"></script>
