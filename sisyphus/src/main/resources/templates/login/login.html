@@ -3,8 +3,16 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
+
+    <nav class="navbar navbar-light bg-light" style="background-color: bisque;">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">Sistema de Colegiado</span>
+        </div>
+      </nav>
+
     <h1>Login</h1>
     <form th:action="@{/login}" method="POST" th:object="${login}">
         <input type="hidden" th:field="*{id}"/>

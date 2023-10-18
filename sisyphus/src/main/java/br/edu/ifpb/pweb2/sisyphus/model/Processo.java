@@ -2,7 +2,15 @@ package br.edu.ifpb.pweb2.sisyphus.model;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Processo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String numero;
     private Date dataRecepcao;
@@ -21,6 +29,54 @@ public class Processo {
         this.dataParecer = dataParecer;
         this.parecer = parecer;
         
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public Date getDataRecepcao() {
+        return dataRecepcao;
+    }
+
+    public void setDataRecepcao(Date dataRecepcao) {
+        this.dataRecepcao = dataRecepcao;
+    }
+
+    public Date getDataDistribuicao() {
+        return dataDistribuicao;
+    }
+
+    public void setDataDistribuicao(Date dataDistribuicao) {
+        this.dataDistribuicao = dataDistribuicao;
+    }
+
+    public Date getDataParecer() {
+        return dataParecer;
+    }
+
+    public void setDataParecer(Date dataParecer) {
+        this.dataParecer = dataParecer;
+    }
+
+    public byte[] getParecer() {
+        return parecer;
+    }
+
+    public void setParecer(byte[] parecer) {
+        this.parecer = parecer;
     }
 
 }
