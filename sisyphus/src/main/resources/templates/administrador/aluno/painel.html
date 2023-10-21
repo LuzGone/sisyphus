@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Alunos</title>
+    <title>Painel de Alunos</title>
     <link rel="stylesheet" href="/sisyphus/src/main/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
     <div class="container">
@@ -21,11 +22,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Luiz Gonzaga</td>
-                <td>20211370040</td>
-                <td>(83)98657-8562</td>
+              <tr th:each="aluno:${alunos}">
+                <td>[[${aluno.id}]]</td>
+                <td th:text="${aluno.nome}"></td>
+                <td th:text="${aluno.fone}"></td>
+                <td th:text="${aluno.matricula}"></td>
                 <td><button type="button" class="btn btn-danger">Excluir</button>
                     <button type="button" class="btn btn-primary">Editar</button></td>
               </tr>
