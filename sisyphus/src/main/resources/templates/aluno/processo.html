@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Colegiado - Página do Aluno</title>
-    <link rel="stylesheet" href="/sisyphus/src/main/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
@@ -36,10 +36,10 @@
     </nav>
     <!-- LISTAGEM DE PROCESSOS-->
     <div style="margin: 30px;">
-        <h1 style="margin-top: 20px">Processos</h1>
+        <h1 style="margin-top: 20px">Processos [[${aluno.nome}]]</h1>
         <hr>
         <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal"
                 data-bs-whatever="@mdo">Cadastrar processo</button>
             <div class="btn-group">
                 <div class="input-group mb-3" style="margin-right: 10px;">
@@ -63,32 +63,26 @@
                 </div>
             </div>
         </div>
+
+        <!--TABELA DE PROCESSOS-->
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Assunto</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Data de Criação</th>
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1458746</th>
-                    <td>Trancamento de matrícula</td>
-                    <td>Criado</td>
+                <tr th:each="processo:${processos}">
+                    <td th:text="${processo.numero}"></th>
+                    <td th:text="${processo.estadoProcesso}"></th>
+                    <td th:text="${processo.assunto.nome}"></td>
+                    <td th:text="${processo.dataCriacao}"></td>
                     <td>
-                        <button type="button" class="btn btn-danger">Excluir</button>
-                        <button type="button" class="btn btn-primary">Editar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1458746</th>
-                    <td>Denuncia</td>
-                    <td>Julgado</td>
-                    <td>
-                        <button type="button" class="btn btn-danger">Excluir</button>
-                        <button type="button" class="btn btn-primary">Editar</button>
+                        <button type="button" class="btn btn-primary">Consultar</button>
                     </td>
                 </tr>
             </tbody>
@@ -97,29 +91,27 @@
 
     <!-- MODAL PARA ADICIONAR PROCESSO-->
     
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+
+                <!--FORM DE PROCESSO-->
+                <form th:action="@{'/aluno/' + ${aluno.id} + '/processo/save'}" method="post" th:object="${processo}">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar processo</h1>
+                        <h1 class="modal-title fs-5" id="modalLabel">Cadastrar processo</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="mb-3">
-                                <label for="validationCustom03" class="form-label">Assunto:</label>
-                                <input type="text" id="validationCustom03" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Por favor, digite o assunto.
-                                </div>
+                                <label for="assunto" class="form-label">Assunto:</label>
+                                <select required id="assunto" th:field="*{assunto}">
+                                    <option th:each="assunto:${assuntos}" th:value="${assunto.id}" th:text="${assunto.nome}"></option>
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Justificativa:</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="inputGroupFile02">
+                                <label for="justificativa" class="form-label">Justificativa:</label>
+                                <textarea  class="form-control" th:field="*{textoRequerimento}" id="justificativa" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
@@ -132,66 +124,64 @@
             </div>
         </div>
     </div>
-    
+    <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- FILTRO POR STATUS-->
-<script>
-    $(document).ready(function () {
-        $('#filterStatus, #filterAssunto').on('change', function () {
-            var status = $('#filterStatus').val();
-            var assunto = $('#filterAssunto').val();
-            filterTable(status, assunto);
-        });
 
-        function filterTable(status, assunto) {
-            var rows = $('table tbody tr');
-            rows.show();
+    <!-- FILTRO POR STATUS-->
+    <script>
+        $(document).ready(function () {
+            $('#filterStatus, #filterAssunto').on('change', function () {
+                var status = $('#filterStatus').val();
+                var assunto = $('#filterAssunto').val();
+                filterTable(status, assunto);
+            });
 
-            if (status) {
-                rows.filter(':not(:contains("' + status + '"))').hide();
+            function filterTable(status, assunto) {
+                var rows = $('table tbody tr');
+                rows.show();
+
+                if (status) {
+                    rows.filter(':not(:contains("' + status + '"))').hide();
+                }
+                
+                if (assunto) {
+                    rows.filter(':not(:contains("' + assunto + '"))').hide();
+                }
             }
-            
-            if (assunto) {
-                rows.filter(':not(:contains("' + assunto + '"))').hide();
+
+            $.expr[":"].contains = $.expr.createPseudo(function (text) {
+                return function (element) {
+                    return $(element).text().toUpperCase().indexOf(text.toUpperCase()) >= 0;
+                };
+            });
+        });
+    </script>
+
+
+    <!--FILTRO POR PESQUISA -->
+
+    <script>
+        $(document).ready(function () {
+            $('#filterAssunto').on('input', function () {
+                var assunto = $('#filterAssunto').val().toLowerCase();
+                filterTable(assunto);
+            });
+
+            function filterTable(assunto) {
+                var rows = $('table tbody tr');
+                rows.show();
+
+                rows.filter(function () {
+                    var text = $(this).text().toLowerCase();
+                    return (assunto && text.indexOf(assunto) === -1)
+                }).hide();
             }
-        }
-
-        $.expr[":"].contains = $.expr.createPseudo(function (text) {
-            return function (element) {
-                return $(element).text().toUpperCase().indexOf(text.toUpperCase()) >= 0;
-            };
         });
-    });
-</script>
-
-
-<!--FILTRO POR PESQUISA -->
-
-<script>
-    $(document).ready(function () {
-        $('#filterAssunto').on('input', function () {
-            var assunto = $('#filterAssunto').val().toLowerCase();
-            filterTable(assunto);
-        });
-
-        function filterTable(assunto) {
-            var rows = $('table tbody tr');
-            rows.show();
-
-            rows.filter(function () {
-                var text = $(this).text().toLowerCase();
-                return (assunto && text.indexOf(assunto) === -1)
-            }).hide();
-        }
-    });
-</script>
+    </script>
 
 
 </body>
-    <script src="/sisyphus/src/main/resources/js/bootstrap.bundle.min.js"></script>
-    <script src="/sisyphus/src/main/resources/js/popper.min.js"></script>
-    <script src="/sisyphus/src/main/resources/js/bootstrap.min.js"></script>
-    
 </html>

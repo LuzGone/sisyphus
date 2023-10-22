@@ -1,6 +1,6 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,8 +23,8 @@ public class Aluno {
     private String login;
     private String senha;
 
-    @OneToMany
-    private ArrayList<Processo> listaProcessos;
+    @OneToMany(mappedBy = "aluno")
+    private List<Processo> listaProcessos;
 
     public Aluno(String nome, String fone, String matricula, String login, String senha) {
         this.nome = nome;

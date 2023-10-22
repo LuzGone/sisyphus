@@ -11,6 +11,8 @@ import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 import br.edu.ifpb.pweb2.sisyphus.repository.AlunoRepository;
 import br.edu.ifpb.pweb2.sisyphus.repository.AssuntoRepository;
 import br.edu.ifpb.pweb2.sisyphus.repository.ProfessorRepository;
+import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
+import br.edu.ifpb.pweb2.sisyphus.service.AssuntoService;
 
 @Controller
 public class AdministradorController {
@@ -23,11 +25,12 @@ public class AdministradorController {
     //------ ALUNO --------------//
     
     @Autowired
-    private AlunoRepository alunoRepository;
+    private AlunoService alunoService;
 
     @RequestMapping("administrador/aluno")
-    public String showAlunoPage(Model model){
-        model.addAttribute("alunos", alunoRepository.findAll());
+    public String showAlunoPage(Aluno aluno,Model model){
+        model.addAttribute("alunos", alunoService.getAlunos());
+        model.addAttribute("aluno", aluno);
         return "administrador/aluno/painel";
     }
 
@@ -39,8 +42,9 @@ public class AdministradorController {
 
     @RequestMapping("/administrador/aluno/save")
     public String saveAluno(Aluno aluno, Model model){
-        alunoRepository.save(aluno);
-        model.addAttribute("alunos", alunoRepository.findAll());
+        alunoService.salvarAluno(aluno);
+        model.addAttribute("alunos", alunoService.getAlunos());
+        model.addAttribute("aluno", new Aluno());
         return "administrador/aluno/painel";
     }
 
@@ -70,11 +74,12 @@ public class AdministradorController {
 
     //------ ASSUNTO ---------//
     @Autowired
-    private AssuntoRepository assuntoRepository;
+    private AssuntoService assuntoService;
 
     @RequestMapping("administrador/assunto")
-    public String showAssuntoPage(Model model){
-        model.addAttribute("assuntos", assuntoRepository.findAll());
+    public String showAssuntoPage(Assunto assunto,Model model){
+        model.addAttribute("assuntos", assuntoService.getAssuntos());
+        model.addAttribute("assunto", assunto);
         return "administrador/assunto/painel";
     }
 
@@ -86,8 +91,9 @@ public class AdministradorController {
 
     @RequestMapping("/administrador/assunto/save")
     public String saveAssunto(Assunto assunto, Model model){
-        assuntoRepository.save(assunto);
-        model.addAttribute("assuntos", assuntoRepository.findAll());
+        assuntoService.salvarAssunto(assunto);
+        model.addAttribute("assuntos", assuntoService.getAssuntos());
+        model.addAttribute("assunto", new Assunto());
         return "administrador/assunto/painel";
     }
 

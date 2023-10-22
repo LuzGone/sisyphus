@@ -1,6 +1,6 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,8 +23,8 @@ public class Professor {
     private String login;
     private String senha;
 
-    @OneToMany
-    private ArrayList<Processo> listaDeProcessos;
+    @OneToMany(mappedBy = "relator")
+    private List<Processo> listaDeProcessos;
 
 
     public Professor(int id, String nome, String fone, String matricula, String login, String senha){

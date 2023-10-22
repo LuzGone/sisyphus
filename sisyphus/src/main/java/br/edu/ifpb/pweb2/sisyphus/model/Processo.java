@@ -1,6 +1,6 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -37,24 +38,25 @@ public class Processo {
     private Aluno aluno;
 
     @OneToOne
+    @JoinColumn(name = "assunto")
     private Assunto assunto;
 
     @Enumerated(EnumType.STRING)
     private TipoDecisao tipoDecisao;
 
-    @OneToMany
-    private ArrayList<Voto> listaDeVotos;
+    @OneToMany(mappedBy = "processo")
+    private List<Voto> listaDeVotos;
 
     private String textoRequerimento;
 
     @Enumerated(EnumType.STRING)
     private EstadoProcesso estadoProcesso;
 
-    public Processo( Aluno aluno, Date dataCriacao, Assunto assunto, String textoRequerimento) {
+    public Processo( Aluno aluno, Assunto assunto, String textoRequerimento) {
         this.aluno = aluno;
         this.numero = Integer.toString(this.id);
         this.estadoProcesso = EstadoProcesso.CRIADO;
-        this.dataCriacao = dataCriacao;
+        this.dataCriacao = new Date();
         this.assunto = assunto;
         this.textoRequerimento = textoRequerimento;
     }

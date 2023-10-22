@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Alunos</title>
-    <link rel="stylesheet" href="/sisyphus/src/main/resources/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
     <div class="container">
         <h1>Painel de Alunos</h1>
-        <button type="button" class="btn btn-info">Criar Aluno</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAluno"
+                data-bs-whatever="@mdo">Cadastrar Aluno</button>
         <table class="table">
             <thead>
               <tr>
@@ -33,8 +33,79 @@
             </tbody>
           </table>
     </div>
-    <script src="/sisyphus/src/main/resources/js/bootstrap.bundle.min.js"></script>
-    <script src="/sisyphus/src/main/resources/js/popper.min.js"></script>
-    <script src="/sisyphus/src/main/resources/js/bootstrap.min.js"></script>
+
+    <div class="modal fade" id="modalAluno" tabindex="-1" aria-labelledby="modalAlunoLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <!-- INICIO DO FORM -->
+              <form th:action="@{/administrador/aluno/save}" method="post" th:object="${aluno}">
+                  <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="modalAlunoLabel">Cadastrar Aluno</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="row">
+                          <input type="hidden" th:field="*{id}"><br>
+                          <!--NOME-->
+                          <div class="mb-3">
+                              <label for="nomeAluno" class="form-label">Nome:</label>
+                              <input type="text" id="nomeAluno" th:field="*{nome}" class="form-control" required>
+                              <div class="invalid-feedback">
+                                  Por favor, digite o Nome.
+                              </div>
+                          </div>
+
+                          <!--FONE-->
+                          <div class="mb-3">
+                              <label for="telefoneAluno" class="form-label">Telefone:</label>
+                              <input type="text" id="telefoneAluno" th:field="*{fone}" class="form-control" required>
+                              <div class="invalid-feedback">
+                                  Por favor, digite o Telefone.
+                              </div>
+                          </div>
+
+                          <!--MATRICULA-->
+                          <div class="mb-3">
+                              <label for="matriculaAluno" class="form-label">Matricula:</label>
+                              <input type="text" id="matriculaAluno" th:field="*{matricula}" class="form-control" required>
+                              <div class="invalid-feedback">
+                                  Por favor, digite o Matricula.
+                              </div>
+                          </div>
+
+                          <!--LOGIN-->
+                          <div class="mb-3">
+                              <label for="loginAluno" class="form-label">Login:</label>
+                              <input type="text" id="loginAluno" th:field="*{login}" class="form-control" required>
+                              <div class="invalid-feedback">
+                                  Por favor, digite o login.
+                              </div>
+                          </div>
+
+                          <!--SENHA-->
+                          <div class="mb-3">
+                              <label for="senhaAluno" class="form-label">Senha:</label>
+                              <input type="password" id="senhaAluno" th:field="*{senha}" class="form-control" required>
+                              <div class="invalid-feedback">
+                                  Por favor, digite o senha.
+                              </div>
+                          </div>
+                        
+
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                          style="padding-left: 25px; padding-right:25px">Salvar</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>
