@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno,Long> {
     public List<Aluno> findById(int id);
+    public List<Aluno> findByMatricula(String matricula);
 }
