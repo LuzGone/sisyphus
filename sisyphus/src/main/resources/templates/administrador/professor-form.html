@@ -7,5 +7,18 @@
 </head>
 <body>
     <h1>Criar/Editar Professor</h1>
+    <div class="container">
+        <form th:action="@{/administrador/professor/save}" method="post" th:object="${professor}">
+            <input type="hidden" th:field="*{id}"><br>
+            Nome: <input type="text" th:field="*{nome}"><br>
+            Fone: <input type="text" th:field="*{fone}"><br>
+            Matricula: <input type="text" th:field="*{matricula}"><br>
+            Login: <input type="text" th:field="*{login}"><br>
+            Senha: <input type="password" th:field="*{senha}"><br>
+            <!-- falta a opção de coordenador -->
+            <input type="submit" value="salvar">
+        </form>
+
+    </div>
 </body>
 </html>
