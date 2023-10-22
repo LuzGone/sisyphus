@@ -1,31 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Professor</title>
+    <title>Painel de Assuntos</title>
     <link rel="stylesheet" href="/sisyphus/src/main/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
     <div class="container">
-        <h1>Painel de Professores</h1>
-        <button type="button" class="btn btn-info">Criar Professor</button>
+        <h1>Painel de Assuntos</h1>
+        <button type="button" class="btn btn-info">Criar Aluno</button>
         <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Matrícula</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Opções</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Fred Carvalho</td>
-                <td>124578625</td>
-                <td>(83)98657-7412</td>
+              <tr th:each="assunto:${assuntos}">
+                <td>[[${assunto.id}]]</td>
+                <td th:text="${assunto.nome}"></td>
                 <td><button type="button" class="btn btn-danger">Excluir</button>
                     <button type="button" class="btn btn-primary">Editar</button></td>
               </tr>

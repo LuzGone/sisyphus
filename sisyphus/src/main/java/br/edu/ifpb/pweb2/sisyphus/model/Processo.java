@@ -1,82 +1,62 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Processo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+
     private String numero;
-    private Date dataRecepcao;
+    private Date dataCriacao;
     private Date dataDistribuicao;
     private Date dataParecer;
     private byte[] parecer;
 
-    public Processo() {
+    @ManyToOne
+    private Professor relator;
 
-    }
+    @ManyToOne
+    private Aluno aluno;
 
-    public Processo(String numero, Date dataRecepcao, Date dataDistribuicao, Date dataParecer, byte[] parecer) {
-        this.numero = numero;
-        this.dataRecepcao = dataRecepcao;
-        this.dataDistribuicao = dataDistribuicao;
-        this.dataParecer = dataParecer;
-        this.parecer = parecer;
-        
-    }
+    @OneToOne
+    private Assunto assunto;
 
-    public int getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)
+    private TipoDecisao tipoDecisao;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @OneToMany
+    private ArrayList<Voto> listaDeVotos;
 
-    public String getNumero() {
-        return numero;
-    }
+    private String textoRequerimento;
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
+    @Enumerated(EnumType.STRING)
+    private EstadoProcesso estadoProcesso;
 
-    public Date getDataRecepcao() {
-        return dataRecepcao;
-    }
-
-    public void setDataRecepcao(Date dataRecepcao) {
-        this.dataRecepcao = dataRecepcao;
-    }
-
-    public Date getDataDistribuicao() {
-        return dataDistribuicao;
-    }
-
-    public void setDataDistribuicao(Date dataDistribuicao) {
-        this.dataDistribuicao = dataDistribuicao;
-    }
-
-    public Date getDataParecer() {
-        return dataParecer;
-    }
-
-    public void setDataParecer(Date dataParecer) {
-        this.dataParecer = dataParecer;
-    }
-
-    public byte[] getParecer() {
-        return parecer;
-    }
-
-    public void setParecer(byte[] parecer) {
-        this.parecer = parecer;
+    public Processo( Aluno aluno, Date dataCriacao, Assunto assunto, String textoRequerimento) {
+        this.aluno = aluno;
+        this.numero = Integer.toString(this.id);
+        this.estadoProcesso = EstadoProcesso.CRIADO;
+        this.dataCriacao = dataCriacao;
+        this.assunto = assunto;
+        this.textoRequerimento = textoRequerimento;
     }
 
 }
