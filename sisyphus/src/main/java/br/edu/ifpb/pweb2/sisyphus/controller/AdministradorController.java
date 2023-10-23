@@ -25,11 +25,7 @@ public class AdministradorController {
     public String showHomepage() {
         return "administrador/home";
     }
-
-    //------ ALUNO --------------//
     
-    
-
     //------ PROFESSOR --------------//
 
     @Autowired
@@ -53,31 +49,5 @@ public class AdministradorController {
         model.addAttribute("professores", professorRepository.findAll());
         return "administrador/professor/painel";
     }
-
-    //------ ASSUNTO ---------//
-    @Autowired
-    private AssuntoService assuntoService;
-
-    @RequestMapping("administrador/assunto")
-    public String showAssuntoPage(Assunto assunto,Model model){
-        model.addAttribute("assuntos", assuntoService.getAssuntos());
-        model.addAttribute("assunto", assunto);
-        return "administrador/assunto/painel";
-    }
-
-    @RequestMapping("administrador/cadastrar-assunto")
-    public String getFormAssunto(Assunto assunto, Model model){
-        model.addAttribute("assunto", assunto);
-        return "administrador/assunto/form";
-    }
-
-    @RequestMapping("/administrador/assunto/save")
-    public String saveAssunto(Assunto assunto, Model model){
-        assuntoService.salvarAssunto(assunto);
-        model.addAttribute("assuntos", assuntoService.getAssuntos());
-        model.addAttribute("assunto", new Assunto());
-        return "administrador/assunto/painel";
-    }
-
 
 }

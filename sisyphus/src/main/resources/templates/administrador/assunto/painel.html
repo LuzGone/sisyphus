@@ -24,8 +24,14 @@
                   <tr th:each="assunto:${assuntos}">
                     <td>[[${assunto.id}]]</td>
                     <td th:text="${assunto.nome}"></td>
-                    <td><button type="button" class="btn btn-danger">Excluir</button>
-                        <button type="button" class="btn btn-primary">Editar</button></td>
+                    <td>
+                        <form th:action="@{assuntos/{id}/delete(id=${assunto.id})}">
+                            <button type="submit"  class="btn btn-danger">Excluir</button>
+                        </form>
+                        <form th:action="@{assuntos/{id}(id=${assunto.id})}">
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        </form>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -36,7 +42,7 @@
                 <div class="modal-content">
       
                     <!-- INICIO DO FORM -->
-                    <form th:action="@{/administrador/assunto/save}" method="post" th:object="${assunto}">
+                    <form th:action="@{/assuntos}" method="post" th:object="${assunto}">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Aluno</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

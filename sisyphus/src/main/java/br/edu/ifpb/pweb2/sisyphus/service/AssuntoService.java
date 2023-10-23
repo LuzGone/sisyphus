@@ -23,4 +23,8 @@ public class AssuntoService {
     public Assunto salvarAssunto(Assunto assunto){
         return this.assuntoRepository.save(assunto);
     }
+
+    public void deletarAssunto(Long id){
+        this.assuntoRepository.deleteById(id);
+    }
 }

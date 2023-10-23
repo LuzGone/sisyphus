@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição de Assunto</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="container">
+            <h1>Editar Assunto</h1>
+            <!-- INICIO DO FORM -->
+            <form th:action="@{/assuntos}" method="post" th:object="${assunto}">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Aluno</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" th:field="*{id}"><br>
+                        <!--NOME-->
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" id="nome" th:field="*{nome}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Por favor, digite o Nome.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a th:href="@{/assuntos}"  class="btn btn-secondary">Fechar</a>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                        style="padding-left: 25px; padding-right:25px">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer></footer>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>
