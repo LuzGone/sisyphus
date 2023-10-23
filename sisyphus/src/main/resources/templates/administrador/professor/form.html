@@ -4,21 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Professor</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
+    <header></header>
     <h1>Criar/Editar Professor</h1>
-    <div class="container">
-        <form th:action="@{/administrador/professor/save}" method="post" th:object="${professor}">
-            <input type="hidden" th:field="*{id}"><br>
-            Nome: <input type="text" th:field="*{nome}"><br>
-            Fone: <input type="text" th:field="*{fone}"><br>
-            Matricula: <input type="text" th:field="*{matricula}"><br>
-            Login: <input type="text" th:field="*{login}"><br>
-            Senha: <input type="password" th:field="*{senha}"><br>
-            <!-- falta a opção de coordenador -->
-            <input type="submit" value="salvar">
-        </form>
+    <main >
+        <div class="container">
+            <!-- INICIO DO FORM -->
+            <form th:action="@{/professores}" method="POST" th:object="${professor}">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Professor</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" th:field="*{id}"><br>
+                        <!--NOME-->
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" id="nome" th:field="*{nome}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Por favor, digite o Nome.
+                            </div>
+                        </div>
 
-    </div>
+                        <!--FONE-->
+                        <div class="mb-3">
+                            <label for="telefone" class="form-label">Telefone:</label>
+                            <input type="text" id="telefone" th:field="*{fone}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Por favor, digite o Telefone.
+                            </div>
+                        </div>
+
+                        <!--MATRICULA-->
+                        <div class="mb-3">
+                            <label for="matricula" class="form-label">Matricula:</label>
+                            <input type="text" id="matricula" th:field="*{matricula}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Por favor, digite o Matricula.
+                            </div>
+                        </div>
+
+                        <!--LOGIN-->
+                        <div class="mb-3">
+                            <label for="login" class="form-label">Login:</label>
+                            <input type="text" id="login" th:field="*{login}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Por favor, digite o login.
+                            </div>
+                        </div>
+
+                        <!--SENHA-->
+                        <div class="mb-3">
+                            <label for="senha" class="form-label">Senha:</label>
+                            <input type="password" id="senha" th:field="*{senha}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Por favor, digite o senha.
+                            </div>
+                        </div>
+                      
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a th:href="@{/professores}" class="btn btn-secondary" >Fechar</a>
+                    <button type="submit" class="btn btn-primary"
+                        style="padding-left: 25px; padding-right:25px">Salvar</button>
+                </div>
+            </form>
+        </div>
+        
+    </main>
+    <footer></footer>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>
