@@ -13,3 +13,28 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
     </head>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
+        <div class="container-fluid justify-content-center" id="navbarSupportedContent" th:fragment="header">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img src="/sisyphus/src/main/resources/templates/sisiphus.png" alt="Ícone" width="50" height="50">
+                </a>
+                <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse nav justify-content-center" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-white" aria-current="page" href="#">Processos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
