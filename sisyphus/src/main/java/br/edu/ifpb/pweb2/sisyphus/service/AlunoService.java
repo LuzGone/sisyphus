@@ -23,4 +23,8 @@ public class AlunoService {
     public Aluno salvarAluno(Aluno aluno){
         return this.alunoRepository.save(aluno);
     }
+
+    public void apagarAluno(Long id){
+        this.alunoRepository.deleteById(id);
+    }
 }

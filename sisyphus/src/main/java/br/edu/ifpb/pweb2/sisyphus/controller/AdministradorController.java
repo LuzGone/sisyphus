@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.model.Assunto;
@@ -15,6 +18,7 @@ import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
 import br.edu.ifpb.pweb2.sisyphus.service.AssuntoService;
 
 @Controller
+@RequestMapping("/administrador")
 public class AdministradorController {
     
     @RequestMapping("/administrador")
@@ -24,29 +28,7 @@ public class AdministradorController {
 
     //------ ALUNO --------------//
     
-    @Autowired
-    private AlunoService alunoService;
-
-    @RequestMapping("administrador/aluno")
-    public String showAlunoPage(Aluno aluno,Model model){
-        model.addAttribute("alunos", alunoService.getAlunos());
-        model.addAttribute("aluno", aluno);
-        return "administrador/aluno/painel";
-    }
-
-    @RequestMapping("administrador/cadastrar-aluno")
-    public String getFormAluno(Aluno aluno, Model model){
-        model.addAttribute("aluno", aluno);
-        return "administrador/aluno/form";
-    }
-
-    @RequestMapping("/administrador/aluno/save")
-    public String saveAluno(Aluno aluno, Model model){
-        alunoService.salvarAluno(aluno);
-        model.addAttribute("alunos", alunoService.getAlunos());
-        model.addAttribute("aluno", new Aluno());
-        return "administrador/aluno/painel";
-    }
+    
 
     //------ PROFESSOR --------------//
 
