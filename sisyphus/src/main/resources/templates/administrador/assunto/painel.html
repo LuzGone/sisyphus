@@ -7,17 +7,48 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
+        <div class="container-fluid justify-content-center" id="navbarSupportedContent">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img src="/sisyphus/src/main/resources/templates/sisiphus.png" alt="Ícone" width="50" height="50">
+                </a>
+                <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <header></header>
     <main>
         <div class="container">
-            <h1>Painel de Assuntos</h1>
+            <h1 style="margin-top: 20px;margin-bottom: 20px;">Painel de Assuntos</h1>
+            <hr>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"
-                data-bs-whatever="@mdo">Cadastrar Assunto</button>
+                data-bs-whatever="@mdo"  style="margin-bottom: 20px;">Cadastrar Assunto</button>
             <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
+                    <th scope="col">Opções</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -25,12 +56,15 @@
                     <td>[[${assunto.id}]]</td>
                     <td th:text="${assunto.nome}"></td>
                     <td>
-                        <form th:action="@{assuntos/{id}/delete(id=${assunto.id})}">
-                            <button type="submit"  class="btn btn-danger">Excluir</button>
-                        </form>
-                        <form th:action="@{assuntos/{id}(id=${assunto.id})}">
-                            <button type="submit" class="btn btn-primary">Editar</button>
-                        </form>
+                        <div class="btn-group">
+                            <form style="margin-right: 10px;" th:action="@{assuntos/{id}/delete(id=${assunto.id})}">
+                                <button type="submit"  class="btn btn-danger">Excluir</button>
+                            </form>
+                            <form th:action="@{assuntos/{id}(id=${assunto.id})}">
+                                <button type="submit" class="btn btn-primary">Editar</button>
+                            </form>
+                        </div>            
+                        
                     </td>
                   </tr>
                 </tbody>

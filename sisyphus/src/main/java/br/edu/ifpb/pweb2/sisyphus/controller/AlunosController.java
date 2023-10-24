@@ -2,6 +2,7 @@ package br.edu.ifpb.pweb2.sisyphus.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +12,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
+import jakarta.validation.Valid;
+
+
 
 @Controller
 @RequestMapping("/alunos")
 public class AlunosController {
+  
     @Autowired
     private AlunoService alunoService;
 
@@ -29,7 +34,13 @@ public class AlunosController {
     }
 
     @PostMapping
-    public ModelAndView saveAluno(Aluno aluno, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView saveAluno(@Valid Aluno aluno, BindingResult validation, ModelAndView model, RedirectAttributes redirectAttributes){
+        if (validation.hasErrors()){
+            model.setViewName("aluno/painel");
+            return model;
+        }
+        
+        
         alunoService.salvarAluno(aluno);
         model.addObject("alunos", alunoService.getAlunos());
         model.addObject("aluno", new Aluno());
@@ -54,4 +65,5 @@ public class AlunosController {
         model.setViewName("administrador/aluno/form");
         return model;
     }
+
 }
