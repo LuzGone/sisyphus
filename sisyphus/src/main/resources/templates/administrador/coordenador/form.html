@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form de Coordenador</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="container">
+            <h1>Form de Coordenador</h1>
+        </div>
+        <div>
+            <!-- INICIO DO FORM -->
+            <form th:action="@{/coordenadores}" method="post">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Coordenador</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!--PROFESSOR-->
+                        <div class="mb-3">
+                            <label for="professor" class="form-label">Professor:</label>
+                            <select required id="professor" th:field="*{professor}">
+                                <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor, Escolha um Professor.
+                            </div>
+                        </div>
+
+                        <!--CURSO-->
+                        <div class="mb-3">
+                            <label for="curso" class="form-label">Nome:</label>
+                            <input type="text" id="curso" th:field="*{curso}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Por favor, digite o curso.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                        style="padding-left: 25px; padding-right:25px">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer></footer>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

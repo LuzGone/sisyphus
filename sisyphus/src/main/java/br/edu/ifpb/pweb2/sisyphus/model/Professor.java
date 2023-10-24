@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,14 +18,17 @@ public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nome;
-    private String fone;
-    private String matricula;
-    private String login;
-    private String senha;
+    protected String nome;
+    protected String fone;
+    protected String matricula;
+    protected String login;
+    protected String senha;
 
     @OneToMany(mappedBy = "relator")
-    private List<Processo> listaDeProcessos;
+    protected List<Processo> listaDeProcessos;
+
+    @ManyToMany(mappedBy = "membros")
+    protected List<Colegiado> listaColegiados;
 
 
     public Professor(int id, String nome, String fone, String matricula, String login, String senha){
@@ -34,6 +38,10 @@ public class Professor {
         this.matricula = matricula;
         this.login = login;
         this.senha = senha;
+    }
+
+    public void adicionarProcesso(Processo processo){
+        this.listaDeProcessos.add(processo);
     }
 
 }

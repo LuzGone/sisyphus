@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.model.Assunto;
+import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
 import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
 import br.edu.ifpb.pweb2.sisyphus.service.AssuntoService;
@@ -52,7 +53,7 @@ public class AlunoController {
         ){
             Aluno aluno = this.alunoService.getAlunoPorId(id);
             Assunto assunto = this.assuntoService.getAssuntoPorId(assuntoId);
-            Processo processo = new Processo(aluno, assunto, textoRequerimento);
+            Processo processo = new Processo(aluno, assunto, textoRequerimento,new Colegiado());
             aluno.adicionarProcesso(processo);
             processoService.salvarProcesso(processo);
             alunoService.salvarAluno(aluno);

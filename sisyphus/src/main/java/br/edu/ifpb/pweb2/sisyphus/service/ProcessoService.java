@@ -2,7 +2,6 @@ package br.edu.ifpb.pweb2.sisyphus.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ProcessoRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
@@ -22,7 +21,6 @@ public class ProcessoService {
         return this.processoRepository.findByAluno(aluno);
     }
 
-    @Transactional
     public Processo salvarProcesso(Processo processo){
         return this.processoRepository.save(processo);
     }

@@ -37,6 +37,9 @@ public class Processo {
     @ManyToOne
     private Aluno aluno;
 
+    @ManyToOne
+    private Colegiado colegiado;
+
     @OneToOne
     @JoinColumn(name = "assunto")
     private Assunto assunto;
@@ -52,13 +55,14 @@ public class Processo {
     @Enumerated(EnumType.STRING)
     private EstadoProcesso estadoProcesso;
 
-    public Processo( Aluno aluno, Assunto assunto, String textoRequerimento) {
+    public Processo( Aluno aluno, Assunto assunto, String textoRequerimento, Colegiado colegiado) {
         this.aluno = aluno;
         this.numero = Integer.toString(this.id);
         this.estadoProcesso = EstadoProcesso.CRIADO;
         this.dataCriacao = new Date();
         this.assunto = assunto;
         this.textoRequerimento = textoRequerimento;
+        this.colegiado = colegiado;
     }
 
 }

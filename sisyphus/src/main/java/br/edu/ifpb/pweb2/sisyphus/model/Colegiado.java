@@ -6,7 +6,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Colegiado {
     @Id
@@ -18,9 +26,14 @@ public class Colegiado {
     private String portaria;
     private String curso;
 
-    public Colegiado() {
+    @ManyToMany
+    private List<Professor> membros;
 
-    }
+    @OneToOne
+    private Coordenador coordenador;
+
+    @OneToMany(mappedBy = "colegiado")
+    private List<Processo> processos;
 
     public Colegiado(Date dataInicio, Date dataFim, String descricao, String portaria, String curso) {
         this.dataInicio = dataInicio;
@@ -30,52 +43,5 @@ public class Colegiado {
         this.curso = curso;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public Date getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getPortaria() {
-        return portaria;
-    }
-
-    public void setPortaria(String portaria) {
-        this.portaria = portaria;
-    }
-
-    public String getCurso() {
-        return curso;
-    }
-
-    public void setCurso(String curso) {
-        this.curso = curso;
-    }
 
 }
