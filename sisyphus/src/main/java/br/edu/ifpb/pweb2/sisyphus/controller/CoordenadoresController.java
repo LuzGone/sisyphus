@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -44,15 +42,13 @@ public class CoordenadoresController {
 
     @PostMapping
     public ModelAndView saveCoordenador( 
+            Coordenador coordenador,
             ModelAndView model, 
             RedirectAttributes redirectAttributes
         ){
-        Coordenador coordenador = new Coordenador();
         coordenadorService.salvarCoordenador(coordenador);
         model.addObject("coordenadores", coordenadorService.getCoordenadores());
-        model.addObject("professores", professorService.getProfessores());
-        model.addObject("professor", new Professor());
-        model.addObject("curso", "");
+        model.addObject("coordenador", new Coordenador(new Professor(), ""));
         model.setViewName("redirect:/coordenadores");
         redirectAttributes.addFlashAttribute("mensagem","Coordenador Criado com Sucesso");
         return model;
@@ -62,7 +58,7 @@ public class CoordenadoresController {
     public ModelAndView deleteCoordenador(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         coordenadorService.deletarCoordenador(id);
         model.addObject("coordenadores", coordenadorService.getCoordenadores());
-        model.addObject("coordenador", new Coordenador());
+        model.addObject("coordenador", new Coordenador(new Professor(), ""));
         model.setViewName("redirect:/coordenadores");
         redirectAttributes.addFlashAttribute("mensagem","Coordenador Deletado com Sucesso");
         return model;

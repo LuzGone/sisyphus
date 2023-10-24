@@ -36,7 +36,7 @@ public class AlunosController {
     @PostMapping
     public ModelAndView saveAluno(@Valid Aluno aluno, BindingResult validation, ModelAndView model, RedirectAttributes redirectAttributes){
         if (validation.hasErrors()){
-            model.setViewName("aluno/painel");
+            model.setViewName("redirect:/alunos");
             return model;
         }
         

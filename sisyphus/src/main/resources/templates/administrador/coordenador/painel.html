@@ -25,7 +25,7 @@
                 <tbody>
                   <tr th:each="coordenador:${coordenadores}">
                     <td>[[${coordenador.id}]]</td>
-                    <td th:text="${coordenador.professor.getNome()}"></td>
+                    <td th:text="${coordenador.professor.nome}"></td>
                     <td th:text="${coordenador.curso}"></td>
                     <td>
                         <form th:action="@{coordenadores/{id}/delete(id=${coordenador.id})}">
