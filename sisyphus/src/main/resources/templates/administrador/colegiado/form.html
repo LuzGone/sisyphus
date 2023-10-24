@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição de Colegiado</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body> 
+    <header></header>
+    <main>
+        <div class="container" >
+            <h1 style="margin: 20px;margin-bottom: 20px;">Editar Colegiado</h1>
+            <hr>
+            <!-- INICIO DO FORM -->
+            <form th:action="@{/colegiados}" method="post" th:object="${colegiado}">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Colegiado</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" th:field="*{id}"><br>
+                        <!--CURSO-->
+                        <div class="mb-3">
+                            <label for="curso" class="form-label">Curso:</label>
+                            <input type="text" id="curso" th:field="*{curso}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Por favor, digite o curso.
+                            </div>
+                        </div>
+
+                        <!--Descrição-->
+                        <div class="mb-3">
+                            <label for="descricao" class="form-label">Descrição:</label>
+                            <input type="text" id="descricao" th:field="*{descricao}" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Por favor, digite o curso.
+                            </div>
+                        </div>
+                        <!--MEMBROS-->
+                        <div class="mb-3" th:each="membro,itemStat : ${membros}">
+                            <label for="membro" class="form-label">Membro:</label>
+                            <select required id="membro" th:field="*{membros[__${itemStat.index}__]}">
+                                <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor, Escolha um Professor.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-secondary" th:href="@{/colegiados}">Fechar</a>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                        style="padding-left: 25px; padding-right:25px">Salvar</button>
+                </div>
+            </form>
+            
+        </div>
+    </main>
+    <footer></footer>
+
+    <!-- FOOTER -->
+  <div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+        </a>
+        <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Sisyphus - IFPB </span>
+      </div>
+    </footer>
+  </div>
+  
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -27,4 +27,6 @@ public class ProfessorService {
     public void deletarProfessor(Long id){
         this.professorRepository.deleteById(id);
     }
+
+    
 }

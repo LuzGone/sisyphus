@@ -44,4 +44,13 @@ public class Professor {
         this.listaDeProcessos.add(processo);
     }
 
+    public void adicionarColegiado(Colegiado colegiado){
+        this.listaColegiados.add(colegiado);
+    }
+
+    @Override
+    public String toString(){
+        return "Professor " + this.nome;
+    }
+
 }

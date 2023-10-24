@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ColegiadoRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
+import br.edu.ifpb.pweb2.sisyphus.model.Professor;
+
 import java.util.List;
 
 @Service
@@ -21,6 +23,9 @@ public class ColegiadoService {
     }
 
     public Colegiado salvarColegiado(Colegiado colegiado){
+        for(Professor professor : colegiado.getMembros() ){
+            professor.adicionarColegiado(colegiado);
+        }
         return this.colegiadoRepository.save(colegiado);
     }
 

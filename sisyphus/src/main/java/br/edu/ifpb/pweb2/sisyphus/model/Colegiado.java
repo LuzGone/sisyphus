@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
@@ -29,9 +28,6 @@ public class Colegiado {
     @ManyToMany
     private List<Professor> membros;
 
-    @OneToOne
-    private Coordenador coordenador;
-
     @OneToMany(mappedBy = "colegiado")
     private List<Processo> processos;
 
@@ -42,6 +38,15 @@ public class Colegiado {
         this.portaria = portaria;
         this.curso = curso;
     }
+
+    public Colegiado(List<Professor> professores){
+        this.membros = professores;
+    }
+
+    @Override
+    public String toString(){
+        return "Colegiado de " + this.curso;
+    } 
 
 
 }

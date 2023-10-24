@@ -25,9 +25,6 @@ public class Coordenador{
     @JoinColumn(name="professor")
     private Professor professor;
 
-    @OneToOne(mappedBy = "coordenador")
-    private Colegiado colegiado;
-
     public Coordenador(Professor professor, String curso){
         this.professor = professor;
         this.curso = curso;
