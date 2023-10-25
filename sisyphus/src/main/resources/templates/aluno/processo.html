@@ -96,13 +96,14 @@
             <div class="modal-content">
 
                 <!--FORM DE PROCESSO-->
-                <form th:action="@{'/aluno/' + ${aluno.id} + '/processo/save'}" method="post" th:object="${processo}">
+                <form th:action="@{'/aluno/' + ${aluno.id} + '/processos'}" method="post" th:object="${processo}">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="modalLabel">Cadastrar processo</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
+                            <input type="hidden" th:field="*{id}"><br>
                             <div class="mb-3">
                                 <label for="assunto" class="form-label">Assunto:</label>
                                 <select required id="assunto" th:field="*{assunto}">

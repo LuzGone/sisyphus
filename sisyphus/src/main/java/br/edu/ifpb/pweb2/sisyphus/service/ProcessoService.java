@@ -5,8 +5,12 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ProcessoRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
+import br.edu.ifpb.pweb2.sisyphus.model.EstadoProcesso;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
+
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class ProcessoService {
@@ -22,6 +26,10 @@ public class ProcessoService {
     }
 
     public Processo salvarProcesso(Processo processo){
+        processo.getAluno().adicionarProcesso(processo);
+        processo.setEstadoProcesso(EstadoProcesso.CRIADO);
+        processo.setDataCriacao(new Date());
+        processo.setNumero(""+new Date().getTime());
         return this.processoRepository.save(processo);
     }
 }
