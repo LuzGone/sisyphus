@@ -40,7 +40,7 @@ public class Processo {
     @ManyToOne
     private Colegiado colegiado;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "assunto")
     private Assunto assunto;
 
@@ -63,6 +63,11 @@ public class Processo {
         this.assunto = assunto;
         this.textoRequerimento = textoRequerimento;
         this.colegiado = colegiado;
+    }
+
+    public Processo(Aluno aluno,Assunto assunto){
+        this.aluno = aluno;
+        this.assunto = assunto;
     }
 
 }
