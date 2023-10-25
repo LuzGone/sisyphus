@@ -10,7 +10,6 @@ import br.edu.ifpb.pweb2.sisyphus.model.Processo;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class ProcessoService {
