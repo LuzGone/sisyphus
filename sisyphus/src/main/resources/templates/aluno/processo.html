@@ -15,7 +15,7 @@
         <div class="container-fluid justify-content-center" id="navbarSupportedContent">
             <div>
                 <a class="navbar-brand" href="#">
-                    <img src="/sisyphus/src/main/resources/static/css/sisiphus.png" width="50" height="50">
+                    <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
                 </a>
                 <a class="navbar-brand text-white" href="#">SISYPHUS</a>
             </div>
@@ -114,8 +114,20 @@
                                 <label for="justificativa" class="form-label">Justificativa:</label>
                                 <textarea  class="form-control" th:field="*{textoRequerimento}" id="justificativa" rows="3"></textarea>
                             </div>
+                            <div class="input-group">
+                                <form th:action="@{/processos/1/upload}" method="post" enctype="multipart/form-data">
+                                    <input type="file" name="parecer" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                    
+                                </form>                        
+                              </div>
                         </div>
                     </div>
+                    <!-- <h1>Upload de Parecer</h1>
+                    <form th:action="@{/processos/1/upload}" method="post" enctype="multipart/form-data">
+                        <input type="file" name="parecer" />
+                        <input type="submit" value="Enviar Parecer" />
+                    </form> -->
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"

@@ -7,11 +7,53 @@
     <title>Página Inicial</title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
+        <div class="container-fluid justify-content-center" id="navbarSupportedContent">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img src="/sisyphus/src/main/resources/templates/sisiphus.png" alt="Ícone" width="50" height="50">
+                </a>
+                <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <h1>Painel de Controle</h1>
     <ul>
         <li><a href="localhost:8080/administrador/aluno">Aluno</a></li>
-        <li><a href="">Professor</a></li>
+        <li><a href="localhost:8080/administrador/professor">Professor</a></li>
     </ul>
+
+    <!-- FOOTER -->
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+            </a>
+            <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Sisyphus - IFPB </span>
+        </div>
+        </footer>
+    </div>
+
     <script src="/sisyphus/src/main/resources/js/bootstrap.bundle.min.js"></script>
     <script src="/sisyphus/src/main/resources/js/popper.min.js"></script>
     <script src="/sisyphus/src/main/resources/js/bootstrap.min.js"></script>

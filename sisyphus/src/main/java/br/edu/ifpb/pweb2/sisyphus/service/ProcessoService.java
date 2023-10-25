@@ -32,4 +32,13 @@ public class ProcessoService {
         processo.setNumero(""+new Date().getTime());
         return this.processoRepository.save(processo);
     }
+
+    public Processo findById(Long processoId) {
+        return null;
+    }
+
+    // // ### UPLOAD ###
+    public void save(Processo processo) {
+    }
+
 }

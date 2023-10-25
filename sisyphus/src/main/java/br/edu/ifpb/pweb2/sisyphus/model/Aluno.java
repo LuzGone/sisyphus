@@ -52,8 +52,4 @@ public class Aluno {
         this.listaProcessos.add(processo);
     }
 
-    @Override
-    public String toString(){
-        return "Aluno " + this.nome;
-    }
 }
