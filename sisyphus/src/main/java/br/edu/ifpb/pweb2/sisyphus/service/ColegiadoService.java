@@ -7,6 +7,7 @@ import br.edu.ifpb.pweb2.sisyphus.repository.ColegiadoRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,6 +27,7 @@ public class ColegiadoService {
         for(Professor professor : colegiado.getMembros() ){
             professor.adicionarColegiado(colegiado);
         }
+        colegiado.setDataInicio(new Date());
         return this.colegiadoRepository.save(colegiado);
     }
 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Colegiado - Página do Professor</title>
-    <link rel="stylesheet" href="/sisyphus/src/main/resources/css/bootstrap.min.css">
+    <title>Sistema de Colegiado - Página do Coordenador</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
@@ -15,7 +15,7 @@
         <div class="container-fluid justify-content-center" id="navbarSupportedContent">
             <div>
                 <a class="navbar-brand" href="#">
-                    <img src="/sisyphus/src/main/resources/templates/sisiphus.png" alt="Ícone" width="50" height="50">
+                    <img th:src="@{/imagens/sisyphus.png}" alt="Ícone" width="50" height="50">
                 </a>
                 <a class="navbar-brand text-white" href="#">SISYPHUS</a>
             </div>
@@ -75,38 +75,30 @@
                 </div>
             </div>
         </div>
+        <!--TABELA DE PROCESSOS-->
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Requisitante</th>
+                    <th scope="col">Aluno</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Assunto</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Data de Criação</th>
                     <th scope="col">Relator</th>
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1458746</th>
-                    <td>João Moreira</td>
-                    <td>Trancamento de matrícula</td>
-                    <td>Em julgamento</td>
-                    <td>Frederico</td>
+                <tr th:each="processo:${processos}">
+                    <td th:text="${processo.numero}"></td>
+                    <td th:text="${processo.aluno.nome}"></td>
+                    <td th:text="${processo.estadoProcesso}"></td>
+                    <td th:text="${processo.assunto.nome}"></td>
+                    <td th:text="${processo.dataCriacao}"></td>
+                    <td th:if="${processo.relator} == null">-</td>
+                    <td th:unless="${processo.relator} == null" th:text="${processo.relator.nome}"></td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            data-bs-whatever="@mdo">Atribuir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1458746</th>
-                    <td>Ana</td>
-                    <td>Trancamento de matrícula</td>
-                    <td>Em julgamento</td>
-                    <td>Jose</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            data-bs-whatever="@mdo">Atribuir</button>
+                        <button type="button" class="btn btn-primary">Consultar</button>
                     </td>
                 </tr>
             </tbody>
@@ -140,8 +132,10 @@
             </div>
         </div>
     </div>
+    <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- FILTRO POR STATUS-->
     <script>
@@ -166,8 +160,4 @@
     </script>
 
 </body>
-    <script src="/sisyphus/src/main/resources/js/bootstrap.bundle.min.js"></script>
-    <script src="/sisyphus/src/main/resources/js/popper.min.js"></script>
-    <script src="/sisyphus/src/main/resources/js/bootstrap.min.js"></script>
-    </script>
 </html>

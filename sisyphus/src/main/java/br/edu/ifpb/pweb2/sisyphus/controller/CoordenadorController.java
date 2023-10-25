@@ -35,7 +35,7 @@ public class CoordenadorController {
     @GetMapping
     public ModelAndView showPainelProcessos(ModelAndView model){
         model.addObject("processos", processoService.getProcessos());
-        model.setViewName("/coordenador/processo");
+        model.setViewName("/coordenador/painel");
         return model;
     }
 

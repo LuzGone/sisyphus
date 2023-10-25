@@ -47,98 +47,54 @@
         <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
             <div class="btn-group">
                 <div class="input-group mb-3" style="margin-right: 10px;">
+                    <label class="input-group-text" for="filterAssunto">Assunto</label>
+                    <select class="form-select" id="filterAssunto">
+                        <option value="">Todos</option>
+                        <option value="Criado">Trancamento</option>
+                        <option value="Distribuído">Denuncia</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
                     <label class="input-group-text" for="filterStatus">Status</label>
                     <select class="form-select" id="filterStatus">
-                        <option selected>Todos</option>
+                        <option value="">Todos</option>
                         <option value="Criado">Criado</option>
-                        <option value="Distribuido">Distribuído</option>
+                        <option value="Distribuído">Distribuído</option>
                         <option value="Em pauta">Em pauta</option>
                         <option value="Em julgamento">Em julgamento</option>
                         <option value="Julgado">Julgado</option>
                     </select>
                 </div>
-                <div class="input-group mb-3" style="margin-right: 10px;">
-                    <label class="input-group-text" for="filterAluno">Aluno</label>
-                    <select class="form-select" id="filterAluno">
-                        <option selected>Todos</option>
-                        <option value="João Moreira">João Moreira</option>
-                        <option value="Ana">Ana</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="filterRelator">Relator</label>
-                    <select class="form-select" id="filterRelator">
-                        <option selected>Todos</option>
-                        <option value="Frederico">Frederico</option>
-                        <option value="Jose">Jose</option>
-                    </select>
-                </div>
             </div>
         </div>
+
+        <!--TABELA DE PROCESSOS-->
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Requisitante</th>
+                    <th scope="col">Aluno</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Assunto</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Data de Criação</th>
                     <th scope="col">Relator</th>
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1458746</th>
-                    <td>João Moreira</td>
-                    <td>Trancamento de matrícula</td>
-                    <td>Em julgamento</td>
-                    <td>Frederico</td>
+                <tr th:each="processo:${processos}">
+                    <td th:text="${processo.numero}"></td>
+                    <td th:text="${processo.aluno.nome}"></td>
+                    <td th:text="${processo.estadoProcesso}"></td>
+                    <td th:text="${processo.assunto.nome}"></td>
+                    <td th:text="${processo.dataCriacao}"></td>
+                    <td th:text="${processo.relator.nome} ?: '-' "></td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            data-bs-whatever="@mdo">Atribuir</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1458746</th>
-                    <td>Ana</td>
-                    <td>Trancamento de matrícula</td>
-                    <td>Em julgamento</td>
-                    <td>Jose</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            data-bs-whatever="@mdo">Atribuir</button>
+                        <button type="button" class="btn btn-primary">Consultar</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <!--ATRIBUIR A RELATOR--->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form>
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Atribuir Relator</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="mb-3">
-                                <select id="filterStatus" class="form-control">
-                                    <option value="">Escolher relator</option>
-                                    <option value="fred">Frederico</option>
-                                    <option value="Inativo">Inativo</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                            style="padding-left: 25px; padding-right: 25px">Salvar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.bundle.min.js"></script>
