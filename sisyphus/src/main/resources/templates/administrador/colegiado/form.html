@@ -7,17 +7,45 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body> 
-    <header></header>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
+            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
+                <div>
+                    <a class="navbar-brand" href="#">
+                        <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
+                    </a>
+                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+    </header>
     <main>
         <div class="container" >
-            <h1 style="margin: 20px;margin-bottom: 20px;">Editar Colegiado</h1>
+            <h1 style="margin-top: 20px;margin-bottom: 20px;">Editar Colegiado</h1>
             <hr>
             <!-- INICIO DO FORM -->
             <form th:action="@{/colegiados}" method="post" th:object="${colegiado}">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Colegiado</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" th:field="*{id}"><br>
@@ -38,20 +66,26 @@
                                 Por favor, digite o curso.
                             </div>
                         </div>
+                        <!-- Data de Início -->
+
+
                         <!--MEMBROS-->
                         <div class="mb-3" th:each="membro,itemStat : ${membros}">
-                            <label for="membro" class="form-label">Membro:</label>
-                            <select required id="membro" th:field="*{membros[__${itemStat.index}__]}">
-                                <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
-                            </select>
+            
+                            <div class="input-group col-md-4" style="margin-right: 10px;">
+                                <label class="input-group-text" for="membro" style="background-color:#a8a8a8 ;color: #ffff;">Membro</label>
+                                <select class="form-select" id="membro" th:field="*{membros[__${itemStat.index}__]}">
+                                    <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
+                                </select>
+                            </div>
                             <div class="invalid-feedback">
                                 Por favor, Escolha um Professor.
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <a class="btn btn-secondary" th:href="@{/colegiados}">Fechar</a>
+                <div class="modal-footer" style="margin-top:10px;">
+                    <a class="btn btn-secondary" th:href="@{/colegiados}" style="margin-right: 10px;">Fechar</a>
                     <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
                         style="padding-left: 25px; padding-right:25px">Salvar</button>
                 </div>

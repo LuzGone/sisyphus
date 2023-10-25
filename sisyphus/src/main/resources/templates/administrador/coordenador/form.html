@@ -11,7 +11,7 @@
         <div class="container-fluid justify-content-center" id="navbarSupportedContent">
             <div>
                 <a class="navbar-brand" href="#">
-                    <img src="/sisyphus/src/main/resources/templates/sisiphus.png" alt="Ícone" width="50" height="50">
+                    <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
                 </a>
                 <a class="navbar-brand text-white" href="#">SISYPHUS</a>
             </div>
@@ -39,30 +39,29 @@
     <header></header>
     <main>
         <div class="container">
-            <h1>Form de Coordenador</h1>
+            <h1 style="margin-top: 20px;margin-bottom: 20px;">Editar Coordenador</h1>
+            <hr>
         </div>
         <div class="container">
-            <!-- INICIO DO FORM -->
             <form th:action="@{/coordenadores}" method="post" th:object="${coordenador}">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Coordenador</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" th:field="*{id}"><br>
-                        <!--PROFESSOR-->
-                        <div class="mb-3">
-                            <label for="professor" class="form-label">Professor:</label>
-                            <select required id="professor" th:field="*{professor.id}">
-                                <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
-                            </select>
+                        <input type="hidden" th:field="*{id}">
+                        <!-- PROFESSOR -->
+                        <div class="col-md-6">
+                            <div class="input-group mb-4">
+                                <label for="professor" class="input-group-text" style="background-color:#a8a8a8 ;color: #ffff;">Professor:</label>
+                                <select required id="professor" th:field="*{professor.id}" class="form-select">
+                                    <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
+                                </select>
+                            </div>
                             <div class="invalid-feedback">
                                 Por favor, Escolha um Professor.
                             </div>
                         </div>
-
-                        <!--CURSO-->
+                        <!-- CURSO -->
+                    </div>
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label for="curso" class="form-label">Curso:</label>
                             <input type="text" id="curso" th:field="*{curso}" class="form-control" required>
@@ -73,13 +72,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a th:href="@{/coordenadores}" class="btn btn-secondary">Fechar</a>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                        style="padding-left: 25px; padding-right:25px">Salvar</button>
+                    <a th:href="@{/coordenadores}" class="btn btn-secondary" style="margin-right: 10px;">Fechar</a>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" style="padding-left: 25px; padding-right: 25px">Salvar</button>
                 </div>
             </form>
         </div>
-    </main>
+        </main>
+        
     <footer></footer>
     
      <!-- FOOTER -->

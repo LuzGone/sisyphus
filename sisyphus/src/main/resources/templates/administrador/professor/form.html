@@ -11,7 +11,7 @@
         <div class="container-fluid justify-content-center" id="navbarSupportedContent">
             <div>
                 <a class="navbar-brand" href="#">
-                    <img src="/sisyphus/src/main/resources/templates/sisiphus.png" alt="Ícone" width="50" height="50">
+                    <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
                 </a>
                 <a class="navbar-brand text-white" href="#">SISYPHUS</a>
             </div>
@@ -36,15 +36,14 @@
             </div>
         </div>
     </nav>
-    <header></header>
-    <h1>Criar/Editar Professor</h1>
+    
     <main >
         <div class="container">
+            <h1 style="margin: 20px;margin-bottom: 20px;">Editar Professor</h1>
+            <hr>
             <!-- INICIO DO FORM -->
             <form th:action="@{/professores}" method="POST" th:object="${professor}">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Professor</h1>
-                </div>
+                
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" th:field="*{id}"><br>
@@ -97,7 +96,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a th:href="@{/professores}" class="btn btn-secondary" >Fechar</a>
+                    <a style="margin-right: 10px;" th:href="@{/professores}" class="btn btn-secondary" >Fechar</a>
                     <button type="submit" class="btn btn-primary"
                         style="padding-left: 25px; padding-right:25px">Salvar</button>
                 </div>

@@ -11,8 +11,7 @@
         <div class="container-fluid justify-content-center" id="navbarSupportedContent">
             <div>
                 <a class="navbar-brand" href="#">
-                    <img src="/sisyphus/src/main/resources/templates/sisiphus.png" alt="Ícone" width="50" height="50">
-                </a>
+                    <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
                 <a class="navbar-brand text-white" href="#">SISYPHUS</a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,10 +41,7 @@
             <h1 style="margin-bottom: 20px;margin-top: 20px;">Editar Assunto</h1>
             <!-- INICIO DO FORM -->
             <form th:action="@{/assuntos}" method="post" th:object="${assunto}">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalLabel" style="margin-bottom: 20px;">Cadastrar Aluno</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+        
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" th:field="*{id}"><br>
