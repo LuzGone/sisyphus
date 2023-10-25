@@ -6,5 +6,4 @@ import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 
 @Repository
 public interface ProfessorRepository extends JpaRepository<Professor,Long> {
-    
 }

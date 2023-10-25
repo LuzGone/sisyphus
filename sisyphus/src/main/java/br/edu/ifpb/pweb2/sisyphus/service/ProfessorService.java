@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ProfessorRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +16,16 @@ public class ProfessorService {
 
     public List<Professor> getProfessores(){
         return this.professorRepository.findAll();
+    }
+
+    public List<Professor> getProfessoresComColegiado(){
+        List<Professor> professores = new ArrayList<Professor>();
+        for (Professor professor : this.professorRepository.findAll()){
+            if(professor.getListaColegiados() != null){
+                professores.add(professor);
+            }
+        }
+        return professores;
     }
 
     public Professor getProfessorPorId(Long id){

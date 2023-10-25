@@ -24,6 +24,10 @@ public class ProcessoService {
         return this.processoRepository.findByAluno(aluno);
     }
 
+    public Processo getProcessoPorId(Long id){
+        return this.processoRepository.findById(id).orElse(null);
+    }
+
     public Processo salvarProcesso(Processo processo){
         processo.getAluno().adicionarProcesso(processo);
         processo.setEstadoProcesso(EstadoProcesso.CRIADO);

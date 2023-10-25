@@ -15,7 +15,7 @@
         <div class="container-fluid justify-content-center" id="navbarSupportedContent">
             <div>
                 <a class="navbar-brand" href="#">
-                    <img src="/sisyphus/src/main/resources/static/css/sisiphus.png" width="50" height="50">
+                    <img th:src="@{/imagens/sisyphus.png}" width="50" height="50">
                 </a>
                 <a class="navbar-brand text-white" href="#">SISYPHUS</a>
             </div>
@@ -113,6 +113,10 @@
                             <div class="mb-3">
                                 <label for="justificativa" class="form-label">Justificativa:</label>
                                 <textarea  class="form-control" th:field="*{textoRequerimento}" id="justificativa" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="documento" class="form-label">Adicionar Documento:</label>
+                                <input type="file" id="documento" th:field="*{documento}"></input>
                             </div>
                         </div>
                     </div>

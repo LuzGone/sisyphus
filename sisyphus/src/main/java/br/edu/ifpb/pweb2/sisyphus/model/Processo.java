@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -30,6 +29,7 @@ public class Processo {
     private Date dataDistribuicao;
     private Date dataParecer;
     private byte[] parecer;
+    private byte[] documento;
 
     @ManyToOne
     private Professor relator;
