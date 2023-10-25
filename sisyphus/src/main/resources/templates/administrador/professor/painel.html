@@ -7,36 +7,42 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-        <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-            <div>
-                <a class="navbar-brand" href="#">
-                    <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
-                </a>
-                <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
+            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
+                <div>
+                    <a class="navbar-brand" href="#">
+                        <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
+                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Aluno</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Professor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Colegiado</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <header></header>
+        </nav>
+    </header>
     <main>
       <div class="container">
           <h1 style="margin-top:20px;margin-bottom: 20px;">Painel de Professores</h1>
@@ -129,6 +135,13 @@
                                 <div class="invalid-feedback">
                                     Por favor, digite o senha.
                                 </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Coordenador
+                                </label>
                             </div>
                           
   

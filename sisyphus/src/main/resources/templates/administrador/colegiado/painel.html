@@ -8,13 +8,11 @@
 </head>
 <body>
     <header>
-        <!--NAV BAR-->
         <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
             <div class="container-fluid justify-content-center" id="navbarSupportedContent">
                 <div>
                     <a class="navbar-brand" href="#">
                         <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
-                    </a>
                     <a class="navbar-brand text-white" href="#">SISYPHUS</a>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,18 +24,25 @@
                             <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
+                            <a class="nav-link active text-white" aria-current="page" href="#">Aluno</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Professor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="#">Colegiado</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+     
         
    </header>
     <main>
@@ -77,7 +82,7 @@
         </div>
         
             <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="max-width: 800px;">
                 <div class="modal-content">
       
                     <!-- INICIO DO FORM -->
@@ -101,20 +106,23 @@
                                 <!--Descrição-->
                                 <div class="mb-3">
                                     <label for="descricao" class="form-label">Descrição:</label>
-                                    <input type="text" id="descricao" th:field="*{descricao}" class="form-control" required>
+                                    <textarea id="descricao" name="descricao" th:field="*{descricao}" class="form-control" required></textarea>
                                     <div class="invalid-feedback">
-                                        Por favor, digite o curso.
+                                        Por favor, digite a descrição.
                                     </div>
                                 </div>
+                                
                                 <!--MEMBROS-->
-                                <div class="mb-3" th:each="membro,itemStat : ${membros}">
-                                    <label for="membro" class="form-label">Membro:</label>
-                                    <select class="form-select" required id="membro" th:field="*{membros[__${itemStat.index}__]}">
-                                        <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
-                                    </select>
-                                    
-                                    <div class="invalid-feedback">
-                                        Por favor, Escolha um Professor.
+                                
+                                <div class="col-md-6" th:each="membro, itemStat : ${membros}">
+                                    <div class="mb-3">
+                                        <label for="membro" class="form-label"></label>
+                                        <select class="form-select" required id="membro" th:field="*{membros[__${itemStat.index}__]}">
+                                            <option th:each="professor: ${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Por favor, escolha um Professor.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
