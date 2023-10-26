@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProcessoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
+import jakarta.websocket.server.PathParam;
+
 import java.util.List;
 
+import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 
@@ -27,9 +31,22 @@ public class CoordenadorController {
     @Autowired
     private ProfessorService professorService;
 
+    @Autowired
+    private AlunoService alunoService;
+
+    @ModelAttribute("relatores")
+    public List<Professor> getRelatores(){
+        return this.professorService.getProfessoresComProcessos();
+    }
+
     @ModelAttribute("professores")
     public List<Professor> getProfessores(){
         return this.professorService.getProfessoresComColegiado();
+    }
+
+    @ModelAttribute("alunos")
+    public List<Aluno> getAlunos(){
+        return this.alunoService.getAlunosComProcessos();
     }
 
     @GetMapping
@@ -52,8 +69,8 @@ public class CoordenadorController {
         Processo processo,
         @PathVariable("id")Long id,
         RedirectAttributes redirectAttributes
-    ){    
-            processoService.salvarProcesso(processo);
+    ){ 
+            processoService.atribuirProcesso(processo,id);
             model.addObject("processos", processoService.getProcessos());
             model.setViewName("redirect:/coordenador/processos");
             redirectAttributes.addFlashAttribute("mensagem", "Processo designado com Sucesso");

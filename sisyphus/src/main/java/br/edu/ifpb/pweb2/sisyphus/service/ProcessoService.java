@@ -7,6 +7,7 @@ import br.edu.ifpb.pweb2.sisyphus.repository.ProcessoRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.model.EstadoProcesso;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
+import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,10 @@ public class ProcessoService {
         return this.processoRepository.findByAluno(aluno);
     }
 
+    public List<Processo> getProcessosPorProfessor(Professor professor){
+        return this.processoRepository.findByRelator(professor);
+    }
+
     public Processo getProcessoPorId(Long id){
         return this.processoRepository.findById(id).orElse(null);
     }
@@ -36,12 +41,12 @@ public class ProcessoService {
         return this.processoRepository.save(processo);
     }
 
-    public Processo findById(Long processoId) {
-        return null;
-    }
-
-    // // ### UPLOAD ###
-    public void save(Processo processo) {
+    public Processo atribuirProcesso(Processo processo,Long id){
+        Processo processoAtualizado = this.processoRepository.findById(id).orElse(new Processo());
+        processoAtualizado.setRelator(processo.getRelator());
+        processoAtualizado.setEstadoProcesso(EstadoProcesso.DISTRIBUIDO);
+        processoAtualizado.setDataDistribuicao(new Date());
+        return this.processoRepository.save(processoAtualizado);
     }
 
 }

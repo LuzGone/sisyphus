@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Colegiado - Página do Coordenador</title>
+    <title>Sistema de Colegiado - Página do Professor</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -42,7 +42,7 @@
     </nav>
     <!--LISTAGEM--->
     <div style="margin: 30px;">
-        <h1 style="margin-top: 20px">Processos</h1>
+        <h1 style="margin-top: 20px">Processos de [[${professor.nome}]]</h1>
         <hr>
         <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
             <div class="btn-group">
@@ -61,14 +61,16 @@
                     <label class="input-group-text" for="filterAluno">Aluno</label>
                     <select class="form-select" id="filterAluno">
                         <option selected>Todos</option>
-                        <option th:each="aluno:${alunos}" th:value="${aluno.nome}">[[${aluno.nome}]]</option>
+                        <option value="João Moreira">João Moreira</option>
+                        <option value="Ana">Ana</option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="filterRelator">Relator</label>
                     <select class="form-select" id="filterRelator">
-                        <option selected value="-">Todos</option>
-                        <option th:each="relator:${relatores}" th:value="${relator.nome}">[[${relator.nome}]]</option>
+                        <option selected>Todos</option>
+                        <option value="Frederico">Frederico</option>
+                        <option value="Jose">Jose</option>
                     </select>
                 </div>
             </div>
@@ -88,23 +90,15 @@
             </thead>
             <tbody>
                 <tr th:each="processo:${processos}">
-                    <td th:text="${processo.numero}?:'-'"></td>
-
-                    <td th:if="${processo.aluno} == null">-</td>
-                    <td th:unless="${processo.aluno} == null" th:text="${processo.aluno.nome}?:'-'"></td>
-                    
-                    <td th:text="${processo.estadoProcesso}?:'-'"></td>
-
-                    <td th:if="${processo.assunto} == null">-</td>
-                    <td th:unless="${processo.assunto} == null" th:text="${processo.assunto.nome}"></td>
-                    
-                    <td th:text="${processo.dataCriacao}?:'-'"></td>
-
+                    <td th:text="${processo.numero}"></td>
+                    <td th:text="${processo.aluno.nome}"></td>
+                    <td th:text="${processo.estadoProcesso}"></td>
+                    <td th:text="${processo.assunto.nome}"></td>
+                    <td th:text="${processo.dataCriacao}"></td>
                     <td th:if="${processo.relator} == null">-</td>
                     <td th:unless="${processo.relator} == null" th:text="${processo.relator.nome}"></td>
-                    
                     <td>
-                        <a th:href="@{/coordenador/processos/{id}(id=${processo.id})}" type="button" class="btn btn-primary">Consultar</a>
+                        <button type="button" class="btn btn-primary">Consultar</button>
                     </td>
                 </tr>
             </tbody>
