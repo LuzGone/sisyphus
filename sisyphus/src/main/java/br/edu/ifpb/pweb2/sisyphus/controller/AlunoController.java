@@ -43,6 +43,7 @@ public class AlunoController {
     public List<Assunto> getAssuntos(){
         return this.assuntoService.getAssuntos();
     }
+   
 
     @GetMapping
     public ModelAndView listProcessos(ModelAndView model, @PathVariable("id")Long id){

@@ -28,7 +28,7 @@ public class Aluno {
     private String fone;
 
     @NotBlank(message="Campo obrigatório!")
-    @Pattern(regexp= "[0-9]{11}", message="Matrícula deve conter exatamente 6 números!")
+    @Pattern(regexp= "[0-9]{11}", message="Matrícula deve conter exatamente 11 números!")
     private String matricula;
 
     @NotBlank(message="Campo obrigatório!")

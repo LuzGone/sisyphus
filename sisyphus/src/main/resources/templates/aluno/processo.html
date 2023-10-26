@@ -44,10 +44,10 @@
             <div class="btn-group">
                 <div class="input-group mb-3" style="margin-right: 10px;">
                     <label class="input-group-text" for="filterAssunto">Assunto</label>
-                    <select class="form-select" id="filterAssunto">
+                    <select class="form-select" id="filterAssunto" name="filtro">
                         <option value="">Todos</option>
-                        <option value="Criado">Trancamento</option>
-                        <option value="Distribuído">Denuncia</option>
+                        <option th:each = "assunto : ${assuntos}" th:value="${assunto.nome}" th:text = "${assunto.nome}"> </option>
+                        
                     </select>
                 </div>
                 <div class="input-group mb-3">
@@ -55,7 +55,7 @@
                     <select class="form-select" id="filterStatus">
                         <option value="">Todos</option>
                         <option value="Criado">Criado</option>
-                        <option value="Distribuído">Distribuído</option>
+                        <option value="DISTRIBUIDO">Distribuído</option>
                         <option value="Em pauta">Em pauta</option>
                         <option value="Em julgamento">Em julgamento</option>
                         <option value="Julgado">Julgado</option>
