@@ -7,6 +7,7 @@ import br.edu.ifpb.pweb2.sisyphus.repository.ProcessoRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.model.EstadoProcesso;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
+import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,10 @@ public class ProcessoService {
 
     public List<Processo> getProcessosPorAluno(Aluno aluno){
         return this.processoRepository.findByAluno(aluno);
+    }
+
+    public List<Processo> getProcessosPorProfessor(Professor professor){
+        return this.processoRepository.findByRelator(professor);
     }
 
     public Processo getProcessoPorId(Long id){
