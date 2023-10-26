@@ -95,7 +95,7 @@ public class AssuntosController {
         model.addObject("assunto", new Assunto());
         model.setViewName("redirect:/assuntos");
         redirectAttributes.addFlashAttribute("mensagem", "Assunto Deletado com Sucesso");
-        redirectAttributes.addFlashAttribute("assuntoDeletado", true);
+        redirectAttributes.addFlashAttribute("assuntosDeletado", true);
         return model;
     }
 

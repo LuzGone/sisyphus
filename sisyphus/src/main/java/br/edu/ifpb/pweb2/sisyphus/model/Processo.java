@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -50,6 +51,7 @@ public class Processo {
     @OneToMany(mappedBy = "processo")
     private List<Voto> listaDeVotos;
 
+    @NotBlank(message="Campo obrigatório!")
     private String textoRequerimento;
 
     @Enumerated(EnumType.STRING)

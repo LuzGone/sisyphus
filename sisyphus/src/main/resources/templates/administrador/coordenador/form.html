@@ -38,6 +38,9 @@
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" th:href="@{/colegiados}">Colegiado</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenadores}">Coordenadores</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +52,7 @@
             <hr>
         </div>
         <div class="container">
-            <form th:action="@{/coordenadores}" method="post" th:object="${coordenador}">
+            <form th:action="${acao} == 'salvar' ? @{/coordenadores/criar} : @{/coordenadores/{id}(id=${coordenador.id})}" method="post" th:object="${coordenador}">
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" th:field="*{id}">
@@ -61,9 +64,6 @@
                                     <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
                                 </select>
                             </div>
-                            <div class="invalid-feedback">
-                                Por favor, Escolha um Professor.
-                            </div>
                         </div>
                         <!-- CURSO -->
                     </div>
@@ -71,9 +71,7 @@
                         <div class="mb-3">
                             <label for="curso" class="form-label">Curso:</label>
                             <input type="text" id="curso" th:field="*{curso}" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Por favor, digite o curso.
-                            </div>
+                            <p th:if="${#fields.hasErrors('curso')}" th:errorclass="error" th:errors="*{curso}" class="alert alert-danger"></p>
                         </div>
                     </div>
                 </div>
