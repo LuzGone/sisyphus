@@ -49,7 +49,7 @@
             <h1 style="margin-top: 20px;margin-bottom: 20px;">Editar Colegiado</h1>
             <hr>
             <!-- INICIO DO FORM -->
-            <form th:action="@{/colegiados}" method="post" th:object="${colegiado}">
+            <form th:action="${acao} == 'salvar' ? @{/colegiados/criar} : @{/colegiados/{id}(id=${colegiado.id})}" method="post" th:object="${colegiado}">
                 
                 <div class="modal-body">
                     <div class="row">
@@ -57,34 +57,25 @@
                         <!--CURSO-->
                         <div class="mb-3">
                             <label for="curso" class="form-label">Curso:</label>
-                            <input type="text" id="curso" th:field="*{curso}" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Por favor, digite o curso.
-                            </div>
+                            <input type="text" id="curso" th:field="*{curso}" class="form-control">
+                            <p th:if="${#fields.hasErrors('curso')}" th:errorclass="error" th:errors="*{curso}" class="alert alert-danger"></p>
                         </div>
 
                         <!--Descrição-->
                         <div class="mb-3">
                             <label for="descricao" class="form-label">Descrição:</label>
-                            <input type="text" id="descricao" th:field="*{descricao}" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Por favor, digite o curso.
-                            </div>
+                            <input type="text" id="descricao" th:field="*{descricao}" class="form-control">
+                            <p th:if="${#fields.hasErrors('descricao')}" th:errorclass="error" th:errors="*{descricao}" class="alert alert-danger"></p>
                         </div>
-                        <!-- Data de Início -->
-
 
                         <!--MEMBROS-->
-                        <div class="mb-3" th:each="membro,itemStat : ${membros}">
-            
-                            <div class="input-group col-md-4" style="margin-right: 10px;">
-                                <label class="input-group-text" for="membro" style="background-color:#a8a8a8 ;color: #ffff;">Membro</label>
-                                <select class="form-select" id="membro" th:field="*{membros[__${itemStat.index}__]}">
-                                    <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
+                                
+                        <div class="col-md-6" th:each="membro, itemStat : ${membros}">
+                            <div class="mb-3">
+                                <label for="membro" class="form-label"></label>
+                                <select class="form-select" required id="membro" th:field="*{membros[__${itemStat.index}__]}">
+                                    <option th:each="professor: ${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
                                 </select>
-                            </div>
-                            <div class="invalid-feedback">
-                                Por favor, Escolha um Professor.
                             </div>
                         </div>
                     </div>
