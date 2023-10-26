@@ -41,12 +41,12 @@ public class ProcessoService {
         return this.processoRepository.save(processo);
     }
 
-    public Processo findById(Long processoId) {
-        return null;
-    }
-
-    // // ### UPLOAD ###
-    public void save(Processo processo) {
+    public Processo atribuirProcesso(Processo processo,Long id){
+        Processo processoAtualizado = this.processoRepository.findById(id).orElse(new Processo());
+        processoAtualizado.setRelator(processo.getRelator());
+        processoAtualizado.setEstadoProcesso(EstadoProcesso.DISTRIBUIDO);
+        processoAtualizado.setDataDistribuicao(new Date());
+        return this.processoRepository.save(processoAtualizado);
     }
 
 }

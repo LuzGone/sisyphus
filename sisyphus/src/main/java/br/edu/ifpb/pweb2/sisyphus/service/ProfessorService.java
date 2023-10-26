@@ -28,6 +28,16 @@ public class ProfessorService {
         return professores;
     }
 
+    public List<Professor> getProfessoresComProcessos(){
+        List<Professor> professores = new ArrayList<Professor>();
+        for (Professor professor : this.professorRepository.findAll()){
+            if(professor.getListaDeProcessos().size() > 0){
+                professores.add(professor);
+            }
+        }
+        return professores;
+    }
+
     public Professor getProfessorPorId(Long id){
         return this.professorRepository.findById(id).orElse(null);
     }
