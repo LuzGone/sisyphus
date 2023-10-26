@@ -33,6 +33,7 @@ public class ProfessoresController {
         model.addObject("professor", new Professor());
         model.setViewName("redirect:/professores");
         redirectAttributes.addFlashAttribute("mensagem","Professor Criado com Sucesso");
+        redirectAttributes.addFlashAttribute("professoresSalvo", true);
         return model;
     }
 
@@ -43,13 +44,16 @@ public class ProfessoresController {
         model.addObject("professor", new Professor());
         model.setViewName("redirect:/professores");
         redirectAttributes.addFlashAttribute("mensagem","Professor Deletado com Sucesso");
+        redirectAttributes.addFlashAttribute("professoresDeletado", true);
         return model;
     }
 
     @GetMapping("{id}")
-    public ModelAndView editProfessor(@PathVariable("id") long id, ModelAndView model){
+    public ModelAndView editProfessor(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         model.addObject("professor", professorService.getProfessorPorId(id));
         model.setViewName("administrador/professor/form");
+        redirectAttributes.addFlashAttribute("mensagem","Professor Editado com Sucesso");
+        redirectAttributes.addFlashAttribute("professoresEditado", true);
         return model;
     }
 

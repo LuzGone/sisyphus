@@ -49,6 +49,10 @@
             <hr>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"
                 data-bs-whatever="@mdo" style="margin-bottom: 20px;">Cadastrar Coordenador</button>
+                <div role="alert" id="alerta-sucesso" class="alert d-flex align-items-center alert-dismissible fade show" th:classappend="${coordenadoresSalvo} ? 'alert-success' : ''">
+                    <div th:text="${mensagem}"></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             <table class="table">
                 <thead>
                   <tr>

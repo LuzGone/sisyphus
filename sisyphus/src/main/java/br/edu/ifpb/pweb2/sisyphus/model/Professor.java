@@ -10,6 +10,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Data
 @NoArgsConstructor
@@ -18,9 +20,16 @@ public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotBlank(message="Campo obrigatório!")
     protected String nome;
+    
     protected String fone;
+
+    @NotBlank(message="Campo obrigatório!")
+    @Pattern(regexp= "[0-9]{6}", message="Matrícula deve conter exatamente 6 números!")
     protected String matricula;
+    
     protected String login;
     protected String senha;
 

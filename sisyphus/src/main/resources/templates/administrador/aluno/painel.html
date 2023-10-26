@@ -25,7 +25,7 @@
                             <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/assuntos}">Assuntos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" href="#">Aluno</a>
@@ -50,6 +50,12 @@
         <hr>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAluno"
                 data-bs-whatever="@mdo" style="margin-bottom: 20px;">Cadastrar Aluno</button>
+
+        <div role="alert" id="alerta-sucesso" class="alert d-flex align-items-center alert-dismissible fade show" th:if="${mensagem ne null}" th:classappend="${alunoSalvo} ? 'alert-success' : ''">
+            <div th:text="${mensagem}"></div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            
         <table class="table">
             <thead>
               <tr>
@@ -90,6 +96,12 @@
                   <div class="modal-header">
                       <h1 class="modal-title fs-5" id="modalAlunoLabel">Cadastrar Aluno</h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      
+                      <div role="alert" id="alerta-sucesso" class="alert d-flex align-items-center alert-dismissible fade show" th:classappend="${assuntoSalvo} ? 'alert-success' : ''">
+                        <div th:text="${mensagem}"></div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
                   </div>
                   <div class="modal-body">
                       <div class="row">

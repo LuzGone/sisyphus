@@ -11,6 +11,7 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
+import jakarta.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +22,7 @@ public class Colegiado {
     private int id;
     private Date dataInicio;
     private Date dataFim;
+    @NotBlank(message="Campo obrigatório!")
     private String descricao;
     private String portaria;
     private String curso;

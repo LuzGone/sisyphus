@@ -6,8 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
-// import jakarta.validation.constraints.Pattern;
-// import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.GeneratedValue;
@@ -21,20 +21,20 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    // @NotBlank(message="Campo obrigatório!")
+    @NotBlank(message="Campo obrigatório!")
     private String nome;
     
     private String fone;
 
-    // @NotBlank(message="Campo obrigatório!")
-    // @Pattern(regexp= "[0-9]{6}", message="Matrícula deve conter exatamente 6 números!")
+    @NotBlank(message="Campo obrigatório!")
+    @Pattern(regexp= "[0-9]{6}", message="Matrícula deve conter exatamente 6 números!")
     private String matricula;
 
     @NotBlank(message="Campo obrigatório!")
     private String login;
 
-    // @NotBlank(message="Campo obrigatório!")
-    // @Size(min=6,message="A senha deverá ter pelo menos 6 caracteres")
+    @NotBlank(message="Campo obrigatório!")
+    @Size(min=3,message="A senha deverá ter pelo menos 3 caracteres")
     private String senha;
 
     @OneToMany(mappedBy = "aluno")

@@ -17,3 +17,7 @@ h1 {
     font-size: 2em; /* Tamanho do texto do título */
     font-weight: bold;
 }
+
+#alerta-sucesso{
+    color:#00563B;
+}
