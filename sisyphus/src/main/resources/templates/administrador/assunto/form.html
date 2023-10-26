@@ -47,7 +47,7 @@
         <div class="container" >
             <h1 style="margin-bottom: 20px;margin-top: 20px;">Editar Assunto</h1>
             <!-- INICIO DO FORM -->
-            <form th:action="@{/assuntos}" method="post" th:object="${assunto}">
+            <form th:action="${acao} == 'salvar' ? @{/assuntos/criar} : @{/assuntos/{id}(id=${assunto.id})}" method="post" th:object="${assunto}">
         
                 <div class="modal-body">
                     <div class="row">
@@ -55,10 +55,8 @@
                         <!--NOME-->
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome:</label>
-                            <input type="text" id="nome" th:field="*{nome}" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Por favor, digite o Nome.
-                            </div>
+                            <input type="text" id="nome" th:field="*{nome}" class="form-control">
+                            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}" class="alert alert-danger"></p>
                         </div>
                     </div>
                 </div>
