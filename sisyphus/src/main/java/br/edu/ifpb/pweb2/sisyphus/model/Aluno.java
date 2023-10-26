@@ -24,17 +24,18 @@ public class Aluno {
     @NotBlank(message="Campo obrigatório!")
     private String nome;
     
+    @NotBlank(message="Campo obrigatório!")
     private String fone;
 
     @NotBlank(message="Campo obrigatório!")
-    @Pattern(regexp= "[0-9]{6}", message="Matrícula deve conter exatamente 6 números!")
+    @Pattern(regexp= "[0-9]{11}", message="Matrícula deve conter exatamente 6 números!")
     private String matricula;
 
     @NotBlank(message="Campo obrigatório!")
     private String login;
 
     @NotBlank(message="Campo obrigatório!")
-    @Size(min=3,message="A senha deverá ter pelo menos 3 caracteres")
+    @Size(min=3, max=42 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 42")
     private String senha;
 
     @OneToMany(mappedBy = "aluno")

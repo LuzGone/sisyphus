@@ -47,8 +47,8 @@
       <div class="container">
           <h1 style="margin-top:20px;margin-bottom: 20px;">Painel de Professores</h1>
           <hr>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"
-          data-bs-whatever="@mdo" style="margin-bottom: 20px;">Criar Professor</button>
+          <a th:href="@{professores/criar}" class="btn btn-primary" 
+          style="margin-bottom: 20px;">Criar Professor</a>
           <div role="alert" id="alerta-sucesso" class="alert d-flex align-items-center alert-dismissible fade show" th:classappend="${professoresSalvo} ? 'alert-success' : ''">
             <div th:text="${mensagem}"></div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -83,84 +83,6 @@
               </tbody>
             </table>
       </div>
-      <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-  
-                <!-- INICIO DO FORM -->
-                <form th:action="@{/professores}" method="POST" th:object="${professor}">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Professor</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <input type="hidden" th:field="*{id}"><br>
-                            <!--NOME-->
-                            <div class="mb-3">
-                                <label for="nome" class="form-label">Nome:</label>
-                                <input type="text" id="nome" th:field="*{nome}" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Por favor, digite o Nome.
-                                </div>
-                            </div>
-  
-                            <!--FONE-->
-                            <div class="mb-3">
-                                <label for="telefone" class="form-label">Telefone:</label>
-                                <input type="text" id="telefone" th:field="*{fone}" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Por favor, digite o Telefone.
-                                </div>
-                            </div>
-  
-                            <!--MATRICULA-->
-                            <div class="mb-3">
-                                <label for="matricula" class="form-label">Matricula:</label>
-                                <input type="text" id="matricula" th:field="*{matricula}" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Por favor, digite o Matricula.
-                                </div>
-                            </div>
-  
-                            <!--LOGIN-->
-                            <div class="mb-3">
-                                <label for="login" class="form-label">Login:</label>
-                                <input type="text" id="login" th:field="*{login}" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Por favor, digite o login.
-                                </div>
-                            </div>
-  
-                            <!--SENHA-->
-                            <div class="mb-3">
-                                <label for="senha" class="form-label">Senha:</label>
-                                <input type="password" id="senha" th:field="*{senha}" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Por favor, digite o senha.
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                  Coordenador
-                                </label>
-                            </div>
-                          
-  
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                            style="padding-left: 25px; padding-right:25px">Salvar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-      </div>
-      
     </main>
     <footer></footer>
 

@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProcessoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
-import jakarta.websocket.server.PathParam;
 
 import java.util.List;
 

@@ -48,8 +48,8 @@
     <div class="container">
         <h1 style="margin-top: 20px;margin-bottom: 20px;">Painel de Alunos</h1>
         <hr>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAluno"
-                data-bs-whatever="@mdo" style="margin-bottom: 20px;">Cadastrar Aluno</button>
+        <a th:href="@{alunos/criar}" type="button" class="btn btn-primary"
+                style="margin-bottom: 20px;">Cadastrar Aluno</a>
 
         <div role="alert" id="alerta-sucesso" class="alert d-flex align-items-center alert-dismissible fade show" th:if="${mensagem ne null}" th:classappend="${alunoSalvo} ? 'alert-success' : ''">
             <div th:text="${mensagem}"></div>
@@ -86,84 +86,6 @@
             </tbody>
           </table>
     </div>
-
-    <div class="modal fade" id="modalAluno" tabindex="-1" aria-labelledby="modalAlunoLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-
-              <!-- INICIO DO FORM -->
-              <form th:action="@{/alunos}" method="POST" th:object="${aluno}">
-                  <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="modalAlunoLabel">Cadastrar Aluno</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      
-                      <div role="alert" id="alerta-sucesso" class="alert d-flex align-items-center alert-dismissible fade show" th:classappend="${assuntoSalvo} ? 'alert-success' : ''">
-                        <div th:text="${mensagem}"></div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-
-                  </div>
-                  <div class="modal-body">
-                      <div class="row">
-                          <input type="hidden" th:field="*{id}"><br>
-                          <!--NOME-->
-                          <div class="mb-3">
-                              <label for="nomeAluno" class="form-label">Nome:</label>
-                              <input type="text" id="nomeAluno" th:field="*{nome}" class="form-control" required>
-                              <div class="invalid-feedback">
-                                  Por favor, digite o Nome.
-                              </div>
-                          </div>
-
-                          <!--FONE-->
-                          <div class="mb-3">
-                              <label for="telefoneAluno" class="form-label">Telefone:</label>
-                              <input type="text" id="telefoneAluno" th:field="*{fone}" class="form-control" required>
-                              <div class="invalid-feedback">
-                                  Por favor, digite o Telefone.
-                              </div>
-                          </div>
-
-                          <!--MATRICULA-->
-                          <div class="mb-3">
-                              <label for="matriculaAluno" class="form-label">Matricula:</label>
-                              <input type="text" id="matriculaAluno" th:field="*{matricula}" class="form-control" required>
-                              <div class="invalid-feedback">
-                                  Por favor, digite o Matricula.
-                              </div>
-                          </div>
-
-                          <!--LOGIN-->
-                          <div class="mb-3">
-                              <label for="loginAluno" class="form-label">Login:</label>
-                              <input type="text" id="loginAluno" th:field="*{login}" class="form-control" required>
-                              <div class="invalid-feedback">
-                                  Por favor, digite o login.
-                              </div>
-                          </div>
-
-                          <!--SENHA-->
-                          <div class="mb-3">
-                              <label for="senhaAluno" class="form-label">Senha:</label>
-                              <input type="password" id="senhaAluno" th:field="*{senha}" class="form-control" required>
-                              <div class="invalid-feedback">
-                                  Por favor, digite o senha.
-                              </div>
-                          </div>
-                        
-
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                      <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                          style="padding-left: 25px; padding-right:25px">Salvar</button>
-                  </div>
-              </form>
-              
-          </div>
-      </div>
-  </div>
  
 
   <!-- FOOTER -->

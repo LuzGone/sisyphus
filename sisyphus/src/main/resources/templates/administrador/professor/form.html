@@ -46,10 +46,10 @@
     
     <main >
         <div class="container">
-            <h1 style="margin: 20px;margin-bottom: 20px;">Editar Professor</h1>
+            <h1 style="margin: 20px;margin-bottom: 20px;">[[${acao} == 'salvar' ? 'Criar' : 'Editar']] Professor</h1>
             <hr>
             <!-- INICIO DO FORM -->
-            <form th:action="@{/professores}" method="POST" th:object="${professor}">
+            <form th:action="${acao} == 'salvar' ? @{/professores/criar} : @{/professores/{id}(id=${professor.id})}" method="POST" th:object="${professor}">
                 
                 <div class="modal-body">
                     <div class="row">
@@ -57,53 +57,37 @@
                         <!--NOME-->
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome:</label>
-                            <input type="text" id="nome" th:field="*{nome}" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Por favor, digite o Nome.
-                            </div>
+                            <input type="text" id="nome" th:field="*{nome}" class="form-control">
+                            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}" class="alert alert-danger"></p>
                         </div>
 
                         <!--FONE-->
                         <div class="mb-3">
                             <label for="telefone" class="form-label">Telefone:</label>
-                            <input type="text" id="telefone" th:field="*{fone}" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Por favor, digite o Telefone.
-                            </div>
+                            <input type="text" id="telefone" th:field="*{fone}" class="form-control">
+                            <p th:if="${#fields.hasErrors('fone')}" th:errorclass="error" th:errors="*{fone}" class="alert alert-danger"></p>
                         </div>
 
                         <!--MATRICULA-->
                         <div class="mb-3">
                             <label for="matricula" class="form-label">Matricula:</label>
-                            <input type="text" id="matricula" th:field="*{matricula}" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Por favor, digite o Matricula.
-                            </div>
+                            <input type="text" id="matricula" th:field="*{matricula}" class="form-control">
+                            <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}" class="alert alert-danger"></p>
                         </div>
 
                         <!--LOGIN-->
                         <div class="mb-3">
                             <label for="login" class="form-label">Login:</label>
-                            <input type="text" id="login" th:field="*{login}" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Por favor, digite o login.
-                            </div>
+                            <input type="text" id="login" th:field="*{login}" class="form-control">
+                            <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}" class="alert alert-danger"></p>
+                            
                         </div>
 
                         <!--SENHA-->
                         <div class="mb-3">
                             <label for="senha" class="form-label">Senha:</label>
-                            <input type="password" id="senha" th:field="*{senha}" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Por favor, digite o senha.
-                            </div>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Coordenador
-                            </label>
+                            <input type="password" id="senha" th:field="*{senha}" class="form-control">
+                            <p th:if="${#fields.hasErrors('senha')}" th:errorclass="error" th:errors="*{senha}" class="alert alert-danger"></p> 
                         </div>
 
                         

@@ -49,7 +49,7 @@
             <h1 style="margin-top: 20px;margin-bottom: 20px;">Editar Aluno</h1>
             <hr>
             <!-- INICIO DO FORM -->
-            <form th:action="@{/alunos}" method="POST" th:object="${aluno}">
+            <form th:action="${acao} == 'salvar' ? @{/alunos/criar} : @{/alunos/{id}(id=${aluno.id})}" method="POST" th:object="${aluno}">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="modalAlunoLabel"style="margin-bottom:10px">Cadastrar Aluno</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -60,14 +60,14 @@
                         <!--NOME-->
                         <div class="mb-3">
                             <label for="nomeAluno" class="form-label">Nome:</label>
-                            <input type="text" id="nomeAluno" th:field="*{nome}" class="form-control" required>
+                            <input type="text" id="nomeAluno" th:field="*{nome}" class="form-control">
                             <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}" class="alert alert-danger"></p>
                         </div>
     
                         <!--FONE-->
                         <div class="mb-3">
                             <label for="telefoneAluno" class="form-label">Telefone:</label>
-                            <input type="text" id="telefoneAluno" th:field="*{fone}" class="form-control" required>
+                            <input type="text" id="telefoneAluno" th:field="*{fone}" class="form-control">
                             <p th:if="${#fields.hasErrors('fone')}" th:errorclass="error" th:errors="*{fone}" class="alert alert-danger"></p>
                             <div class="invalid-feedback">
                                 Por favor, digite o Telefone.
@@ -77,7 +77,7 @@
                         <!--MATRICULA-->
                         <div class="mb-3">
                             <label for="matriculaAluno" class="form-label">Matricula:</label>
-                            <input type="text" id="matriculaAluno" th:field="*{matricula}" class="form-control" required>
+                            <input type="text" id="matriculaAluno" th:field="*{matricula}" class="form-control">
                             <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}" class="alert alert-danger"></p>
                             <div class="invalid-feedback">
                                 Por favor, digite o Matricula.
@@ -87,7 +87,7 @@
                         <!--LOGIN-->
                         <div class="mb-3">
                             <label for="loginAluno" class="form-label">Login:</label>
-                            <input type="text" id="loginAluno" th:field="*{login}" class="form-control" required>
+                            <input type="text" id="loginAluno" th:field="*{login}" class="form-control">
                             <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}" class="alert alert-danger"></p>
                             <div class="invalid-feedback">
                                 Por favor, digite o login.
@@ -97,7 +97,7 @@
                         <!--SENHA-->
                         <div class="mb-3">
                             <label for="senhaAluno" class="form-label">Senha:</label>
-                            <input type="password" id="senhaAluno" th:field="*{senha}" class="form-control" required>
+                            <input type="password" id="senhaAluno" th:field="*{senha}" class="form-control">
                             <p th:if="${#fields.hasErrors('senha')}" th:errorclass="error" th:errors="*{senha}" class="alert alert-danger"></p>
                             <div class="invalid-feedback">
                                 Por favor, digite o senha.
