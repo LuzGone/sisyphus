@@ -49,28 +49,42 @@
             <hr>
         </div>
         <!-- PROCESSO -->
-        <div>
-            <div class="container">Aluno: [[${processo.aluno.nome}]]</div>
-            <div class="container">
-                Relator: <button 
-                            th:if="${processo.relator} == null" 
-                            data-bs-target="#modal"
-                            data-bs-toggle="modal" 
-                            class="btn btn-primary"
-                            >Atribuir Relator</button>
-                            <span th:unless="${processo.relator} == null">[[${processo.relator.nome}]]</span>
+        <div class="container">
+            <div class="row">
+                <div class="container col fs-4 border border-black p-4">Aluno: [[${processo.aluno.nome}]]</div>
+                <div class="container col fs-4 border border-black p-4">
+                    Relator: <button 
+                                th:if="${processo.relator} == null" 
+                                data-bs-target="#modal"
+                                data-bs-toggle="modal" 
+                                class="btn btn-primary"
+                                >Atribuir Relator</button>
+                                <span th:unless="${processo.relator} == null">[[${processo.relator.nome}]]</span>
+                </div>
             </div>
-            <div class="container">Data de Criação: [[${processo.dataCriacao}]]</div>
-            <div class="container">Data de Distribuição: [[${processo.dataDistribuicao}?:'-']]</div>
-            <div class="container">Data do Parecer: [[${processo.dataParecer}?:'-']]</div>
-            <div class="container">Documento do Parecer: [[${processo.parecer}?:'-']]</div>
-            <div class="container">Documentos do Aluno: <span th:if="${processo.documento} != null">1 Documento</span>
-                                                        <span th:unless="${processo.documento} != null">Nenhum Documento Anexado</span></div>  
-            <div class="container">Colegiado: [[${processo.colegiado}?:'-']]</div>
-            <div class="container">Assunto: [[${processo.assunto.nome}]]</div>
-            <div class="container">Decisão: [[${processo.tipoDecisao}?:'-']]</div>
-            <div class="container">Texto de Requerimento: [[${processo.textoRequerimento}]]</div>
-            <div class="container">Estado do Processo: [[${processo.estadoProcesso}]]</div>
+            <div class="row">
+                <div class="container col fs-4 border border-black">Data de Criação: [[${processo.dataCriacao}]]</div>
+                <div class="container col fs-4 border border-black">Data de Distribuição: [[${processo.dataDistribuicao}?:'-']]</div>
+                <div class="container col fs-4 border border-black">Data do Parecer: [[${processo.dataParecer}?:'-']]</div>
+            </div>
+            <div class="row">
+                <div class="container col fs-4 border border-black p-4">Documento do Parecer: [[${processo.parecer}?:'-']]</div>
+                <div class="container col fs-4 border border-black p-4">Documentos do Aluno: 
+                    <span th:if="${processo.documento} != null">1 Documento</span>
+                    <span th:unless="${processo.documento} != null">Nenhum Documento Anexado</span>
+                </div>  
+            </div>
+            <div class="row">
+                <div class="container col fs-4 border border-black p-4">Colegiado: [[${processo.colegiado}?:'-']]</div>
+                <div class="container col fs-4 border border-black p-4">Assunto: [[${processo.assunto.nome}]]</div>
+            </div>
+            <div class="row">
+                <div class="container col fs-4 border border-black p-4">Decisão: [[${processo.tipoDecisao}?:'-']]</div>
+                <div class="container col fs-4 border border-black p-4">Estado do Processo: [[${processo.estadoProcesso}]]</div>
+            </div>
+            <div class="row">
+                <div class="container col fs-4 border border-black p-4">Texto de Requerimento: [[${processo.textoRequerimento}]]</div>
+            </div>
         </div>
 
         <!-- MODAL PRA ESCOLHER O RELATOR -->

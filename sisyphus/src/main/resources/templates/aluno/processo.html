@@ -39,8 +39,8 @@
         <h1 style="margin-top: 20px">Processos [[${aluno.nome}]]</h1>
         <hr>
         <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal"
-                data-bs-whatever="@mdo">Cadastrar processo</button>
+            <a type="button" th:href="@{'/aluno/' + ${aluno.id} + '/processos/criar'}" class="btn btn-success"
+                >Cadastrar processo</a>
             <div class="btn-group">
                 <div class="input-group mb-3" style="margin-right: 10px;">
                     <label class="input-group-text" for="filterAssunto">Assunto</label>
@@ -87,53 +87,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-
-    <!-- MODAL PARA ADICIONAR PROCESSO-->
-    
-    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!--FORM DE PROCESSO-->
-                <form th:action="@{'/aluno/' + ${aluno.id} + '/processos'}" method="post" th:object="${processo}">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalLabel">Cadastrar processo</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <input type="hidden" th:field="*{id}"><br>
-                            <div class="mb-3">
-                                <label for="assunto" class="form-label">Assunto:</label>
-                                <select required id="assunto" th:field="*{assunto}">
-                                    <option th:each="assunto:${assuntos}" th:value="${assunto.id}" th:text="${assunto.nome}"></option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="justificativa" class="form-label">Justificativa:</label>
-                                <textarea  class="form-control" th:field="*{textoRequerimento}" id="justificativa" rows="3"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="documento" class="form-label">Adicionar Documento:</label>
-                                <input type="file" id="documento" th:field="*{documento}"></input>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <h1>Upload de Parecer</h1>
-                    <form th:action="@{/processos/1/upload}" method="post" enctype="multipart/form-data">
-                        <input type="file" name="parecer" />
-                        <input type="submit" value="Enviar Parecer" />
-                    </form> -->
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                            style="padding-left: 25px; padding-right:25px">Salvar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
