@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#home-aluno {
+    background-image: url('/sisyphus/src/main/resources/static/imagens/teste.jpg'); /* Substitua 'sua-imagem.jpg' pelo caminho da sua imagem de fundo */
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: #fff; /* Cor do texto */
+    font-size: 24px; /* Tamanho da fonte do texto */
+    padding: 100px; /* Espaçamento interno ao redor do texto */
+}
+
+h1 {
+    font-size: 2em; /* Tamanho do texto do título */
+    font-weight: bold;
+}
+
+#alerta-sucesso{
+    color:#00563B;
+}

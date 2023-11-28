@@ -1,8 +1,45 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
-public class Aluno extends Usuario{
-    public Aluno() { 
-    }
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+@Data
+@NoArgsConstructor
+@Entity
+public class Aluno {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @NotBlank(message="Campo obrigatório!")
+    private String nome;
+    
+    @NotBlank(message="Campo obrigatório!")
+    private String fone;
+
+    @NotBlank(message="Campo obrigatório!")
+    @Pattern(regexp= "[0-9]{11}", message="Matrícula deve conter exatamente 11 números!")
+    private String matricula;
+
+    @NotBlank(message="Campo obrigatório!")
+    private String login;
+
+    @NotBlank(message="Campo obrigatório!")
+    @Size(min=3, max=42 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 42")
+    private String senha;
+
+    @OneToMany(mappedBy = "aluno")
+    private List<Processo> listaProcessos;
 
     public Aluno(String nome, String fone, String matricula, String login, String senha) {
         this.nome = nome;
@@ -12,51 +49,12 @@ public class Aluno extends Usuario{
         this.senha = senha;
     }
 
-    public int getId() {
-        return id;
+    public void adicionarProcesso(Processo processo){
+        this.listaProcessos.add(processo);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getFone() {
-        return fone;
-    }
-
-    public void setFone(String fone) {
-        this.fone = fone;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    @Override
+    public String toString(){
+        return "Aluno "+this.nome;
     }
 }

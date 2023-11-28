@@ -1,30 +1,26 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+
+@NoArgsConstructor
+@Data
+@Entity
 public class Assunto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotBlank(message="Campo obrigatório!")
     private String nome;
-
-    public Assunto() {
-
-    }
 
     public Assunto(String nome) {
         this.nome = nome;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 }

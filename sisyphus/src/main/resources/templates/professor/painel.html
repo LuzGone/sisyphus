@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Colegiado - Página do Professor</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <!-- NAV BAR-->
+    <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
+        <div class="container-fluid justify-content-center" id="navbarSupportedContent">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img th:src="@{/imagens/sisyphus.png}" alt="Ícone" width="50" height="50">
+                </a>
+                <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-white" aria-current="page" href="#">Processos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--LISTAGEM--->
+    <div style="margin: 30px;">
+        <h1 style="margin-top: 20px">Processos de [[${professor.nome}]]</h1>
+        <hr>
+        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
+            <div class="btn-group">
+                <div class="input-group mb-3" style="margin-right: 10px;">
+                    <label class="input-group-text" for="filterStatus">Status</label>
+                    <select class="form-select" id="filterStatus">
+                        <option selected>Todos</option>
+                        <option value="Criado">Criado</option>
+                        <option value="Distribuido">Distribuído</option>
+                        <option value="Em pauta">Em pauta</option>
+                        <option value="Em julgamento">Em julgamento</option>
+                        <option value="Julgado">Julgado</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3" style="margin-right: 10px;">
+                    <label class="input-group-text" for="filterAluno">Aluno</label>
+                    <select class="form-select" id="filterAluno">
+                        <option selected>Todos</option>
+                        <option value="João Moreira">João Moreira</option>
+                        <option value="Ana">Ana</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="filterRelator">Relator</label>
+                    <select class="form-select" id="filterRelator">
+                        <option selected>Todos</option>
+                        <option value="Frederico">Frederico</option>
+                        <option value="Jose">Jose</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!--TABELA DE PROCESSOS-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Aluno</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Assunto</th>
+                    <th scope="col">Data de Criação</th>
+                    <th scope="col">Relator</th>
+                    <th scope="col">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="processo:${processos}">
+                    <td th:text="${processo.numero}"></td>
+                    <td th:text="${processo.aluno.nome}"></td>
+                    <td th:text="${processo.estadoProcesso}"></td>
+                    <td th:text="${processo.assunto.nome}"></td>
+                    <td th:text="${processo.dataCriacao}"></td>
+                    <td th:if="${processo.relator} == null">-</td>
+                    <td th:unless="${processo.relator} == null" th:text="${processo.relator.nome}"></td>
+                    <td>
+                        <button type="button" class="btn btn-primary">Consultar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <!-- FILTRO POR STATUS-->
+    <script>
+     $(document).ready(function () {
+        $('#filterStatus, #filterAluno, #filterRelator').on('change', function () {
+            var status = $('#filterStatus').val().toLowerCase();
+            var aluno = $('#filterAluno').val().toLowerCase();
+            var relator = $('#filterRelator').val().toLowerCase();
+            filterTable(status, aluno, relator);
+        });
+
+        function filterTable(status, aluno, relator) {
+            var rows = $('table tbody tr');
+            rows.show();
+
+            rows.filter(function () {
+                var text = $(this).text().toLowerCase();
+                return (status && text.indexOf(status) === -1) || (aluno && text.indexOf(aluno) === -1) || (relator && text.indexOf(relator) === -1);
+            }).hide();
+        }
+    });
+    </script>
+
+</body>
+</html>
