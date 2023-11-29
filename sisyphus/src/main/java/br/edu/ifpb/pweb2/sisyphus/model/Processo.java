@@ -57,6 +57,9 @@ public class Processo {
     @Enumerated(EnumType.STRING)
     private EstadoProcesso estadoProcesso;
 
+    @ManyToOne
+    private Reuniao reuniao;
+
     public Processo( Aluno aluno, Assunto assunto, String textoRequerimento, Colegiado colegiado) {
         this.aluno = aluno;
         this.numero = Integer.toString(this.id);
