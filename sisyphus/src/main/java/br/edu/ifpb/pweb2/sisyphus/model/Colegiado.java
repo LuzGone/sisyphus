@@ -3,11 +3,15 @@ package br.edu.ifpb.pweb2.sisyphus.model;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
@@ -28,8 +32,13 @@ public class Colegiado {
 
     private String portaria;
 
-    @NotBlank(message="Campo obrigatório!")
-    private String curso;
+    @Enumerated(EnumType.STRING)
+    private Curso curso;
+
+    @OneToOne
+    @JoinColumn(name="coordenador")
+    private Coordenador coordenador;
+
 
     @ManyToMany
     private List<Professor> membros;
@@ -37,7 +46,10 @@ public class Colegiado {
     @OneToMany(mappedBy = "colegiado")
     private List<Processo> processos;
 
-    public Colegiado(Date dataInicio, Date dataFim, String descricao, String portaria, String curso) {
+    @OneToMany(mappedBy = "colegiado")
+    private List<Reuniao> reuniaos;
+
+    public Colegiado(Date dataInicio, Date dataFim, String descricao, String portaria, Curso curso) {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.descricao = descricao;
@@ -52,7 +64,15 @@ public class Colegiado {
     @Override
     public String toString(){
         return "Colegiado de " + this.curso;
-    } 
+    }
+
+    public void adicionarReuniao(Reuniao reuniao){
+        this.reuniaos.add(reuniao);
+    }
+
+    public void adicionarProcesso(Processo processo){
+        this.processos.add(processo);
+    }
 
 
 }

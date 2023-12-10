@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -30,6 +31,9 @@ public class Reuniao {
 
     @OneToMany(mappedBy = "reuniao")
     private ArrayList<Processo> processos;
+
+    @ManyToOne
+    private Colegiado colegiado;
 
     public void adicionarProcesso(Processo processo) {
         this.processos.add(processo);

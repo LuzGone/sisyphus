@@ -1,12 +1,13 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,15 +20,15 @@ public class Coordenador{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @NotBlank(message="Campo obrigatório!")
-    private String curso;
+    
+    @Enumerated(EnumType.STRING)
+    private Curso curso;
     
     @OneToOne
     @JoinColumn(name="professor")
     private Professor professor;
 
-    public Coordenador(Professor professor, String curso){
+    public Coordenador(Professor professor, Curso curso){
         this.professor = professor;
         this.curso = curso;
     }

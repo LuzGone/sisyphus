@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ColegiadoRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
+import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 
 import java.util.Date;
@@ -21,6 +22,10 @@ public class ColegiadoService {
 
     public Colegiado getColegiadoPorId(Long id){
         return this.colegiadoRepository.findById(id).orElse(null);
+    }
+
+    public Colegiado getColegiadoPorCoordenador(Coordenador coordenador){
+        return this.colegiadoRepository.findByCoordenador(coordenador).get(0);
     }
 
     public Colegiado salvarColegiado(Colegiado colegiado){

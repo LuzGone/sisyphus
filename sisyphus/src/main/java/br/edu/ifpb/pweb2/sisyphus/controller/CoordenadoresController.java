@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
+import br.edu.ifpb.pweb2.sisyphus.model.Curso;
 import br.edu.ifpb.pweb2.sisyphus.service.CoordenadorService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
 import jakarta.validation.Valid;
@@ -43,7 +44,7 @@ public class CoordenadoresController {
 
     @GetMapping("criar")
     public ModelAndView createCoordenador(ModelAndView model, RedirectAttributes redirectAttributes ){
-        model.addObject("coordenador", new Coordenador(new Professor(), ""));
+        model.addObject("coordenador", new Coordenador(new Professor(), Curso.TSI));
         model.addObject("acao", "salvar");
         model.setViewName("administrador/coordenador/form");
         return model;
@@ -102,7 +103,7 @@ public class CoordenadoresController {
     public ModelAndView deleteCoordenador(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         coordenadorService.deletarCoordenador(id);
         model.addObject("coordenadores", coordenadorService.getCoordenadores());
-        model.addObject("coordenador", new Coordenador(new Professor(), ""));
+        model.addObject("coordenador", new Coordenador(new Professor(), Curso.TSI));
         model.setViewName("redirect:/coordenadores");
         redirectAttributes.addFlashAttribute("mensagem","Coordenador Deletado com Sucesso");
         redirectAttributes.addFlashAttribute("coordenadoresDeletado", true);

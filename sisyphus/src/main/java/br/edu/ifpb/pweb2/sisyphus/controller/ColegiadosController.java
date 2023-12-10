@@ -45,7 +45,7 @@ public class ColegiadosController {
     @GetMapping("criar")
     public ModelAndView createColegiado(ModelAndView model, RedirectAttributes redirectAttributes ){
         List<Professor> membros = new ArrayList<Professor>();
-        for(int i=0 ; i<5;i++){
+        for(int i=0 ; i<4;i++){
             membros.add(new Professor());
         }
         model.addObject("colegiado", new Colegiado(membros));
@@ -64,7 +64,7 @@ public class ColegiadosController {
         ){
         if (validation.hasErrors()) {
             List<Professor> membros = new ArrayList<Professor>();
-            for(int i=0 ; i<5;i++){
+            for(int i=0 ; i<4;i++){
                 membros.add(new Professor());
             }
             model.addObject("membros", membros);
@@ -83,7 +83,7 @@ public class ColegiadosController {
     @GetMapping("{id}")
     public ModelAndView editColegiado(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         List<Professor> membros = new ArrayList<Professor>();
-        for(int i=0 ; i<5;i++){
+        for(int i=0 ; i<4;i++){
             membros.add(new Professor());
         }
         model.addObject("membros", membros);
