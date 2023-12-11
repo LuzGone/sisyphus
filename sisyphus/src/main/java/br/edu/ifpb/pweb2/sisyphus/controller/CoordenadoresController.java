@@ -44,7 +44,7 @@ public class CoordenadoresController {
 
     @GetMapping("criar")
     public ModelAndView createCoordenador(ModelAndView model, RedirectAttributes redirectAttributes ){
-        model.addObject("coordenador", new Coordenador(new Professor(), Curso.TSI));
+        model.addObject("coordenador", new Coordenador(new Professor(), new Curso()));
         model.addObject("acao", "salvar");
         model.setViewName("administrador/coordenador/form");
         return model;
@@ -103,7 +103,7 @@ public class CoordenadoresController {
     public ModelAndView deleteCoordenador(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         coordenadorService.deletarCoordenador(id);
         model.addObject("coordenadores", coordenadorService.getCoordenadores());
-        model.addObject("coordenador", new Coordenador(new Professor(), Curso.TSI));
+        model.addObject("coordenador", new Coordenador(new Professor(), new Curso()));
         model.setViewName("redirect:/coordenadores");
         redirectAttributes.addFlashAttribute("mensagem","Coordenador Deletado com Sucesso");
         redirectAttributes.addFlashAttribute("coordenadoresDeletado", true);

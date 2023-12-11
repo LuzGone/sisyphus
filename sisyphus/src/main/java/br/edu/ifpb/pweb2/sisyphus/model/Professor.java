@@ -6,7 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +33,10 @@ public class Professor {
     @NotBlank(message="Campo obrigatório!")
     @Pattern(regexp= "[0-9]{6}", message="Matrícula deve conter exatamente 6 números!")
     protected String matricula;
+
+    @ManyToOne
+    @JoinColumn(name = "curso")
+    protected Curso curso;
     
     @NotBlank(message="Campo obrigatório!")
     protected String login;

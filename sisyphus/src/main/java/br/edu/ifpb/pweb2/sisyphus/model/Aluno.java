@@ -4,6 +4,8 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -31,6 +33,10 @@ public class Aluno {
     @Pattern(regexp= "[0-9]{11}", message="Matrícula deve conter exatamente 11 números!")
     private String matricula;
 
+    @ManyToOne
+    @JoinColumn(name="curso")
+    private Curso curso;
+
     @NotBlank(message="Campo obrigatório!")
     private String login;
 
@@ -40,14 +46,6 @@ public class Aluno {
 
     @OneToMany(mappedBy = "aluno")
     private List<Processo> listaProcessos;
-
-    public Aluno(String nome, String fone, String matricula, String login, String senha) {
-        this.nome = nome;
-        this.fone = fone;
-        this.matricula = matricula;
-        this.login = login;
-        this.senha = senha;
-    }
 
     public void adicionarProcesso(Processo processo){
         this.listaProcessos.add(processo);

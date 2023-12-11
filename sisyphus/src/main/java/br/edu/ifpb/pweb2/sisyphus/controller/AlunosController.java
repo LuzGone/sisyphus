@@ -14,9 +14,6 @@ import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
 import jakarta.validation.Valid;
 
-
-
-
 @Controller
 @RequestMapping("/alunos")
 public class AlunosController {
