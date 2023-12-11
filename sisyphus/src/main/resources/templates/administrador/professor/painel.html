@@ -65,6 +65,7 @@
                   <th scope="col">#</th>
                   <th scope="col">Nome</th>
                   <th scope="col">Matrícula</th>
+                  <th scope="col">Curso</th>
                   <th scope="col">Telefone</th>
                   <th scope="col">Opções</th>
                 </tr>
@@ -73,8 +74,9 @@
                 <tr th:each="professor:${professores}">
                   <td>[[${professor.id}]]</td>
                   <td th:text="${professor.nome}"></td>
-                  <td th:text="${professor.fone}"></td>
                   <td th:text="${professor.matricula}"></td>
+                  <td th:text="${professor.curso}"></td>
+                  <td th:text="${professor.fone}"></td>
                   <td>
                     <div class="btn-group">
                         <form style="margin-right: 10px;" th:action="@{professores/{id}/delete(id=${professor.id})}">

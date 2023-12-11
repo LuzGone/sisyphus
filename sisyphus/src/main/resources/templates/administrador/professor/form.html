@@ -81,6 +81,14 @@
                             <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}" class="alert alert-danger"></p>
                         </div>
 
+                        <!--CURSO-->
+                        <div class="mb-3">
+                            <label for="curso" class="form-label">Curso:</label>
+                            <select class="form-select" required id="curso" th:field="*{curso}">
+                                <option th:each="curso: ${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+                            </select>
+                        </div>
+
                         <!--LOGIN-->
                         <div class="mb-3">
                             <label for="login" class="form-label">Login:</label>

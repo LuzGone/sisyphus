@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
+import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
 import jakarta.validation.Valid;
 
@@ -19,6 +20,9 @@ import jakarta.validation.Valid;
 public class ProfessoresController {
     @Autowired
     private ProfessorService professorService;
+
+    @Autowired
+    private CursoService cursoService;
 
     @GetMapping
     public ModelAndView listProfessores(ModelAndView model){
@@ -31,6 +35,7 @@ public class ProfessoresController {
     @GetMapping("criar")
     public ModelAndView createProfessor(ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("professor", new Professor());
+        model.addObject("cursos", this.cursoService.getCursos());
         model.addObject("acao", "salvar");
         model.setViewName("administrador/professor/form");
         return model;
@@ -60,6 +65,7 @@ public class ProfessoresController {
     public ModelAndView editProfessor(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         model.addObject("professor", professorService.getProfessorPorId(id));
         model.addObject("acao", "editar");
+        model.addObject("cursos", this.cursoService.getCursos());
         model.setViewName("administrador/professor/form");
         redirectAttributes.addFlashAttribute("mensagem","Professor Editado com Sucesso");
         redirectAttributes.addFlashAttribute("professoresEditado", true);
