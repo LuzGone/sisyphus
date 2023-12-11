@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
+import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -20,6 +21,9 @@ public class AlunosController {
   
     @Autowired
     private AlunoService alunoService;
+
+    @Autowired
+    private CursoService cursoService;
 
     @GetMapping
     public ModelAndView listAlunos(ModelAndView model){
@@ -33,6 +37,7 @@ public class AlunosController {
     @GetMapping("criar")
     public ModelAndView createAluno(ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("aluno", new Aluno());
+        model.addObject("cursos", this.cursoService.getCursos());
         model.addObject("acao", "salvar");
         model.setViewName("administrador/aluno/form");
         return model;
@@ -59,6 +64,7 @@ public class AlunosController {
     @GetMapping("{id}")
     public ModelAndView editAluno(@PathVariable("id")Long id, ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("aluno", alunoService.getAlunoPorId(id));
+        model.addObject("cursos", this.cursoService.getCursos());
         model.addObject("acao", "editar");
         model.setViewName("administrador/aluno/form");
         redirectAttributes.addFlashAttribute("mensagem", "Aluno Editado com Sucesso");

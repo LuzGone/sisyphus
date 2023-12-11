@@ -52,7 +52,7 @@
     
     <main>
         <div class="container" >
-            <h1 style="margin-top: 20px;margin-bottom: 20px;">Editar Aluno</h1>
+            <h1 style="margin-top: 20px;margin-bottom: 20px;">Formulário Aluno</h1>
             <hr>
             <!-- INICIO DO FORM -->
             <form th:action="${acao} == 'salvar' ? @{/alunos/criar} : @{/alunos/{id}(id=${aluno.id})}" method="POST" th:object="${aluno}">
@@ -88,6 +88,14 @@
                             <div class="invalid-feedback">
                                 Por favor, digite o Matricula.
                             </div>
+                        </div>
+
+                        <!--CURSO-->
+                        <div class="mb-3">
+                            <label for="curso" class="form-label">Curso:</label>
+                            <select class="form-select" required id="curso" th:field="*{curso}">
+                                <option th:each="curso: ${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+                            </select>
                         </div>
     
                         <!--LOGIN-->
