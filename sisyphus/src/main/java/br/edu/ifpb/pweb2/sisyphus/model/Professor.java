@@ -70,7 +70,7 @@ public class Professor {
 
     @Override
     public String toString(){
-        return "Professor " + this.nome;
+        return this.nome;
     }
 
 }

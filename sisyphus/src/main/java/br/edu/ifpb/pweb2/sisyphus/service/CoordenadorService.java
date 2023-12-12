@@ -22,10 +22,12 @@ public class CoordenadorService {
     }
 
     public Coordenador salvarCoordenador(Coordenador coordenador){
+        System.out.println(coordenador);
         return this.coordenadorRepository.save(coordenador);
     }
 
     public void deletarCoordenador(Long id){
+        System.out.println(id);
         this.coordenadorRepository.deleteById(id);
     }
 

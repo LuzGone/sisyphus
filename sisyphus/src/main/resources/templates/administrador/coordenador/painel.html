@@ -72,7 +72,7 @@
                   <tr th:each="coordenador:${coordenadores}">
                     <td>[[${coordenador.id}]]</td>
                     <td th:text="${coordenador.professor.nome}"></td>
-                    <td th:text="${coordenador.curso}"></td>
+                    <td th:text="${coordenador.professor.curso}"></td>
                     <td>
                         <div class="btn-group">
                             <form style="margin-right: 10px;" th:action="@{coordenadores/{id}/delete(id=${coordenador.id})}">

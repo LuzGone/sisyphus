@@ -51,30 +51,30 @@
     </header>
     <main>
         <div class="container">
-            <h1 style="margin-top: 20px;margin-bottom: 20px;">Editar Coordenador</h1>
+            <h1 style="margin-top: 20px;margin-bottom: 20px;">
+                [[${acao} == 'salvar' ? 'Criar' : 'Editar']] Coordenador</h1>
             <hr>
         </div>
         <div class="container">
-            <form th:action="${acao} == 'salvar' ? @{/coordenadores/criar} : @{/coordenadores/{id}(id=${coordenador.id})}" method="post" th:object="${coordenador}">
+            <form th:action="${acao} == 'salvar' ? @{/coordenadores/criar} : @{/coordenadores/{id}(id=${coordenador.id})}" method="POST" th:object="${coordenador}">
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" th:field="*{id}">
                         <!-- PROFESSOR -->
                         <div class="col-md-6">
                             <div class="input-group mb-4">
-                                <label for="professor" class="input-group-text" style="background-color:#a8a8a8 ;color: #ffff;">Professor:</label>
+                                <label for="professor" class="input-group-text" style="background-color:#198754 ;color: #ffff;">Professor:</label>
                                 <select required id="professor" th:field="*{professor.id}" class="form-select">
-                                    <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
+                                    <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome} + ' - ' + ${professor.curso}"></option>
                                 </select>
                             </div>
                         </div>
-                        <!-- CURSO -->
                     </div>
+                    <!-- CURSO -->
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="curso" class="form-label">Curso:</label>
-                            <input type="text" id="curso" th:field="*{curso}" class="form-control" required>
-                            <p th:if="${#fields.hasErrors('curso')}" th:errorclass="error" th:errors="*{curso}" class="alert alert-danger"></p>
+                            <input type="text" id="cursoCoordenador" class="form-control" disabled>
                         </div>
                     </div>
                 </div>

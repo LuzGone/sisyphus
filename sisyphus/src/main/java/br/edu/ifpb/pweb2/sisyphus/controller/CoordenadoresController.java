@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
 import br.edu.ifpb.pweb2.sisyphus.model.Curso;
 import br.edu.ifpb.pweb2.sisyphus.service.CoordenadorService;
+import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
 import jakarta.validation.Valid;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
@@ -30,9 +31,17 @@ public class CoordenadoresController {
     @Autowired
     private ProfessorService professorService;
 
+    @Autowired
+    private CursoService cursoService;
+
     @ModelAttribute("professores")
     public List<Professor> getProfessores(){
         return this.professorService.getProfessores();
+    }
+
+    @ModelAttribute("cursos")
+    public List<Curso> getCursos(){
+        return this.cursoService.getCursos();
     }
 
     @GetMapping
@@ -44,7 +53,7 @@ public class CoordenadoresController {
 
     @GetMapping("criar")
     public ModelAndView createCoordenador(ModelAndView model, RedirectAttributes redirectAttributes ){
-        model.addObject("coordenador", new Coordenador(new Professor(), new Curso()));
+        model.addObject("coordenador", new Coordenador());
         model.addObject("acao", "salvar");
         model.setViewName("administrador/coordenador/form");
         return model;
@@ -61,7 +70,7 @@ public class CoordenadoresController {
             model.setViewName("administrador/coordenador/form");
             model.addObject("acao", "salvar");
             return model;
-        }    
+        }
         coordenadorService.salvarCoordenador(coordenador);
         model.addObject("coordenadores", professorService.getProfessores());
         model.setViewName("redirect:/coordenadores");
@@ -103,7 +112,6 @@ public class CoordenadoresController {
     public ModelAndView deleteCoordenador(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         coordenadorService.deletarCoordenador(id);
         model.addObject("coordenadores", coordenadorService.getCoordenadores());
-        model.addObject("coordenador", new Coordenador(new Professor(), new Curso()));
         model.setViewName("redirect:/coordenadores");
         redirectAttributes.addFlashAttribute("mensagem","Coordenador Deletado com Sucesso");
         redirectAttributes.addFlashAttribute("coordenadoresDeletado", true);

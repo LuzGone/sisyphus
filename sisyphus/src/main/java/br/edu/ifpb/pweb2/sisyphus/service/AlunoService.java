@@ -33,6 +33,7 @@ public class AlunoService {
     }
 
     public Aluno salvarAluno(Aluno aluno){
+        System.out.println(aluno);
         return this.alunoRepository.save(aluno);
     }
 
