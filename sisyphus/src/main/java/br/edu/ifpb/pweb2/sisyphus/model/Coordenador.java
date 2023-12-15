@@ -27,4 +27,9 @@ public class Coordenador{
         professor.adicionarProcesso(processo);
     }
 
+    @Override
+    public String toString(){
+        return this.professor.toString() + " - " + this.professor.curso;
+    }
+
 }

@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
+import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
 import br.edu.ifpb.pweb2.sisyphus.model.Curso;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 import br.edu.ifpb.pweb2.sisyphus.service.ColegiadoService;
+import br.edu.ifpb.pweb2.sisyphus.service.CoordenadorService;
 import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
 import jakarta.validation.Valid;
@@ -28,6 +30,9 @@ public class ColegiadosController {
     
     @Autowired
     private ColegiadoService colegiadoService;
+
+    @Autowired
+    private CoordenadorService coordenadorService;
 
     @Autowired
     private ProfessorService professorService;
@@ -43,6 +48,11 @@ public class ColegiadosController {
     @ModelAttribute("cursos")
     public List<Curso> getCursos(){
         return this.cursoService.getCursos();
+    }
+
+    @ModelAttribute("coordenadores")
+    public List<Coordenador> getCoordenadores(){
+        return this.coordenadorService.getCoordenadores();
     }
 
     @GetMapping
