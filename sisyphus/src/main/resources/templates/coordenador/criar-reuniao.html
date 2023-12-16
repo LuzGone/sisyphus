@@ -42,19 +42,23 @@
 
     <main>
         <div style="margin: 30px;">
-            <h1 style="margin-top: 20px">Criar Processo de [[${aluno.nome}]]</h1>
+            <h1 style="margin-top: 20px">Criar Reuniao de [[${colegiado.descricao}]]</h1>
             <hr>
         </div>
         <!--FORM DE PROCESSO-->
-        <form class="container" th:action="@{'/aluno/' + ${aluno.id} + '/processos/criar'}" method="post" th:object="${processo}">
+        <form class="container" th:action="@{'/coordenador/' + ${coordenador.id} + '/reunioes/criar'}" method="post" th:object="${reuniao}">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalLabel">Cadastrar processo</h1>
+                <h1 class="modal-title fs-5" id="modalLabel">Criar reunião</h1>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <input type="hidden" th:field="*{id}"><br>
                     <div class="mb-3">
-                        <label for="assunto" class="form-label">Assunto:</label>
+                        <label for="data" class="form-label">Data da Reunião:</label>
+                        <input type="file" id="data" th:field="*{dataReuniao}"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="assunto" class="form-label">Adicionar processos:</label>
                         <select required id="assunto" th:field="*{assunto}">
                             <option th:each="assunto:${assuntos}" th:value="${assunto.id}" th:text="${assunto.nome}"></option>
                         </select>
@@ -64,10 +68,7 @@
                         <textarea  class="form-control" th:field="*{textoRequerimento}" id="justificativa" rows="3"></textarea>
                         <p th:if="${#fields.hasErrors('textoRequerimento')}" th:errorclass="error" th:errors="*{textoRequerimento}" class="alert alert-danger"></p>
                     </div>
-                    <div class="mb-3">
-                        <label for="documento" class="form-label">Adicionar Documento:</label>
-                        <input type="file" id="documento" th:field="*{documento}"></input>
-                    </div>
+                    
                 </div>
             </div>
             <div class="modal-footer">

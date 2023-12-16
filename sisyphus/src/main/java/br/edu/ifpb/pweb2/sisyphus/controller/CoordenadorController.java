@@ -103,11 +103,11 @@ public class CoordenadorController {
         Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
         Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
         model.addObject("reuniaos", colegiado.getReuniaos());
-        model.setViewName("/coordenador/painel");
+        model.setViewName("/coordenador/reunioes");
         return model;
     }
 
-    @GetMapping("reuniaos/criar")
+    @GetMapping("reunioes/criar")
     public ModelAndView createReuniao(ModelAndView model,@PathVariable("id")Long id){
         List<Processo> processosDisponiveis = new ArrayList<Processo>();
         Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
@@ -121,10 +121,11 @@ public class CoordenadorController {
 
         List<Processo> processosEscolhidos = new ArrayList<Processo>();
         Reuniao reuniao = new Reuniao();
+        model.addObject("colegiado", colegiado);
         model.addObject("processosEscolhidos", processosEscolhidos);
         model.addObject("processosDisponiveis", processosDisponiveis);
         model.addObject("reuniao", reuniao);
-        model.setViewName("/coordenador/criar-processo");
+        model.setViewName("/coordenador/criar-reuniao");
         return model;
     }
 
