@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <body>
+        <header th:fragment="menu-home">
+            <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
+                <div class="container-fluid justify-content-center" id="navbarSupportedContent">
+                    <div>
+                        <a class="navbar-brand" href="#">
+                            <img th:src="@{/imagens/sisyphus.png}" alt="Ícone" width="50" height="50">
+                        </a>
+                        <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled text-white" aria-current="page" href="#">Processos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!--LISTAGEM DE REUNIÕES--->    
+        <div style="margin: 30px;">
+            <h1 style="margin-top: 20px">Reunião #123455</h1>
+            <hr>
+        </div>
+        <div style="margin: 30px">
+            <div class="row">
+                <div class="col">
+                    <h3>Data</h3>
+                    <div class="form-floating mb-3" style="font-size: 18px;">
+                        <input type="text" class="form-control" id="floatingInputDisabled" placeholder="" disabled>
+                        <label for="floatingInputDisabled">01/02/2023</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <h3>Número</h3>
+                    <div class="form-floating mb-3" style="font-size: 18px;">
+                        <input type="number" class="form-control" id="floatingInputDisabled" placeholder="" disabled>
+                        <label for="floatingInputDisabled">123456</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <h3>Solicitante</h3>
+                    <div class="form-floating mb-3" style="font-size: 18px;">
+                        <input type="text" class="form-control" id="floatingInputDisabled" placeholder="" disabled>
+                        <label for="floatingInputDisabled">Frederico Costa</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
+                    <h3>Assunto</h3>
+                    <div class="form-floating mb-3" style="font-size: 18px;">
+                        <input type="text" class="form-control" id="floatingInputDisabled" placeholder="" disabled>
+                        <label for="floatingInputDisabled">Cancelamento de Matrícula</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <h3>Relator</h3>
+                    <div class="form-floating mb-3" style="font-size: 18px;">
+                        <input type="text" class="form-control" id="floatingInputDisabled" placeholder="" disabled>
+                        <label for="floatingInputDisabled">Valéria Cavalcanti</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <h3>Decisão</h3>
+                    <div class="form-floating mb-3" style="font-size: 18px;">
+                        <input type="text" class="form-control" id="floatingInputDisabled" placeholder="" disabled>
+                        <label for="floatingInputDisabled">Aprovado</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <h3>Ata</h3>
+                    <div class="form-floating mb-3" style="font-size: 18px;">
+                        <input type="document" class="form-control" id="floatingInputDisabled" placeholder="" disabled>
+                        <label for="floatingInputDisabled"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a style="margin-right: 10px;" class="btn btn-secondary btn-lg">Fechar</a>
+            </div>
+        </div> 
+    
+</body>
+<script src="/sisyphus/src/main/resources/js/bootstrap.bundle.min.js"></script>
+    <script src="/sisyphus/src/main/resources/js/popper.min.js"></script>
+    <script src="/sisyphus/src/main/resources/js/bootstrap.min.js"></script>
+    </script>
+</html>
