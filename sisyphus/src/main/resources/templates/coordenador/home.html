@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aluno</title>
+    <title>Administrador</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
@@ -21,10 +21,28 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/aluno/{id}(id=${aluno.id})}">Home</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/administrador}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disable text-white" aria-current="page" th:href="@{/aluno/{id}/processos(id=${aluno.id})}">Processos</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/assuntos}">Assuntos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/alunos}">Aluno</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professores}">Professor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/colegiados}">Colegiado</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenadores}">Coordenadores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/cursos}">Cursos</a>
                         </li>
                     </ul>
                 </div>
@@ -32,9 +50,9 @@
         </nav>
     </header>
     <main>
-      <div class="container d-flex flex-column align-items-center">
+      <div class="container">
         <h1>Bem Vindo ao Sistema Sisyphus</h1>
-        <h2> [[${aluno.nome}]] </h2>
+        <hr>
         <img th:src="@{imagens/sisyphus-wallpaper.jpg}">
       </div>
 
