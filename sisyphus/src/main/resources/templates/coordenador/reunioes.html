@@ -68,8 +68,8 @@
                 <tr th:each="reuniao:${reunioes}">
                     <td th:text="${reuniao.id}?:'-'"></td>
 
-                    <td th:if="${reuniao.data} == null">-</td>
-                    <td th:unless="${reuniao.data} == null" th:text="${reuniao.data}?:'-'"></td>
+                    <td th:if="${reuniao.dataReuniao} == null">-</td>
+                    <td th:unless="${reuniao.dataReuniao} == null" th:text="${reuniao.dataReuniao}?:'-'"></td>
                     
                     <td th:text="${reuniao.status}?:'-'"></td>
 

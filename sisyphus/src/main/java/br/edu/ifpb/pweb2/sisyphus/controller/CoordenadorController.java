@@ -2,6 +2,7 @@ package br.edu.ifpb.pweb2.sisyphus.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,8 @@ import br.edu.ifpb.pweb2.sisyphus.service.ColegiadoService;
 import br.edu.ifpb.pweb2.sisyphus.service.CoordenadorService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProcessoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
+import br.edu.ifpb.pweb2.sisyphus.service.ReuniaoService;
+import jakarta.validation.Valid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 import br.edu.ifpb.pweb2.sisyphus.model.Reuniao;
+
 
 @Controller
 @RequestMapping("/coordenador/{id}")
@@ -44,6 +48,9 @@ public class CoordenadorController {
 
     @Autowired
     private ColegiadoService colegiadoService;
+
+    @Autowired
+    private ReuniaoService reuniaoService;
 
     @ModelAttribute("coordenador")
     public Coordenador getCoordenador(@PathVariable("id") Long id){
@@ -102,7 +109,7 @@ public class CoordenadorController {
     public ModelAndView showPainelReuniaos(ModelAndView model, @PathVariable("id") Long id){
         Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
         Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
-        model.addObject("reuniaos", colegiado.getReuniaos());
+        model.addObject("reunioes", colegiado.getReuniaos());
         model.setViewName("/coordenador/reunioes");
         return model;
     }
@@ -120,7 +127,11 @@ public class CoordenadorController {
         }
 
         List<Processo> processosEscolhidos = new ArrayList<Processo>();
-        Reuniao reuniao = new Reuniao();
+        for(int i=0;i<5;i++){
+            processosEscolhidos.add(new Processo());
+        }
+        Reuniao reuniao = new Reuniao(colegiado,processosEscolhidos);
+        System.out.println(reuniao.getColegiado());
         model.addObject("colegiado", colegiado);
         model.addObject("processosEscolhidos", processosEscolhidos);
         model.addObject("processosDisponiveis", processosDisponiveis);
@@ -129,4 +140,46 @@ public class CoordenadorController {
         return model;
     }
 
+    @PostMapping("reunioes/criar")
+    public ModelAndView saveReuniao(
+        @Valid Reuniao reuniao,
+        BindingResult validation, 
+        ModelAndView model,
+        @PathVariable("id")Long id, 
+        RedirectAttributes redirectAttributes
+        ){
+        if (validation.hasErrors()) {
+            List<Processo> processosDisponiveis = new ArrayList<Processo>();
+            Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
+            Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
+
+            for(Processo processo : colegiado.getProcessos()){
+                if(processo.getRelator()!= null){
+                    processosDisponiveis.add(processo);
+                }
+            }
+
+            List<Processo> processosEscolhidos = new ArrayList<Processo>();
+            for(int i=0;i<4;i++){
+                processosEscolhidos.add(new Processo());
+            }
+            model.addObject("colegiado", colegiado);
+            model.addObject("processosEscolhidos", processosEscolhidos);
+            model.addObject("processosDisponiveis", processosDisponiveis);
+            model.addObject("reuniao", reuniao);
+            model.setViewName("/coordenador/criar-reuniao");
+            return model;
+        }
+        Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
+        Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
+        reuniao.setColegiado(colegiado);
+        reuniaoService.salvarReuniao(reuniao);
+        System.out.println(reuniao.getColegiado()); 
+        model.addObject("reunioes", colegiado.getReuniaos());
+        model.setViewName("redirect:/coordenador/"+id+"/reunioes");
+        redirectAttributes.addFlashAttribute("mensagem", "Reunião Criada com Sucesso");
+        redirectAttributes.addFlashAttribute("reuniaoSalvos", true);
+        return model;
+    }
+    
 }
