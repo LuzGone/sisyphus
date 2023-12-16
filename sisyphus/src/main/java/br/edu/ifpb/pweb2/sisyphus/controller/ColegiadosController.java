@@ -37,55 +37,89 @@ public class ColegiadosController {
 
     @GetMapping
     public ModelAndView listColegiados(ModelAndView model){
-        List<Professor> membros = new ArrayList<Professor>();
-        for(int i=0 ; i<4;i++){
-            membros.add(new Professor());
-        }
         model.addObject("colegiados", colegiadoService.getColegiados());
-        model.addObject("colegiado", new Colegiado(membros));
-        model.addObject("membros", membros);
         model.setViewName("administrador/colegiado/painel");
         return model;
     }
 
-    // @PostMapping
-    // public ModelAndView saveColegiado( 
-    //         Colegiado colegiado,
-    //         ModelAndView model, 
-    //         RedirectAttributes redirectAttributes
-    //     ){
-    //     List<Professor> membros = new ArrayList<Professor>();
-    //     for(int i=0 ; i<4;i++){
-    //         membros.add(new Professor());
-    //     }
-    //     colegiadoService.salvarColegiado(colegiado);
-    //     model.addObject("colegiados", colegiadoService.getColegiados());
-    //     model.addObject("colegiado", new Colegiado(membros));
-    //     model.setViewName("redirect:/colegiados");
-    //     redirectAttributes.addFlashAttribute("mensagem","Colegiado Criado com Sucesso");
-       
-    //     return model;
-    // }
-
-    @PostMapping
-    public ModelAndView saveColegiado(@Valid Colegiado colegiado, BindingResult validation, ModelAndView model, RedirectAttributes redirectAttributes) {
-        if (validation.hasErrors()) {
-            model.setViewName("administrador/colegiado/form");
-            return model;
-        }
+    @GetMapping("criar")
+    public ModelAndView createColegiado(ModelAndView model, RedirectAttributes redirectAttributes ){
         List<Professor> membros = new ArrayList<Professor>();
-        for (int i = 0; i < 4; i++) {
+        for(int i=0 ; i<5;i++){
             membros.add(new Professor());
         }
-        
+        model.addObject("colegiado", new Colegiado(membros));
+        model.addObject("membros", membros);
+        model.addObject("acao", "salvar");
+        model.setViewName("administrador/colegiado/form");
+        return model;
+    }
+
+    @PostMapping("criar")
+    public ModelAndView saveColegiado(
+        @Valid Colegiado colegiado,
+        BindingResult validation, 
+        ModelAndView model, 
+        RedirectAttributes redirectAttributes
+        ){
+        if (validation.hasErrors()) {
+            List<Professor> membros = new ArrayList<Professor>();
+            for(int i=0 ; i<5;i++){
+                membros.add(new Professor());
+            }
+            model.addObject("membros", membros);
+            model.setViewName("administrador/colegiado/form");
+            model.addObject("acao", "salvar");
+            return model;
+        }    
         colegiadoService.salvarColegiado(colegiado);
         model.addObject("colegiados", colegiadoService.getColegiados());
-        model.addObject("colegiado", new Colegiado(membros));
         model.setViewName("redirect:/colegiados");
         redirectAttributes.addFlashAttribute("mensagem", "Colegiado Criado com Sucesso");
-        redirectAttributes.addFlashAttribute("colegiadoSalvo", true); // Se o colegiado for salvo com sucesso
+        redirectAttributes.addFlashAttribute("colegiadosSalvo", true);
         return model;
-}
+    }
+
+    @GetMapping("{id}")
+    public ModelAndView editColegiado(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
+        List<Professor> membros = new ArrayList<Professor>();
+        for(int i=0 ; i<5;i++){
+            membros.add(new Professor());
+        }
+        model.addObject("membros", membros);
+        model.addObject("colegiado", colegiadoService.getColegiadoPorId(id));
+        model.addObject("acao", "editar");
+        model.setViewName("administrador/colegiado/form");
+        redirectAttributes.addFlashAttribute("mensagem","Colegiado Editado com Sucesso");
+        redirectAttributes.addFlashAttribute("colegiadosEditado", true);
+        return model;
+    }
+
+    @PostMapping("{id}")
+    public ModelAndView updateColegiado(
+        @Valid Colegiado colegiado, 
+        BindingResult validation,
+        @PathVariable("id") Long id,
+        ModelAndView model, 
+        RedirectAttributes redirectAttributes
+        ){
+        if (validation.hasErrors()) {
+            List<Professor> membros = new ArrayList<Professor>();
+            for(int i=0 ; i<4;i++){
+                membros.add(new Professor());
+            }
+            model.addObject("membros", membros);
+            model.addObject("colegiado", colegiadoService.getColegiadoPorId(id));
+            model.setViewName("redirect:/colegiados/"+id);
+            return model;
+        }
+        colegiadoService.salvarColegiado(colegiado);
+        model.addObject("colegiado", colegiadoService.getColegiadoPorId(id));
+        model.setViewName("redirect:/colegiados");
+        redirectAttributes.addFlashAttribute("mensagem", "Colegiado Editado com Sucesso");
+        redirectAttributes.addFlashAttribute("colegiadosEditado", true);
+        return model;
+    }
 
 
     @RequestMapping("{id}/delete")
@@ -96,20 +130,6 @@ public class ColegiadosController {
         model.setViewName("redirect:/colegiados");
         redirectAttributes.addFlashAttribute("mensagem","Colegiado Deletado com Sucesso");
         redirectAttributes.addFlashAttribute("colegiadoDeletado", true);
-        return model;
-    }
-
-    @GetMapping("{id}")
-    public ModelAndView editCoordenador(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
-        List<Professor> membros = new ArrayList<Professor>();
-        for(int i=0 ; i<4;i++){
-            membros.add(new Professor());
-        }
-        model.addObject("membros", membros);
-        model.addObject("colegiado", colegiadoService.getColegiadoPorId(id));
-        model.setViewName("administrador/colegiado/form");
-        redirectAttributes.addFlashAttribute("mensagem","Editado Deletado com Sucesso");
-        redirectAttributes.addFlashAttribute("colegiadoEditado", true);
         return model;
     }
 }

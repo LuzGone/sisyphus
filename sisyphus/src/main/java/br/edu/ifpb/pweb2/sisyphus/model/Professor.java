@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -24,13 +25,17 @@ public class Professor {
     @NotBlank(message="Campo obrigatório!")
     protected String nome;
     
+    @NotBlank(message="Campo obrigatório!")
     protected String fone;
 
     @NotBlank(message="Campo obrigatório!")
     @Pattern(regexp= "[0-9]{6}", message="Matrícula deve conter exatamente 6 números!")
     protected String matricula;
     
+    @NotBlank(message="Campo obrigatório!")
     protected String login;
+
+    @Size(min=3, max=42 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 42")
     protected String senha;
 
     @OneToMany(mappedBy = "relator")

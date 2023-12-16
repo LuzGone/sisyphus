@@ -38,6 +38,9 @@
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" th:href="@{/colegiados}">Colegiado</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenadores}">Coordenadores</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -49,8 +52,8 @@
         <div class="container">
             <h1 style="margin-top: 20px;margin-bottom: 20px;">Painel de Colegiados</h1>
             <hr>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"
-                data-bs-whatever="@mdo" style="margin-bottom: 20px;">Cadastrar Colegiados</button>
+            <a th:href="@{/colegiados/criar}" type="button" class="btn btn-primary"
+                style="margin-bottom: 20px;">Cadastrar Colegiados</a>
             <div role="alert" id="alerta-sucesso" class="alert d-flex align-items-center alert-dismissible fade show" th:classappend="${colegiadoSalvo} ? 'alert-success' : ''">
                 <div th:text="${mensagem}"></div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -84,62 +87,6 @@
                   </tr>
                 </tbody>
               </table>
-        </div>
-        
-            <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="max-width: 800px;">
-                <div class="modal-content">
-      
-                    <!-- INICIO DO FORM -->
-                    <form th:action="@{/colegiados}" method="post" th:object="${colegiado}">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalLabel">Cadastrar Colegiado</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <input type="hidden" th:field="*{id}"><br>
-                                <!--CURSO-->
-                                <div class="mb-3">
-                                    <label for="curso" class="form-label">Curso:</label>
-                                    <input type="text" id="curso" th:field="*{curso}" class="form-control" required>
-                                    <div class="invalid-feedback">
-                                        Por favor, digite o curso.
-                                    </div>
-                                </div>
-
-                                <!--Descrição-->
-                                <div class="mb-3">
-                                    <label for="descricao" class="form-label">Descrição:</label>
-                                    <textarea id="descricao" name="descricao" th:field="*{descricao}" class="form-control" required></textarea>
-                                    <div class="invalid-feedback">
-                                        Por favor, digite a descrição.
-                                    </div>
-                                </div>
-                                
-                                <!--MEMBROS-->
-                                
-                                <div class="col-md-6" th:each="membro, itemStat : ${membros}">
-                                    <div class="mb-3">
-                                        <label for="membro" class="form-label"></label>
-                                        <select class="form-select" required id="membro" th:field="*{membros[__${itemStat.index}__]}">
-                                            <option th:each="professor: ${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
-                                        </select>
-                                        <div class="invalid-feedback">
-                                            Por favor, escolha um Professor.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                                style="padding-left: 25px; padding-right:25px">Salvar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
     </main>
     <footer></footer>

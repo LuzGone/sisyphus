@@ -22,9 +22,13 @@ public class Colegiado {
     private int id;
     private Date dataInicio;
     private Date dataFim;
+
     @NotBlank(message="Campo obrigatório!")
     private String descricao;
+
     private String portaria;
+
+    @NotBlank(message="Campo obrigatório!")
     private String curso;
 
     @ManyToMany
