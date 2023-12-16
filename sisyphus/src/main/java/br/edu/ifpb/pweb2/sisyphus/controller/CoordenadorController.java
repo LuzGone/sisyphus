@@ -72,6 +72,15 @@ public class CoordenadorController {
         return this.alunoService.getAlunosComProcessos();
     }
 
+
+    //------ HOME -------
+    @GetMapping
+    public ModelAndView home(ModelAndView model){
+        model.setViewName("/coordenador/home");
+        return model;
+    }
+
+
     //------ PROCESSOS ---------
 
     @GetMapping("processos")
