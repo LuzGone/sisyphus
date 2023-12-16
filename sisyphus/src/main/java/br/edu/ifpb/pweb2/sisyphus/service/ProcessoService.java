@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ProcessoRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
+import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
 import br.edu.ifpb.pweb2.sisyphus.model.EstadoProcesso;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
@@ -44,6 +45,12 @@ public class ProcessoService {
     public Processo atribuirProcesso(Processo processo,Long id){
         Processo processoAtualizado = this.processoRepository.findById(id).orElse(new Processo());
         processoAtualizado.setRelator(processo.getRelator());
+        for (Colegiado colegiado : processo.getRelator().getListaColegiados()){
+            if(colegiado.getCurso() == processo.getRelator().getCurso()){
+                processoAtualizado.setColegiado(colegiado);
+                break;
+            }
+        }
         processoAtualizado.setEstadoProcesso(EstadoProcesso.DISTRIBUIDO);
         processoAtualizado.setDataDistribuicao(new Date());
         return this.processoRepository.save(processoAtualizado);

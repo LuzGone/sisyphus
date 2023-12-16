@@ -29,13 +29,10 @@
                             <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled text-white" aria-current="page" href="#">Processos</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
                         </li>
                     </ul>
                 </div>
@@ -45,7 +42,7 @@
     <main>
         <!--LISTAGEM--->
         <div style="margin: 30px;">
-            <h1 style="margin-top: 20px">Processo #[[${processo.numero}]]</h1>
+            <h1 style="margin-top: 20px">Distribuir Processo - #[[${processo.numero}]]</h1>
             <hr>
         </div>
         <!-- PROCESSO -->
@@ -92,7 +89,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!--FORM DO RELATOR-->
-                    <form th:action="@{/coordenador/processos/{id}(id=${processo.id})}" method="post" th:object="${processo}">
+                    <form th:action="@{/coordenador/{idCoordenador}/processos/{id}(idCoordenador=${coordenador.id},id=${processo.id})}" method="post" th:object="${processo}">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="modalLabel">Atribuir Relator</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

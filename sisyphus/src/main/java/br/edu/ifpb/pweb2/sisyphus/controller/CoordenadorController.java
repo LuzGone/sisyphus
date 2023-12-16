@@ -45,6 +45,11 @@ public class CoordenadorController {
     @Autowired
     private ColegiadoService colegiadoService;
 
+    @ModelAttribute("coordenador")
+    public Coordenador getCoordenador(@PathVariable("id") Long id){
+        return this.coordenadorService.getCoordenadorPorId(id);
+    }
+
     @ModelAttribute("relatores")
     public List<Professor> getRelatores(){
         return this.professorService.getProfessoresComProcessos();
@@ -76,16 +81,17 @@ public class CoordenadorController {
         return model;
     }
 
-    @PostMapping("{idProcesso}")
+    @PostMapping("processos/{idProcesso}")
     public ModelAndView salvarProcesso(
         ModelAndView model,
         Processo processo,
         @PathVariable("id")Long id,
+        @PathVariable("idProcesso")Long idProcesso,
         RedirectAttributes redirectAttributes
     ){ 
-            processoService.atribuirProcesso(processo,id);
+            processoService.atribuirProcesso(processo,idProcesso);
             model.addObject("processos", processoService.getProcessos());
-            model.setViewName("redirect:/coordenador/processos");
+            model.setViewName("redirect:/coordenador/"+id+"/processos");
             redirectAttributes.addFlashAttribute("mensagem", "Processo designado com Sucesso");
             return model;
     }
@@ -121,7 +127,5 @@ public class CoordenadorController {
         model.setViewName("/coordenador/criar-processo");
         return model;
     }
-
-
 
 }
