@@ -65,7 +65,7 @@
                 <div class="container col fs-4 border border-black">Data do Parecer: [[${processo.dataParecer}?:'-']]</div>
             </div>
             <div class="row">
-                <div class="container col fs-4 border border-black p-4">Documento do Parecer: [[${processo.parecer}?:'-']]</div>
+                <div class="container col fs-4 border border-black p-4">Documento do Parecer: [[${processo.justificativaRelator}?:'-']]</div>
                 <div class="container col fs-4 border border-black p-4">Documentos do Aluno: 
                     <span th:if="${processo.documento} != null">1 Documento</span>
                     <span th:unless="${processo.documento} != null">Nenhum Documento Anexado</span>

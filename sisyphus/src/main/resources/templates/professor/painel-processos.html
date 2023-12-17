@@ -66,6 +66,8 @@
                     <th scope="col">Assunto</th>
                     <th scope="col">Data de Criação</th>
                     <th scope="col">Relator</th>
+                    <th scope="col">Decisão</th>
+                    <th scope="col">Relator Votou?</th>
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
@@ -78,6 +80,14 @@
                     <td th:text="${processo.dataCriacao}"></td>
                     <td th:if="${processo.relator} == null">-</td>
                     <td th:unless="${processo.relator} == null" th:text="${processo.relator.nome}"></td>
+                    <td th:if="${processo.tipoDecisao} == null" >-</td>
+                    <td th:unless="${processo.tipoDecisao} == null" th:text="${processo.tipoDecisao}"></td>
+                    <td th:if="${processo.tipoDecisao} == null">
+                        <img style="width: 2rem;" th:src="@{/imagens/nao-votou.svg}" class="icon">
+                    </td>
+                    <td th:unless="${processo.tipoDecisao} == null">
+                        <img style="width: 2rem;" th:src="@{/imagens/votou.svg}" class="icon">
+                    </td>
                     <td>
                         <a th:href="@{/professor/{id}/processos/{idProcesso}(id=${professor.id},idProcesso=${processo.id})}" type="button" class="btn btn-primary">Consultar</a>
                     </td>

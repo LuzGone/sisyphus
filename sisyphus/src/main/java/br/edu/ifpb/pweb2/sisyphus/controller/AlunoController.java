@@ -1,9 +1,12 @@
 package br.edu.ifpb.pweb2.sisyphus.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,7 @@ import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.model.Assunto;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
 import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
+import br.edu.ifpb.pweb2.sisyphus.service.AssuntoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProcessoService;
 import jakarta.validation.Valid;
 
@@ -25,6 +29,14 @@ public class AlunoController {
 
     @Autowired
     private ProcessoService processoService;
+
+    @Autowired
+    private AssuntoService assuntoService;
+
+    @ModelAttribute("assuntos")
+    public List<Assunto> getAssuntos(){
+        return this.assuntoService.getAssuntos();
+    }
    
     @GetMapping
     public ModelAndView home(ModelAndView model, @PathVariable("id")Long id){

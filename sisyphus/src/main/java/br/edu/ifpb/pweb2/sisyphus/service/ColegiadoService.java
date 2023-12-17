@@ -29,6 +29,9 @@ public class ColegiadoService {
     }
 
     public Colegiado salvarColegiado(Colegiado colegiado){
+        Coordenador coordenador = colegiado.getCoordenador();
+        Professor professorCoordenador = coordenador.getProfessor();
+        professorCoordenador.adicionarColegiado(colegiado);
         for(Professor professor : colegiado.getMembros() ){
             professor.adicionarColegiado(colegiado);
         }
