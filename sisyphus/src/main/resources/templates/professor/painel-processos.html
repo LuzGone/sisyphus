@@ -79,7 +79,7 @@
                     <td th:if="${processo.relator} == null">-</td>
                     <td th:unless="${processo.relator} == null" th:text="${processo.relator.nome}"></td>
                     <td>
-                        <button type="button" class="btn btn-primary">Consultar</button>
+                        <a th:href="@{/professor/{id}/processos/{idProcesso}(id=${professor.id},idProcesso=${processo.id})}" type="button" class="btn btn-primary">Consultar</a>
                     </td>
                 </tr>
             </tbody>

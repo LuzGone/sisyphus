@@ -1,155 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Colegiado - Página do Professor</title>
-    <link rel="stylesheet" href="/sisyphus/src/main/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Professor</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
-
 <body>
-     <!--NAV BAR-->
-    <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-        <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-            <div>
-                <a class="navbar-brand" href="#">
-                    <img src="/sisyphus/src/main/resources/templates/sisiphus.png" alt="Ícone" width="50" height="50">
-                </a>
-                <a class="navbar-brand text-white" href="#">SISYPHUS</a>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!--LISTAGEM DE PROCESSOS--->
-    <div style="margin: 30px;">
-        <h1 style="margin-top: 20px">Processos</h1>
-        <hr>
-        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
-            <div class="btn-group">
-                <div class="col-auto" >
-                    <label class="visually-hidden" for="filterPesquisa">Pesquisa</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="filterPesquisa"
-                            placeholder="Pesquisar...">
-                        <div class="input-group-text"><i class="fas fa-search"></i></div>
-                    </div>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
+            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
+                <div>
+                    <a class="navbar-brand" href="#">
+                        <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
+                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}(id=${professor.id})}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}/processos(id=${professor.id})}">Processos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}/reunioes(id=${professor.id})}">Reuniões</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </nav>
+    </header>
+    <main>
+        <div style="margin: 30px;">
+            <h1 style="margin-top: 20px">Processo de [[${processo.aluno.nome}]] - #[[${processo.numero}]]</h1>
+            <hr>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Requisitante</th>
-                    <th scope="col">Assunto</th>
-                    <th scope="col">Relator</th>
-                    <th scope="col">Opções</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1458746</th>
-                    <td>João Moreia</td>
-                    <td>Trancamento de matrícula</td>
-                    <td>Frederico de Oliveira</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            data-bs-whatever="@mdo">Votar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">1458746</th>
-                    <td>Ana Moreia</td>
-                    <td>matrícula</td>
-                    <td>Luis Oliveira</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            data-bs-whatever="@mdo">Votar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <!-- MODAL PARA VOTAR -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form>
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Processo #1458746</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="mb-3">
-                                <p><strong>Assunto:</strong> Trancamento</p>
-                                <p><strong>Requisitante:</strong> João Moreira</p>
-                                <p><strong>Relator:</strong> Frederico de Oliveira</p>
-                                <p><strong>Justificativa:</strong> Blasdh sdhuhas duhsud</p>
-                            </div>
-    
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Justificar voto:</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Indeferir</button>
-                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal"
-                            style="padding-left: 25px; padding-right: 25px">Deferir</button>
-                    </div>
-                </form>
+        <!--PROCESSO-->
+        <form th:action="@{/professor/{id}/processos/{idProcesso}(id=${professor.id},idProcesso=${processo.id})}" class="container" method="post" th:object="${processo}">
+            <div class="row">
+                <!--Número-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Número do Processo:</label>
+                    <input disabled class="form-control" type="number" id="data" th:value="${processo.numero}"></input>
+                </div>
+                <!--Data Criação-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Data da Criação:</label>
+                    <input disabled class="form-control" type="text" id="data" th:value="${processo.dataCriacao}"></input>
+                </div>
+                <!--Data Distribuição-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Data da Distribuição:</label>
+                    <input disabled class="form-control" type="text" id="data" th:value="${processo.dataDistribuicao}"></input>
+                </div>
+                <!--Data do Parecer-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Data do Parecer:</label>
+                    <input disabled class="form-control" type="text" id="data" th:value="${processo.dataParecer}"></input>
+                </div>
+                <!--Nome do Relator-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Relator:</label>
+                    <input disabled class="form-control" type="text" id="data" th:value="${processo.relator.nome}"></input>
+                </div>
+                <!--Nome do Aluno-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Aluno:</label>
+                    <input disabled class="form-control" type="text" id="data" th:value="${processo.aluno.nome}"></input>
+                </div>
+                <!--Nome do Colegiado-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Colegiado:</label>
+                    <input disabled class="form-control" type="text" id="data" th:value="${processo.colegiado.descricao}"></input>
+                </div>
+                <!--Assunto-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Assunto:</label>
+                    <input disabled class="form-control" type="text" id="data" th:value="${processo.assunto.nome}"></input>
+                </div>
+                <!--Texto de Requerimento-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Motivo do Requerimento:</label>
+                    <textarea disabled class="form-control" type="text" id="data" th:text="${processo.textoRequerimento}" rows="4"></textarea>
+                </div>
+                <!--Tipo de Decisão-->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Decisão do Processo:</label>
+                    <select th:if="${processo.tipoDecisao} == null" class="form-select" id="processo" th:field="*{tipoDecisao}">
+                        <option th:value="${Deferido}" th:text="DEFERIDO"></option>
+                        <option th:value="${Indeferido}" th:text="INDEFERIDO"></option>
+                    </select>
+                    <input th:unless="${processo.tipoDecisao} == null" disabled class="form-control" type="text" id="data" th:value="${processo.tipoDecisao}"></input>
+                </div>
+                <!--Justificativa da Decisão -->
+                <div class="mb-3">
+                    <label for="data" class="form-label">Justificativa do Relator:</label>
+                    <textarea th:if="${processo.justificativaRelator} == null" class="form-control" type="text" id="data" th:field="*{justificativaRelator}" rows="4"></textarea>
+                    <textarea th:unless="${processo.justificativaRelator} == null" disabled class="form-control" type="text" id="data" th:text="${processo.justificativaRelator}" rows="4"></textarea>
+                </div>
+                <div th:if="${processo.tipoDecisao} == null"  class="mb-3">
+                    <button type="submit" class="btn btn-primary">Atribuir Decisão</button>
+                    <a th:ref="@{/professor/{id}/processos(id=${professor.id})}" class="btn btn-danger">Cancelar</a>
+                </div>
+                <div th:unless="${processo.tipoDecisao} == null"  class="mb-3">
+                    <a th:href="@{/professor/{id}/processos(id=${professor.id})}" class="btn btn-secondary">Voltar</a>
+                </div>
             </div>
+        </form>   
+    </main>
+    <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+          </a>
+          <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Sisyphus - IFPB </span>
         </div>
-    </div>
+    </footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- FILTRO POR PESQUISA-->
-    <script>
-        $(document).ready(function () {
-            $('#filterPesquisa').on('input', function () {
-                var pesquisa = $('#filterPesquisa').val().toLowerCase();
-                filterTable(pesquisa);
-            });
-    
-            function filterTable(pesquisa) {
-                var rows = $('table tbody tr');
-                rows.show();
-    
-                rows.filter(function () {
-                    var text = $(this).text().toLowerCase();
-                    return (pesquisa && text.indexOf(pesquisa) === -1)
-                }).hide();
-            }
-        });
-    </script>
-    
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
-    <script src="/sisyphus/src/main/resources/js/bootstrap.bundle.min.js"></script>
-    <script src="/sisyphus/src/main/resources/js/popper.min.js"></script>
-    <script src="/sisyphus/src/main/resources/js/bootstrap.min.js"></script>
-    </script>
 </html>

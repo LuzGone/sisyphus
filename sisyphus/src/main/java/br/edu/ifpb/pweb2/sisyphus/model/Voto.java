@@ -19,6 +19,7 @@ public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private boolean ausente;
 
     @OneToOne

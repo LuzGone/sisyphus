@@ -29,8 +29,9 @@ public class Processo {
     private Date dataCriacao;
     private Date dataDistribuicao;
     private Date dataParecer;
-    private byte[] parecer;
     private byte[] documento;
+
+    private String justificativaRelator;
 
     @ManyToOne
     private Professor relator;

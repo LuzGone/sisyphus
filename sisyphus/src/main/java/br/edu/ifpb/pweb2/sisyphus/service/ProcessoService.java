@@ -42,6 +42,13 @@ public class ProcessoService {
         return this.processoRepository.save(processo);
     }
 
+    public Processo atualizarProcesso(Processo processo, Long id){
+        Processo processoAtualizado = this.processoRepository.findById(id).orElse(new Processo());
+        processoAtualizado.setJustificativaRelator(processo.getJustificativaRelator());
+        processoAtualizado.setTipoDecisao(processo.getTipoDecisao());
+        return this.processoRepository.save(processoAtualizado);
+    }
+
     public Processo atribuirProcesso(Processo processo,Long id){
         Processo processoAtualizado = this.processoRepository.findById(id).orElse(new Processo());
         processoAtualizado.setRelator(processo.getRelator());
