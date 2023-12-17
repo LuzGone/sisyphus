@@ -76,7 +76,7 @@
                     <td th:unless="${reuniao.processos} == null" th:text="${reuniao.processos.size()}"></td>
                      
                     <td>
-                        <a href="#" type="button" class="btn btn-primary">Consultar</a>
+                        <a th:href="@{/professor/{id}/reunioes/{idReuniao}(id=${professor.id},idReuniao=${reuniao.id})}" type="button" class="btn btn-primary">Consultar</a>
                     </td>
                 </tr>
             </tbody>

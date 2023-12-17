@@ -15,6 +15,7 @@ import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 import br.edu.ifpb.pweb2.sisyphus.model.Reuniao;
 import br.edu.ifpb.pweb2.sisyphus.service.ProcessoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
+import br.edu.ifpb.pweb2.sisyphus.service.ReuniaoService;
 
 @Controller
 @RequestMapping("/professor/{id}")
@@ -25,6 +26,9 @@ public class ProfessorController {
 
     @Autowired
     private ProfessorService professorService;
+
+    @Autowired
+    private ReuniaoService reuniaoService;
 
     @ModelAttribute("professor")
     public Professor getProfessor(@PathVariable("id") Long id){
@@ -62,6 +66,13 @@ public class ProfessorController {
         List<Reuniao> reunioes = colegiado.getReuniaos();
         model.addObject("reunioes", reunioes);
         model.setViewName("/professor/painel-reunioes");
+        return model;
+    }
+
+    @GetMapping("/reunioes/{idReuniao}")
+    public ModelAndView showReuniao(ModelAndView model, @PathVariable("idReuniao") Long idReuniao){
+        model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));
+        model.setViewName("/professor/reuniao");
         return model;
     }
 
