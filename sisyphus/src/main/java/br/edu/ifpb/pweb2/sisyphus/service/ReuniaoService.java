@@ -25,7 +25,12 @@ public class ReuniaoService {
         return this.reuniaoRepository.findById(id).orElse(null);
     }
 
-    public Reuniao iniciarReuniao(Reuniao reuniao, Long id){
+    public Reuniao iniciarReuniao(Reuniao reuniao, Long id) throws Exception{
+        for(Reuniao reuniao2 : this.reuniaoRepository.findAll()){
+            if(reuniao2.getStatus().equals(StatusReuniao.EM_ANDAMENTO)){
+                throw new Exception("Já existe uma reunião em andamento!");
+            }
+        }
         Reuniao reuniaoAtualizada = this.reuniaoRepository.findById(id).orElse(null);
         reuniaoAtualizada.setStatus(StatusReuniao.EM_ANDAMENTO);
         for(Processo processo : reuniaoAtualizada.getProcessos()){

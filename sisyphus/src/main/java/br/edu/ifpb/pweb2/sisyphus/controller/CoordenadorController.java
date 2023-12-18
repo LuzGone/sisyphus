@@ -216,11 +216,22 @@ public class CoordenadorController {
     }
 
     @PostMapping("reunioes/{idReuniao}/iniciar")
-    public ModelAndView iniciarReuniao(Reuniao reuniao,ModelAndView model, @PathVariable("id") Long id,@PathVariable("idReuniao") Long idReuniao){
-        this.reuniaoService.iniciarReuniao(reuniao,idReuniao);
-        model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));
-        model.setViewName("redirect:/coordenador/"+id+"/reunioes/"+idReuniao+"/painel");
-        return model;
+    public ModelAndView iniciarReuniao(Reuniao reuniao,ModelAndView model, @PathVariable("id") Long id,@PathVariable("idReuniao") Long idReuniao, RedirectAttributes redirectAttributes){
+        try{
+            this.reuniaoService.iniciarReuniao(reuniao,idReuniao);
+            model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));
+            model.setViewName("redirect:/coordenador/"+id+"/reunioes/"+idReuniao+"/painel");
+            return model;
+        }catch(Exception e){
+            Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
+            Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
+            model.addObject("reunioes", colegiado.getReuniaos());
+            model.setViewName("redirect:/coordenador/"+id+"/reunioes");
+            redirectAttributes.addFlashAttribute("mensagem", e.getMessage());
+            //redirectAttributes.addFlashAttribute("reuniaoIniciada", false);
+            return model;
+        }
+        
     }
 
     @GetMapping("reunioes/{idReuniao}/painel")

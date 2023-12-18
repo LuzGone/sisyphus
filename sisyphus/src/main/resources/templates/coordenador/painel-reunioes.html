@@ -54,6 +54,10 @@
             </div>
         </div>
         <a th:href="@{reunioes/criar}" class="btn btn-primary justify-self-center">Criar Reunião</a>
+        <div role="alert" id="alerta" class="alert d-flex align-items-center alert-dismissible fade show" th:if="${mensagem ne null}">
+            <div th:text="${mensagem}"></div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <!--TABELA DE PROCESSOS-->
         <table class="table">
             <thead>
