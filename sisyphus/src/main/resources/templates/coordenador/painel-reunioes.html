@@ -62,6 +62,7 @@
                     <th scope="col">Data</th>
                     <th scope="col">Status da Reunião</th>
                     <th scope="col">Quantidade de Processos</th>
+                    <th scope="col">Opções</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,9 +76,10 @@
 
                     <td th:if="${reuniao.processos} == null">-</td>
                     <td th:unless="${reuniao.processos} == null" th:text="${reuniao.processos.size()}"></td>
-                     
                     <td>
-                        <a href="#" type="button" class="btn btn-primary">Consultar</a>
+                        <a th:if="${reuniao.status}==${programada}" th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" type="button" class="btn btn-success">Iniciar</a>
+                        <a th:if="${reuniao.status}==${emAndamento}" th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" type="button" class="btn btn-success">Entrar</a>
+                        <a th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" type="button" class="btn btn-primary">Consultar</a>
                     </td>
                 </tr>
             </tbody>

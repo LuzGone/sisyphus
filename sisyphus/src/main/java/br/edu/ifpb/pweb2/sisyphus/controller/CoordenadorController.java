@@ -28,6 +28,7 @@ import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 import br.edu.ifpb.pweb2.sisyphus.model.Reuniao;
+import br.edu.ifpb.pweb2.sisyphus.model.StatusReuniao;
 
 
 @Controller
@@ -51,6 +52,21 @@ public class CoordenadorController {
 
     @Autowired
     private ReuniaoService reuniaoService;
+
+    @ModelAttribute("programada")
+    public StatusReuniao getProgramada(){
+        return StatusReuniao.PROGRAMADA;
+    }
+
+    @ModelAttribute("emAndamento")
+    public StatusReuniao getEmAndamento(){
+        return StatusReuniao.EM_ANDAMENTO;
+    }
+
+    @ModelAttribute("encerrada")
+    public StatusReuniao getEncerrada(){
+        return StatusReuniao.ENCERRADA;
+    }
 
     @ModelAttribute("coordenador")
     public Coordenador getCoordenador(@PathVariable("id") Long id){
@@ -86,7 +102,7 @@ public class CoordenadorController {
     @GetMapping("processos")
     public ModelAndView showPainelProcessos(ModelAndView model){
         model.addObject("processos", processoService.getProcessos());
-        model.setViewName("/coordenador/painel");
+        model.setViewName("/coordenador/painel-processos");
         return model;
     }
 
@@ -119,7 +135,7 @@ public class CoordenadorController {
         Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
         Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
         model.addObject("reunioes", colegiado.getReuniaos());
-        model.setViewName("/coordenador/reunioes");
+        model.setViewName("/coordenador/painel-reunioes");
         return model;
     }
 
@@ -188,6 +204,21 @@ public class CoordenadorController {
         model.setViewName("redirect:/coordenador/"+id+"/reunioes");
         redirectAttributes.addFlashAttribute("mensagem", "Reunião Criada com Sucesso");
         redirectAttributes.addFlashAttribute("reuniaoSalvos", true);
+        return model;
+    }
+
+    //REUNIÃO
+    @GetMapping("reunioes/{idReuniao}")
+    public ModelAndView showReuniao(ModelAndView model, @PathVariable("id") Long id,@PathVariable("idReuniao") Long idReuniao){
+        model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));
+        model.setViewName("/coordenador/reuniao");
+        return model;
+    }
+
+    @GetMapping("reunioes/{idReuniao}/painel")
+    public ModelAndView showReuniaoPainel(ModelAndView model, @PathVariable("id") Long id,@PathVariable("idReuniao") Long idReuniao){
+        model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));
+        model.setViewName("/coordenador/reuniao");
         return model;
     }
     
