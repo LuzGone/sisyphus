@@ -25,6 +25,15 @@ public class ReuniaoService {
         return this.reuniaoRepository.findById(id).orElse(null);
     }
 
+    public Reuniao iniciarReuniao(Reuniao reuniao, Long id){
+        Reuniao reuniaoAtualizada = this.reuniaoRepository.findById(id).orElse(null);
+        reuniaoAtualizada.setStatus(StatusReuniao.EM_ANDAMENTO);
+        for(Processo processo : reuniaoAtualizada.getProcessos()){
+            processo.setEstadoProcesso(EstadoProcesso.EM_JULGAMENTO);
+        }
+        return this.reuniaoRepository.save(reuniaoAtualizada);
+    }
+
     public Reuniao salvarReuniao(Reuniao reuniao){
         List<Processo> processosSelecionados = new ArrayList<Processo>();
         reuniao.setStatus(StatusReuniao.PROGRAMADA);

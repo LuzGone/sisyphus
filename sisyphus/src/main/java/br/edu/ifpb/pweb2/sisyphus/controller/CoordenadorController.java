@@ -215,6 +215,14 @@ public class CoordenadorController {
         return model;
     }
 
+    @PostMapping("reunioes/{idReuniao}/iniciar")
+    public ModelAndView iniciarReuniao(Reuniao reuniao,ModelAndView model, @PathVariable("id") Long id,@PathVariable("idReuniao") Long idReuniao){
+        this.reuniaoService.iniciarReuniao(reuniao,idReuniao);
+        model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));
+        model.setViewName("redirect:/coordenador/"+id+"/reunioes/"+idReuniao+"/painel");
+        return model;
+    }
+
     @GetMapping("reunioes/{idReuniao}/painel")
     public ModelAndView showReuniaoPainel(ModelAndView model, @PathVariable("id") Long id,@PathVariable("idReuniao") Long idReuniao){
         model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));

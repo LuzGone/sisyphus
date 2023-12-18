@@ -76,8 +76,10 @@
 
                     <td th:if="${reuniao.processos} == null">-</td>
                     <td th:unless="${reuniao.processos} == null" th:text="${reuniao.processos.size()}"></td>
-                    <td>
-                        <a th:if="${reuniao.status}==${programada}" th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" type="button" class="btn btn-success">Iniciar</a>
+                    <td class="d-flex gap-1">
+                        <form th:if="${reuniao.status}==${programada}" th:action="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/iniciar(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" method="post" th:object="${reuniao}">
+                            <button type="submit" class="btn btn-success">Iniciar</button>
+                        </form>
                         <a th:if="${reuniao.status}==${emAndamento}" th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" type="button" class="btn btn-success">Entrar</a>
                         <a th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" type="button" class="btn btn-primary">Consultar</a>
                     </td>
