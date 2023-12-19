@@ -25,10 +25,13 @@ import java.util.List;
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
 import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
+import br.edu.ifpb.pweb2.sisyphus.model.EstadoProcesso;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 import br.edu.ifpb.pweb2.sisyphus.model.Reuniao;
 import br.edu.ifpb.pweb2.sisyphus.model.StatusReuniao;
+import br.edu.ifpb.pweb2.sisyphus.model.TipoVoto;
+import br.edu.ifpb.pweb2.sisyphus.model.Voto;
 
 
 @Controller
@@ -52,6 +55,26 @@ public class CoordenadorController {
 
     @Autowired
     private ReuniaoService reuniaoService;
+
+    @ModelAttribute("comRelator")
+    public TipoVoto getComRelator(){
+        return TipoVoto.COM_RELATOR;
+    }
+
+    @ModelAttribute("divergente")
+    public TipoVoto getDivergente(){
+        return TipoVoto.DIVERGENTE;
+    }
+
+    @ModelAttribute("ausente")
+    public TipoVoto getAusente(){
+        return TipoVoto.AUSENTE;
+    }
+
+    @ModelAttribute("emJulgamento")
+    public EstadoProcesso getEmJulgamento(){
+        return EstadoProcesso.EM_JULGAMENTO;
+    }
 
     @ModelAttribute("programada")
     public StatusReuniao getProgramada(){
@@ -219,8 +242,11 @@ public class CoordenadorController {
     public ModelAndView iniciarReuniao(Reuniao reuniao,ModelAndView model, @PathVariable("id") Long id,@PathVariable("idReuniao") Long idReuniao, RedirectAttributes redirectAttributes){
         try{
             this.reuniaoService.iniciarReuniao(reuniao,idReuniao);
+            Reuniao reuniao2 = this.reuniaoService.getReuniaoPorId(idReuniao);
+            Processo processo = reuniao2.getProcessos().get(0);
+            model.addObject("processo", processo);
             model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));
-            model.setViewName("redirect:/coordenador/"+id+"/reunioes/"+idReuniao+"/painel");
+            model.setViewName("redirect:/coordenador/"+id+"/reunioes/"+idReuniao+"/painel/"+processo.getId());
             return model;
         }catch(Exception e){
             Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
@@ -236,8 +262,80 @@ public class CoordenadorController {
 
     @GetMapping("reunioes/{idReuniao}/painel")
     public ModelAndView showReuniaoPainel(ModelAndView model, @PathVariable("id") Long id,@PathVariable("idReuniao") Long idReuniao){
-        model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));
-        model.setViewName("/coordenador/reuniao");
+        Reuniao reuniao = this.reuniaoService.getReuniaoPorId(idReuniao);
+        model.addObject("processo", reuniao.getProcessos().get(0));
+        model.addObject("reuniao", reuniao);
+        model.setViewName("/coordenador/painel-reuniao");
+        return model;
+    }
+
+    @GetMapping("reunioes/{idReuniao}/painel/{idProcesso}")
+    public ModelAndView showReuniaoPainel(
+        ModelAndView model, 
+        @PathVariable("id") Long id,
+        @PathVariable("idReuniao") Long idReuniao, 
+        @PathVariable("idProcesso") Long idProcesso
+        ){
+        Reuniao reuniao = this.reuniaoService.getReuniaoPorId(idReuniao);
+        Processo processo = this.processoService.getProcessoPorId(idProcesso);
+        Colegiado colegiado = reuniao.getColegiado();
+        List<Voto> listaVotos = new ArrayList<Voto>();
+        for(Professor membro: colegiado.getMembros()){
+            Voto voto = new Voto();
+            if(membro == processo.getRelator()){
+                Coordenador coordenador = colegiado.getCoordenador();
+                Professor professor = coordenador.getProfessor();
+                voto.setProfessor(professor);
+            }else{
+                Professor professor = membro;
+                voto.setProfessor(professor);
+            }
+            voto.setProcesso(processo);
+            listaVotos.add(voto);
+        }
+        processo.setListaDeVotos(listaVotos);
+        System.out.println(processo.getListaDeVotos());
+        model.addObject("processo", processo);
+        model.addObject("listaVotos", listaVotos);
+        model.addObject("reuniao", reuniao);
+        model.setViewName("/coordenador/painel-reuniao");
+        return model;
+    }
+
+    @PostMapping("reunioes/{idReuniao}/painel/{idProcesso}")
+    public ModelAndView judgeProcesso(
+        Processo processo,
+        ModelAndView model, 
+        @PathVariable("id") Long id,
+        @PathVariable("idReuniao") Long idReuniao, 
+        @PathVariable("idProcesso") Long idProcesso
+        ){
+        System.out.println(processo.getListaDeVotos());
+        processoService.julgarProcesso(processo, idProcesso);
+        Processo novoProcesso = processoService.getProcessoPorId(idProcesso);
+        Reuniao reuniao = this.reuniaoService.getReuniaoPorId(idReuniao);
+        List<Voto> listaVotos = new ArrayList<Voto>();
+        for(Professor membro: reuniao.getColegiado().getMembros()){
+            Voto voto = new Voto();
+            voto.setProcesso(novoProcesso);
+            voto.setProfessor(membro);
+            listaVotos.add(voto);
+        }
+        novoProcesso.setListaDeVotos(listaVotos);
+        model.addObject("processo", novoProcesso);
+        model.addObject("listaVotos", listaVotos);
+        model.addObject("reuniao", reuniao);
+        model.setViewName("redirect:/coordenador/"+id+"/reunioes/"+idReuniao+"/painel/"+idProcesso);
+        return model;
+    }
+
+    @PostMapping("reunioes/{idReuniao}/painel/encerrar")
+    public ModelAndView finishReuniao(Reuniao reuniao,ModelAndView model, @PathVariable("id") Long id, @PathVariable("idReuniao") Long idReuniao){
+        reuniaoService.encerrarReuniao(reuniao, idReuniao);
+        Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
+        Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
+        model.addObject("reunioes", colegiado.getReuniaos());
+        model.setViewName("/coordenador/painel-reunioes");
         return model;
     }
     

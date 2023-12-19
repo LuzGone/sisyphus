@@ -54,6 +54,12 @@ public class ReuniaoService {
         return this.reuniaoRepository.save(reuniao);
     }
 
+    public Reuniao encerrarReuniao(Reuniao reuniao, Long id){
+        Reuniao reuniaoAtualizada = this.reuniaoRepository.findById(id).orElse(null);
+        reuniaoAtualizada.setStatus(StatusReuniao.ENCERRADA);
+        return this.reuniaoRepository.save(reuniaoAtualizada);
+    }
+
     public void apagarReuniao(Long id){
         this.reuniaoRepository.deleteById(id);
     }

@@ -20,9 +20,7 @@ public class Voto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private boolean ausente;
-
-    @OneToOne
+    @ManyToOne
     private Professor professor;
 
     @ManyToOne
@@ -30,9 +28,5 @@ public class Voto {
 
     @Enumerated(EnumType.STRING)
     private TipoVoto tipoVoto;
-
-    public Voto(boolean ausente) {
-        this.ausente = ausente;
-    }
 
 }
