@@ -1,9 +1,12 @@
-package br.edu.ifpb.pweb2.sisyphus.controller;
+package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
+import br.edu.ifpb.pweb2.sisyphus.model.Curso;
 import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
 import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
 import jakarta.validation.Valid;
@@ -25,26 +29,31 @@ public class AlunosController {
     @Autowired
     private CursoService cursoService;
 
+    @ModelAttribute("cursos")
+    public List<Curso> getListaDeCursos(){
+        return this.cursoService.getCursos();
+    }
+
     @GetMapping
-    public ModelAndView listAlunos(ModelAndView model){
-        //Primeiro Adicionamos os objetos que vamos acessar nas paginas atraves do model
+    public ModelAndView listarAlunos(ModelAndView model){
         model.addObject("alunos", alunoService.getAlunos());
-        //Depois Dizemos o caminho da view
         model.setViewName("administrador/aluno/painel");
         return model;
     }
 
     @GetMapping("criar")
-    public ModelAndView createAluno(ModelAndView model, RedirectAttributes redirectAttributes ){
+    public ModelAndView criarAluno(
+        ModelAndView model, 
+        RedirectAttributes redirectAttributes 
+        ){
         model.addObject("aluno", new Aluno());
-        model.addObject("cursos", this.cursoService.getCursos());
         model.addObject("acao", "salvar");
         model.setViewName("administrador/aluno/form");
         return model;
     }
 
     @PostMapping("criar")
-    public ModelAndView saveAluno(
+    public ModelAndView salvarAluno(
         @Valid Aluno aluno,
         BindingResult validation, 
         ModelAndView model, 
@@ -62,18 +71,18 @@ public class AlunosController {
     }
 
     @GetMapping("{id}")
-    public ModelAndView editAluno(@PathVariable("id")Long id, ModelAndView model, RedirectAttributes redirectAttributes ){
+    public ModelAndView editarAluno(
+        @PathVariable("id")Long id, 
+        ModelAndView model, 
+        RedirectAttributes redirectAttributes ){
         model.addObject("aluno", alunoService.getAlunoPorId(id));
-        model.addObject("cursos", this.cursoService.getCursos());
         model.addObject("acao", "editar");
         model.setViewName("administrador/aluno/form");
-        redirectAttributes.addFlashAttribute("mensagem", "Aluno Editado com Sucesso");
-        redirectAttributes.addFlashAttribute("alunoEditado", true);
         return model;
     }
 
     @PostMapping("{id}")
-    public ModelAndView updateAluno(
+    public ModelAndView atualizarAluno(
         @Valid Aluno aluno, 
         BindingResult validation,
         @PathVariable("id") Long id,
@@ -88,18 +97,18 @@ public class AlunosController {
         alunoService.salvarAluno(aluno);
         model.addObject("alunos", alunoService.getAlunos());
         model.setViewName("redirect:/alunos");
-        redirectAttributes.addFlashAttribute("mensagem", "Aluno Salvo com Sucesso");
+        redirectAttributes.addFlashAttribute("mensagem", "Aluno foi salvo com sucesso");
         redirectAttributes.addFlashAttribute("alunoSalvo", true); // Se o aluno for salvo com sucesso
         return model;
     }
 
 
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteAluno(ModelAndView model,@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+    public ModelAndView deletarAluno(ModelAndView model,@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
         this.alunoService.apagarAluno(id);
         model.addObject("alunos", alunoService.getAlunos());
         model.setViewName("redirect:/alunos");
-        redirectAttributes.addFlashAttribute("mensagem", "Aluno Deletado com Sucesso");
+        redirectAttributes.addFlashAttribute("mensagem", "Aluno foi deletado com sucesso.");
         redirectAttributes.addFlashAttribute("alunoDeletado", true);
         return model;
     }

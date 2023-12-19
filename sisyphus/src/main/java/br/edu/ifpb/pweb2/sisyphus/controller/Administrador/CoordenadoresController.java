@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.sisyphus.controller;
+package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
 
 import java.util.List;
 
@@ -45,14 +45,14 @@ public class CoordenadoresController {
     }
 
     @GetMapping
-    public ModelAndView listCoordenadores(ModelAndView model){
+    public ModelAndView listarCoordenadores(ModelAndView model){
         model.addObject("coordenadores", coordenadorService.getCoordenadores());
         model.setViewName("administrador/coordenador/painel");
         return model;
     }
 
     @GetMapping("criar")
-    public ModelAndView createCoordenador(ModelAndView model, RedirectAttributes redirectAttributes ){
+    public ModelAndView criarCoordenador(ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("coordenador", new Coordenador());
         model.addObject("acao", "salvar");
         model.setViewName("administrador/coordenador/form");
@@ -60,7 +60,7 @@ public class CoordenadoresController {
     }
 
     @PostMapping("criar")
-    public ModelAndView saveCoordenador(
+    public ModelAndView salvarCoordenador(
         @Valid Coordenador coordenador,
         BindingResult validation, 
         ModelAndView model, 
@@ -80,7 +80,7 @@ public class CoordenadoresController {
     }
 
     @GetMapping("{id}")
-    public ModelAndView editCoordenador(@PathVariable("id") long id, ModelAndView model){
+    public ModelAndView editarCoordenador(@PathVariable("id") long id, ModelAndView model){
         model.addObject("coordenador", coordenadorService.getCoordenadorPorId(id));
         model.addObject("acao", "editar");
         model.setViewName("administrador/coordenador/form");
@@ -88,7 +88,7 @@ public class CoordenadoresController {
     }
 
     @PostMapping("{id}")
-    public ModelAndView updateCoordenador(
+    public ModelAndView atualizarCoordenador(
         @Valid Coordenador coordenador, 
         BindingResult validation,
         @PathVariable("id") Long id,
@@ -109,7 +109,7 @@ public class CoordenadoresController {
     }
 
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteCoordenador(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView deletarCoordenador(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         coordenadorService.deletarCoordenador(id);
         model.addObject("coordenadores", coordenadorService.getCoordenadores());
         model.setViewName("redirect:/coordenadores");

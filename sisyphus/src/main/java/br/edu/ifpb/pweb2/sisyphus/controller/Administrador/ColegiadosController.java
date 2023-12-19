@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.sisyphus.controller;
+package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +40,7 @@ public class ColegiadosController {
     @Autowired
     private CursoService cursoService;
     
+    //ATRIBUTOS
     @ModelAttribute("professores")
     public List<Professor> getProfessores(){
         return this.professorService.getProfessores();
@@ -55,15 +56,16 @@ public class ColegiadosController {
         return this.coordenadorService.getCoordenadores();
     }
 
+    //GETS E POSTS
     @GetMapping
-    public ModelAndView listColegiados(ModelAndView model){
+    public ModelAndView listarColegiados(ModelAndView model){
         model.addObject("colegiados", colegiadoService.getColegiados());
         model.setViewName("administrador/colegiado/painel");
         return model;
     }
 
     @GetMapping("criar")
-    public ModelAndView createColegiado(ModelAndView model, RedirectAttributes redirectAttributes ){
+    public ModelAndView criarColegiado(ModelAndView model, RedirectAttributes redirectAttributes ){
         List<Professor> membros = new ArrayList<Professor>();
         for(int i=0 ; i<4;i++){
             membros.add(new Professor());
@@ -76,7 +78,7 @@ public class ColegiadosController {
     }
 
     @PostMapping("criar")
-    public ModelAndView saveColegiado(
+    public ModelAndView salvarColegiado(
         @Valid Colegiado colegiado,
         BindingResult validation, 
         ModelAndView model, 
@@ -101,7 +103,7 @@ public class ColegiadosController {
     }
 
     @GetMapping("{id}")
-    public ModelAndView editColegiado(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView editarColegiado(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         List<Professor> membros = new ArrayList<Professor>();
         for(int i=0 ; i<4;i++){
             membros.add(new Professor());
@@ -110,13 +112,11 @@ public class ColegiadosController {
         model.addObject("colegiado", colegiadoService.getColegiadoPorId(id));
         model.addObject("acao", "editar");
         model.setViewName("administrador/colegiado/form");
-        redirectAttributes.addFlashAttribute("mensagem","Colegiado Editado com Sucesso");
-        redirectAttributes.addFlashAttribute("colegiadosEditado", true);
         return model;
     }
 
     @PostMapping("{id}")
-    public ModelAndView updateColegiado(
+    public ModelAndView atualizarColegiado(
         @Valid Colegiado colegiado, 
         BindingResult validation,
         @PathVariable("id") Long id,
@@ -143,7 +143,7 @@ public class ColegiadosController {
 
 
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteColegiado(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView deletarColegiado(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         colegiadoService.deletarColegiado(id);
         model.addObject("colegiados", colegiadoService.getColegiados());
         model.addObject("colegiado", new Colegiado(new ArrayList<Professor>()));

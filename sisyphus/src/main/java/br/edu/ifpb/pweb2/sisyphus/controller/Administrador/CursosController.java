@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.sisyphus.controller;
+package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class CursosController {
     private CursoService cursoService;
 
     @GetMapping
-    public ModelAndView listCursos(ModelAndView model){
+    public ModelAndView listarCursos(ModelAndView model){
         model.addObject("cursos", cursoService.getCursos());
         model.addObject("curso", new Curso());
         model.setViewName("administrador/curso/painel");
@@ -30,7 +30,7 @@ public class CursosController {
     }
 
     @GetMapping("criar")
-    public ModelAndView createCurso(ModelAndView model, RedirectAttributes redirectAttributes ){
+    public ModelAndView criarCurso(ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("curso", new Curso());
         model.addObject("acao", "salvar");
         model.setViewName("administrador/curso/form");
@@ -38,7 +38,7 @@ public class CursosController {
     }
 
     @PostMapping("criar")
-    public ModelAndView saveCurso(
+    public ModelAndView salvarCurso(
         @Valid Curso curso,
         BindingResult validation, 
         ModelAndView model, 
@@ -58,7 +58,7 @@ public class CursosController {
     }
 
     @GetMapping("{id}")
-    public ModelAndView editCurso(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView editarCurso(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         model.addObject("curso", cursoService.getCursoPorId(id));
         model.addObject("acao", "editar");
         model.setViewName("administrador/curso/form");
@@ -68,7 +68,7 @@ public class CursosController {
     }
 
     @PostMapping("{id}")
-    public ModelAndView updateCurso(
+    public ModelAndView atualizarCurso(
         @Valid Curso curso, 
         BindingResult validation,
         @PathVariable("id") Long id,
@@ -90,7 +90,7 @@ public class CursosController {
 
 
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteCurso(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView deletarCurso(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         cursoService.deletarCurso(id);
         model.addObject("cursos", cursoService.getCursos());
         model.addObject("curso", new Assunto());
