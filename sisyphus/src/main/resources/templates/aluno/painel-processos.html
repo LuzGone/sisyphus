@@ -46,7 +46,7 @@
                     <label class="input-group-text" for="filterAssunto">Assunto</label>
                     <select class="form-select" id="filterAssunto" name="filtro">
                         <option value="">Todos</option>
-                        <option th:each = "assunto : ${assuntos}" th:value="${assunto.nome}" th:text = "${assunto.nome}"> </option>
+                        <option th:each = "assunto : ${assuntos}" th:value="${assunto.assunto}" th:text = "${assunto.assunto}"> </option>
                         
                     </select>
                 </div>
@@ -79,8 +79,8 @@
                 <tr th:each="processo:${processos}">
                     <td th:text="${processo.numero}"></th>
                     <td th:text="${processo.estadoProcesso}"></th>
-                    <td th:text="${processo.assunto.nome}"></td>
-                    <td th:text="${processo.dataCriacao}"></td>
+                    <td th:text="${processo.assunto.assunto}"></td>
+                    <td th:text="${processo.dataDeCriacao}"></td>
                     <td>
                         <button type="button" class="btn btn-primary">Consultar</button>
                     </td>

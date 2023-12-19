@@ -39,7 +39,7 @@ public class AlunoController {
     }
    
     @GetMapping
-    public ModelAndView home(ModelAndView model, @PathVariable("id")Long id){
+    public ModelAndView paginaInicial(ModelAndView model, @PathVariable("id")Long id){
         Aluno aluno = this.alunoService.getAlunoPorId(id);
         model.addObject("aluno", aluno);
         model.setViewName("/aluno/home");
@@ -48,16 +48,16 @@ public class AlunoController {
 
 
     @GetMapping("/processos")
-    public ModelAndView listProcessos(ModelAndView model, @PathVariable("id")Long id){
+    public ModelAndView listarProcessos(ModelAndView model, @PathVariable("id")Long id){
         Aluno aluno = this.alunoService.getAlunoPorId(id);
         model.addObject("aluno", aluno);
         model.addObject("processos", processoService.getProcessosPorAluno(aluno));
-        model.setViewName("/aluno/processo");
+        model.setViewName("/aluno/painel-processos");
         return model;
     }
 
     @GetMapping("/processos/criar")
-    public ModelAndView createProcesso(ModelAndView model,@PathVariable("id")Long id, RedirectAttributes redirectAttributes ){
+    public ModelAndView criarProcesso(ModelAndView model,@PathVariable("id")Long id, RedirectAttributes redirectAttributes ){
         Aluno aluno = this.alunoService.getAlunoPorId(id);
         model.addObject("aluno", aluno);
         model.addObject("processo", new Processo(aluno,new Assunto()));
@@ -66,20 +66,23 @@ public class AlunoController {
     }
 
     @PostMapping("/processos/criar")
-    public ModelAndView saveProcesso(
+    public ModelAndView salvarProcesso(
         @Valid Processo processo,
         BindingResult validation, 
         @PathVariable("id")Long id,
         ModelAndView model, 
         RedirectAttributes redirectAttributes
         ){
+            System.out.println("ESTOU TENANDO CRIAR UM PROCESSO");
         Aluno aluno = this.alunoService.getAlunoPorId(id);
         if (validation.hasErrors()) {
+            System.out.println("MEU PROCESSO TEM ERROS");
             model.addObject("aluno", aluno);
             model.addObject("processo", new Processo(aluno,new Assunto()));
             model.setViewName("/aluno/criar-processo");
             return model;
-        }    
+        }
+        System.out.println("MEU PROCESSO NÃO TEM ERROS");    
         processo.setAluno(aluno);    
         processoService.salvarProcesso(processo);
         model.addObject("aluno", aluno);

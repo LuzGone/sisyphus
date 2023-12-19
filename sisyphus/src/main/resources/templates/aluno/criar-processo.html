@@ -43,7 +43,7 @@
             <hr>
         </div>
         <!--FORM DE PROCESSO-->
-        <form class="container" th:action="@{'/aluno/' + ${aluno.id} + '/processos/criar'}" method="post" th:object="${processo}">
+        <form class="container" th:action="@{/aluno/{idAluno}/processos/criar(idAluno=${aluno.id})}" method="post" th:object="${processo}">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="modalLabel">Cadastrar processo</h1>
             </div>
@@ -53,7 +53,7 @@
                     <div class="mb-3">
                         <label for="assunto" class="form-label">Assunto:</label>
                         <select required id="assunto" th:field="*{assunto}">
-                            <option th:each="assunto:${assuntos}" th:value="${assunto.id}" th:text="${assunto.nome}"></option>
+                            <option th:each="assunto:${assuntos}" th:value="${assunto.id}" th:text="${assunto.assunto}"></option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="documento" class="form-label">Adicionar Documento:</label>
-                        <input type="file" id="documento" th:field="*{documento}"></input>
+                        <input type="file" id="documento" th:field="*{documentos}"></input>
                     </div>
                 </div>
             </div>

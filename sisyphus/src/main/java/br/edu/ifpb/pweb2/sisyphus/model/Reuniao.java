@@ -29,7 +29,7 @@ public class Reuniao {
     private String codigo;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "A data precisa ser a partir de hoje em diante.")
+    @Future(message = "A data precisa ser futura.")
     @NotNull(message="É necessário informar uma data para Reunião")
     private Date dataReuniao;
 

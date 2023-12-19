@@ -71,6 +71,7 @@ public class ProcessoService {
     }
 
     public Processo julgarProcesso(Processo processo, Long id){
+        System.out.println(processo.getListaDeVotos());
         Processo processoAtualizado = this.processoRepository.findById(id).orElse(new Processo());
         List<Voto> novaListaVotos = new ArrayList<Voto>();
         int comRelator = 1;
@@ -78,24 +79,23 @@ public class ProcessoService {
         for(Voto voto: processo.getListaDeVotos()){
             novaListaVotos.add(voto);
             if (voto.getTipoVoto() == TipoVoto.DIVERGENTE) {
-                //System.out.println("O VOTO FOI DIVERGENTE");
+                System.out.println("O VOTO FOI DIVERGENTE");
                 divergente+=1;
-                //System.out.println(divergente);
+                System.out.println(divergente);
             }
             if(voto.getTipoVoto() == TipoVoto.COM_RELATOR){
-                //System.out.println("O VOTO FOI COM RELATOR");
+                System.out.println("O VOTO FOI COM RELATOR");
                 comRelator+=1;
-                //System.out.println(comRelator);
+                System.out.println(comRelator);
             }
             votoService.salvarVoto(voto);
         }
         processoAtualizado.setListaDeVotos(novaListaVotos);
         if (divergente>comRelator) {
-            //System.out.println("DIVERGENTE FOI A MAIORIA");
+            System.out.println("DIVERGENTE FOI A MAIORIA");
             if (processoAtualizado.getTipoDecisao() == TipoDecisao.DEFERIDO) {
                 processoAtualizado.setTipoDecisao(TipoDecisao.INDEFERIDO);
-            }
-            if (processoAtualizado.getTipoDecisao() == TipoDecisao.INDEFERIDO) {
+            }else if (processoAtualizado.getTipoDecisao() == TipoDecisao.INDEFERIDO) {
                 processoAtualizado.setTipoDecisao(TipoDecisao.DEFERIDO);
             }
         }

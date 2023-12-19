@@ -1,15 +1,19 @@
 package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.edu.ifpb.pweb2.sisyphus.model.Curso;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
@@ -23,6 +27,11 @@ public class ProfessoresController {
 
     @Autowired
     private CursoService cursoService;
+
+    @ModelAttribute("cursos")
+    public List<Curso> getListaDeCursos(){
+        return this.cursoService.getCursos();
+    }
 
     @GetMapping
     public ModelAndView listarProfessores(ModelAndView model){

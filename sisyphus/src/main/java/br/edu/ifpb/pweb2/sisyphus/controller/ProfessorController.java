@@ -57,7 +57,7 @@ public class ProfessorController {
 
     //----- PROCESSOS -----
     @GetMapping("/processos")
-    public ModelAndView showPainelProcessos(ModelAndView model,@PathVariable("id") Long id){
+    public ModelAndView mostrarPainelDeProcessos(ModelAndView model,@PathVariable("id") Long id){
         Professor professor = this.professorService.getProfessorPorId(id);
         model.addObject("processos", processoService.getProcessosPorProfessor(professor));
         model.setViewName("/professor/painel-processos");
@@ -65,14 +65,14 @@ public class ProfessorController {
     }
 
     @GetMapping("/processos/{idProcesso}")
-    public ModelAndView showProcesso(ModelAndView model, @PathVariable("idProcesso") Long idProcesso){
+    public ModelAndView vizualizarProcesso(ModelAndView model, @PathVariable("idProcesso") Long idProcesso){
         model.addObject("processo", processoService.getProcessoPorId(idProcesso));
         model.setViewName("/professor/processo");
         return model;
     }
 
     @PostMapping("/processos/{idProcesso}")
-    public ModelAndView updateProcesso(ModelAndView model, Processo processo, @PathVariable("id") Long id, @PathVariable("idProcesso") Long idProcesso){
+    public ModelAndView atribuirDecisaoDoRelatorAoProcesso(ModelAndView model, Processo processo, @PathVariable("id") Long id, @PathVariable("idProcesso") Long idProcesso){
         processoService.atualizarProcesso(processo,idProcesso);
         Professor professor = this.professorService.getProfessorPorId(id);
         model.addObject("processos", processoService.getProcessosPorProfessor(professor));
@@ -82,7 +82,7 @@ public class ProfessorController {
 
     //----- REUNIÕES -----
     @GetMapping("/reunioes")
-    public ModelAndView showPainelReunioes(ModelAndView model,@PathVariable("id") Long id){
+    public ModelAndView mostrarPainelDeReunioes(ModelAndView model,@PathVariable("id") Long id){
         Professor professor = professorService.getProfessorPorId(id);
         Colegiado colegiado = professor.getListaColegiados().get(0);
         List<Reuniao> reunioes = colegiado.getReuniaos();
@@ -92,7 +92,7 @@ public class ProfessorController {
     }
 
     @GetMapping("/reunioes/{idReuniao}")
-    public ModelAndView showReuniao(ModelAndView model, @PathVariable("idReuniao") Long idReuniao){
+    public ModelAndView mostrarReuniao(ModelAndView model, @PathVariable("idReuniao") Long idReuniao){
         model.addObject("reuniao", this.reuniaoService.getReuniaoPorId(idReuniao));
         model.setViewName("/professor/reuniao");
         return model;

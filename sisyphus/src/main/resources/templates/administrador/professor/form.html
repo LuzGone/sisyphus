@@ -70,8 +70,8 @@
                         <!--FONE-->
                         <div class="mb-3">
                             <label for="telefone" class="form-label">Telefone:</label>
-                            <input type="text" id="telefone" th:field="*{fone}" class="form-control">
-                            <p th:if="${#fields.hasErrors('fone')}" th:errorclass="error" th:errors="*{fone}" class="alert alert-danger"></p>
+                            <input type="text" id="telefone" th:field="*{telefone}" class="form-control">
+                            <p th:if="${#fields.hasErrors('telefone')}" th:errorclass="error" th:errors="*{telefone}" class="alert alert-danger"></p>
                         </div>
 
                         <!--MATRICULA-->
@@ -92,8 +92,8 @@
                         <!--LOGIN-->
                         <div class="mb-3">
                             <label for="login" class="form-label">Login:</label>
-                            <input type="text" id="login" th:field="*{login}" class="form-control">
-                            <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}" class="alert alert-danger"></p>
+                            <input type="text" id="login" th:field="*{usuario}" class="form-control">
+                            <p th:if="${#fields.hasErrors('usuario')}" th:errorclass="error" th:errors="*{usuario}" class="alert alert-danger"></p>
                             
                         </div>
 

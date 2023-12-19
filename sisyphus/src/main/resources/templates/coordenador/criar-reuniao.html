@@ -69,7 +69,7 @@
                         <label for="processo" class="form-label">Processo [[${itemStat.index+1}]]: </label>
                         <select class="form-select" id="processo" th:field="*{processos[__${itemStat.index}__]}">
                             <option th:value="null">-</option>
-                            <option th:each="processo: ${processosDisponiveis}" th:value="${processo.id}" th:text="${processo.numero}+','+${processo.aluno.nome}"></option>
+                            <option th:each="processo: ${processosDisponiveis}" th:value="${processo.id}" th:text="${processo}"></option>
                         </select>
                     </div>
                 </div>

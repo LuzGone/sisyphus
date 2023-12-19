@@ -2,8 +2,6 @@ package br.edu.ifpb.pweb2.sisyphus.model;
 
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -30,13 +28,10 @@ public class Processo {
 
     private String numero;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataDeCriacao;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataDeDistribuicao;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataDoParecer;
 
     private byte[] documentos;
@@ -63,7 +58,6 @@ public class Processo {
     @NotBlank(message="É necessário informar o motivo da abertura do processo.")
     private String textoRequerimento;
 
-    @NotBlank(message="É necessário o relator escrever uma justificativa.")
     private String justificativaRelator;
 
     @Enumerated(EnumType.STRING)

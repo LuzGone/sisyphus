@@ -75,7 +75,7 @@
                   <tr th:each="colegiado:${colegiados}">
                     <td>[[${colegiado.id}]]</td>
                     <td th:text="${colegiado.curso}"></td>
-                    <td th:text="${colegiado.dataInicio}"></td>
+                    <td th:text="${colegiado.dataDoInicio}"></td>
                     <td>
                         <div class="btn-group">
                             <form style="margin-right: 10px;" th:action="@{colegiados/{id}/delete(id=${colegiado.id})}">

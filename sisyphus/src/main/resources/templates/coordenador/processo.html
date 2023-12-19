@@ -60,20 +60,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="container col fs-4 border border-black">Data de Criação: [[${processo.dataCriacao}]]</div>
-                <div class="container col fs-4 border border-black">Data de Distribuição: [[${processo.dataDistribuicao}?:'-']]</div>
-                <div class="container col fs-4 border border-black">Data do Parecer: [[${processo.dataParecer}?:'-']]</div>
+                <div class="container col fs-4 border border-black">Data de Criação: [[${processo.dataDeCriacao}]]</div>
+                <div class="container col fs-4 border border-black">Data de Distribuição: [[${processo.dataDeDistribuicao}?:'-']]</div>
+                <div class="container col fs-4 border border-black">Data do Parecer: [[${processo.dataDoParecer}?:'-']]</div>
             </div>
             <div class="row">
                 <div class="container col fs-4 border border-black p-4">Documento do Parecer: [[${processo.justificativaRelator}?:'-']]</div>
                 <div class="container col fs-4 border border-black p-4">Documentos do Aluno: 
-                    <span th:if="${processo.documento} != null">1 Documento</span>
-                    <span th:unless="${processo.documento} != null">Nenhum Documento Anexado</span>
+                    <span th:if="${processo.documentos} != null">1 Documento</span>
+                    <span th:unless="${processo.documentos} != null">Nenhum Documento Anexado</span>
                 </div>  
             </div>
             <div class="row">
                 <div class="container col fs-4 border border-black p-4">Colegiado: [[${processo.colegiado}?:'-']]</div>
-                <div class="container col fs-4 border border-black p-4">Assunto: [[${processo.assunto.nome}]]</div>
+                <div class="container col fs-4 border border-black p-4">Assunto: [[${processo.assunto.assunto}]]</div>
             </div>
             <div class="row">
                 <div class="container col fs-4 border border-black p-4">Decisão: [[${processo.tipoDecisao}?:'-']]</div>

@@ -95,9 +95,9 @@
                     <td th:text="${processo.estadoProcesso}?:'-'"></td>
 
                     <td th:if="${processo.assunto} == null">-</td>
-                    <td th:unless="${processo.assunto} == null" th:text="${processo.assunto.nome}"></td>
+                    <td th:unless="${processo.assunto} == null" th:text="${processo.assunto.assunto}"></td>
                     
-                    <td th:text="${processo.dataCriacao}?:'-'"></td>
+                    <td th:text="${processo.dataDeCriacao}?:'-'"></td>
 
                     <td th:if="${processo.relator} == null">-</td>
                     <td th:unless="${processo.relator} == null" th:text="${processo.relator.nome}"></td>
