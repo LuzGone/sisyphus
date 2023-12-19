@@ -1,6 +1,9 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -20,18 +23,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Processo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
     private String numero;
-    private Date dataCriacao;
-    private Date dataDistribuicao;
-    private Date dataParecer;
-    private byte[] documento;
 
-    private String justificativaRelator;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataDeCriacao;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataDeDistribuicao;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataDoParecer;
+
+    private byte[] documentos;
 
     @ManyToOne
     private Professor relator;
@@ -52,8 +60,11 @@ public class Processo {
     @OneToMany(mappedBy = "processo")
     private List<Voto> listaDeVotos;
 
-    @NotBlank(message="Campo obrigatório!")
+    @NotBlank(message="É necessário informar o motivo da abertura do processo.")
     private String textoRequerimento;
+
+    @NotBlank(message="É necessário o relator escrever uma justificativa.")
+    private String justificativaRelator;
 
     @Enumerated(EnumType.STRING)
     private EstadoProcesso estadoProcesso;
@@ -65,7 +76,7 @@ public class Processo {
         this.aluno = aluno;
         this.numero = Integer.toString(this.id);
         this.estadoProcesso = EstadoProcesso.CRIADO;
-        this.dataCriacao = new Date();
+        this.dataDeCriacao = new Date();
         this.assunto = assunto;
         this.textoRequerimento = textoRequerimento;
         this.colegiado = colegiado;
@@ -78,7 +89,7 @@ public class Processo {
 
     @Override
     public String toString(){
-        return ""+this.numero+","+this.aluno;
+        return ""+this.numero+";"+this.aluno+";"+this.estadoProcesso;
     }
 
 }

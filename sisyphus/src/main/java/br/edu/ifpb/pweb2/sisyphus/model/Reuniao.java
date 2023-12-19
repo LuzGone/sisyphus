@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +26,11 @@ public class Reuniao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String codigo;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message="Campo obrigatório!")
+    @Future(message = "A data precisa ser a partir de hoje em diante.")
+    @NotNull(message="É necessário informar uma data para Reunião")
     private Date dataReuniao;
 
     @Enumerated(EnumType.STRING)

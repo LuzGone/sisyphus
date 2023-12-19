@@ -23,13 +23,13 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank(message="Campo obrigatório!")
+    @NotBlank(message="É necessário informar o nome do Aluno.")
     private String nome;
     
-    @NotBlank(message="Campo obrigatório!")
-    private String fone;
+    @NotBlank(message="É necessário informar o telefone do Aluno.")
+    private String telefone;
 
-    @NotBlank(message="Campo obrigatório!")
+    @NotBlank(message="É necessário informar a matrícula do Aluno.")
     @Pattern(regexp= "[0-9]{11}", message="Matrícula deve conter exatamente 11 números!")
     private String matricula;
 
@@ -37,22 +37,22 @@ public class Aluno {
     @JoinColumn(name="curso")
     private Curso curso;
 
-    @NotBlank(message="Campo obrigatório!")
-    private String login;
+    @NotBlank(message="É necessário informar um nome de usuário para o Aluno.")
+    private String usuario;
 
-    @NotBlank(message="Campo obrigatório!")
+    @NotBlank(message="É necessário informar a senha para o Aluno.")
     @Size(min=3, max=42 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 42")
     private String senha;
 
     @OneToMany(mappedBy = "aluno")
-    private List<Processo> listaProcessos;
+    private List<Processo> listaDeProcessos;
 
     public void adicionarProcesso(Processo processo){
-        this.listaProcessos.add(processo);
+        this.listaDeProcessos.add(processo);
     }
 
     @Override
     public String toString(){
-        return "Aluno "+this.nome;
+        return "Aluno: "+this.nome;
     }
 }

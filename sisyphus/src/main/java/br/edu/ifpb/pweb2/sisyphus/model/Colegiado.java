@@ -13,6 +13,9 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.NotBlank;
 
 @Data
@@ -22,13 +25,15 @@ public class Colegiado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Date dataInicio;
-    private Date dataFim;
 
-    @NotBlank(message="Campo obrigatório!")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataDoInicio;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataDoFim;
+
+    @NotBlank(message="É necessário informar a descrição do Colegiado.")
     private String descricao;
-
-    private String portaria;
 
     @OneToOne
     @JoinColumn(name = "curso")
@@ -47,14 +52,6 @@ public class Colegiado {
 
     @OneToMany(mappedBy = "colegiado")
     private List<Reuniao> reuniaos;
-
-    public Colegiado(Date dataInicio, Date dataFim, String descricao, String portaria, Curso curso) {
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.descricao = descricao;
-        this.portaria = portaria;
-        this.curso = curso;
-    }
 
     public Colegiado(List<Professor> professores){
         this.membros = professores;

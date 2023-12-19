@@ -16,7 +16,7 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank(message="Campo obrigatório!")
+    @NotBlank(message="É necessário informar o nome do Curso.")
     private String nome;
 
     public Curso(String nome) {
