@@ -35,7 +35,7 @@ public class ColegiadoService {
         for(Professor professor : colegiado.getMembros() ){
             professor.adicionarColegiado(colegiado);
         }
-        colegiado.setDataInicio(new Date());
+        colegiado.setDataDoInicio(new Date());
         return this.colegiadoRepository.save(colegiado);
     }
 

@@ -44,7 +44,7 @@ public class ProcessoService {
     public Processo salvarProcesso(Processo processo){
         processo.getAluno().adicionarProcesso(processo);
         processo.setEstadoProcesso(EstadoProcesso.CRIADO);
-        processo.setDataCriacao(new Date());
+        processo.setDataDeCriacao(new Date());
         processo.setNumero(""+new Date().getTime());
         return this.processoRepository.save(processo);
     }
@@ -54,10 +54,6 @@ public class ProcessoService {
         processoAtualizado.setJustificativaRelator(processo.getJustificativaRelator());
         processoAtualizado.setTipoDecisao(processo.getTipoDecisao());
         return this.processoRepository.save(processoAtualizado);
-    }
-
-    public void testandoProcesso(Processo processo){
-        System.out.println(processo.getListaDeVotos());
     }
 
     public Processo atribuirProcesso(Processo processo,Long id){
@@ -70,7 +66,7 @@ public class ProcessoService {
             }
         }
         processoAtualizado.setEstadoProcesso(EstadoProcesso.DISTRIBUIDO);
-        processoAtualizado.setDataDistribuicao(new Date());
+        processoAtualizado.setDataDeDistribuicao(new Date());
         return this.processoRepository.save(processoAtualizado);
     }
 

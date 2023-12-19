@@ -25,7 +25,7 @@ public class AlunoService {
     public List<Aluno> getAlunosComProcessos(){
         List<Aluno> alunos = new ArrayList<Aluno>();
         for (Aluno aluno : this.alunoRepository.findAll()){
-            if(aluno.getListaProcessos() != null){
+            if(aluno.getListaDeProcessos() != null){
                 alunos.add(aluno);
             }
         }

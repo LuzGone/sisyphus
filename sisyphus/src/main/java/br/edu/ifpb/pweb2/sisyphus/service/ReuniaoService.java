@@ -25,7 +25,7 @@ public class ReuniaoService {
         return this.reuniaoRepository.findById(id).orElse(null);
     }
 
-    public Reuniao iniciarReuniao(Reuniao reuniao, Long id) throws Exception{
+    public Reuniao iniciarReuniao(Long id) throws Exception{
         for(Reuniao reuniao2 : this.reuniaoRepository.findAll()){
             if(reuniao2.getStatus().equals(StatusReuniao.EM_ANDAMENTO)){
                 throw new Exception("Já existe uma reunião em andamento!");
@@ -42,6 +42,7 @@ public class ReuniaoService {
     public Reuniao salvarReuniao(Reuniao reuniao){
         List<Processo> processosSelecionados = new ArrayList<Processo>();
         reuniao.setStatus(StatusReuniao.PROGRAMADA);
+        reuniao.setCodigo(""+reuniao.getDataReuniao().getTime()+"/"+reuniao.getId());
         for (Processo processo : reuniao.getProcessos()){
             if (processo != null) {
                 processo.setEstadoProcesso(EstadoProcesso.EM_PAUTA);
@@ -54,7 +55,7 @@ public class ReuniaoService {
         return this.reuniaoRepository.save(reuniao);
     }
 
-    public Reuniao encerrarReuniao(Reuniao reuniao, Long id){
+    public Reuniao encerrarReuniao(Long id){
         Reuniao reuniaoAtualizada = this.reuniaoRepository.findById(id).orElse(null);
         reuniaoAtualizada.setStatus(StatusReuniao.ENCERRADA);
         return this.reuniaoRepository.save(reuniaoAtualizada);
