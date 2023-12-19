@@ -1,7 +1,8 @@
 <html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-layout:decorate="~{layout/layout}"></html>
+layout:decorate="~{layout/layout-menu-aluno}"></html>
 
-<header th:fragment="menu-aluno">
+<div layout:fragment="content">
+    <!-- Corpo da página entra aqui -->
     <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
         <div class="container-fluid justify-content-center" id="navbarSupportedContent">
             <div>
@@ -25,4 +26,5 @@ layout:decorate="~{layout/layout}"></html>
             </div>
         </div>
     </nav>
+</div>
 </header>
