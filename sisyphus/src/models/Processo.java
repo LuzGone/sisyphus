@@ -29,7 +29,7 @@ public class Processo {
         this.dataDeCriacao = new Date();
         this.relator = relator;
         this.aluno = aluno;
-        //this.estadoProcesso = EstadoProcesso.CRIADO;
+        this.estadoProcesso = new EstadoCriado(this);
         this.assunto = assunto;
         this.textoRequerimento = textoRequerimento;
         this.colegiado = colegiado;
@@ -37,8 +37,7 @@ public class Processo {
     }
 
     public void atualizarProcesso(String justificativaRelator, TipoDecisao tipoDecisao){
-        this.justificativaRelator = justificativaRelator;
-        this.tipoDecisao = tipoDecisao;
+        this.estadoProcesso.atualizarProcesso(justificativaRelator, tipoDecisao);
     }
 
     public void testandoProcesso(Processo processo){
@@ -46,39 +45,20 @@ public class Processo {
     }
 
     public void atribuirProcesso(Professor relator, Colegiado colegiado) {
-        this.relator = relator;
-        this.colegiado = colegiado;
-        //mudar estado para distribuido
-        this.dataDeDistribuicao = new Date();
+        this.estadoProcesso.atribuirProcesso(relator, colegiado);
     }
 
     // colocar o processo em julgamento
     public void colocarEmJulgamento() {
-        //mudar estado para julgamento
+        this.estadoProcesso.colocarEmJulgamento();
     }
 
     public void votar(Voto voto) {
-        this.listaDeVotos.add(voto);
+        this.estadoProcesso.votar(voto);
     }
 
     public void julgarProcesso() {
-        int comRelator = 1;
-        int divergente = 0;
-        for(Voto voto: this.listaDeVotos){
-            if(voto.getTipoVoto() == TipoVoto.DIVERGENTE){
-                divergente++;
-            }
-            if(voto.getTipoVoto() == TipoVoto.COM_RELATOR){
-                comRelator++;
-            }
-        }
-        if(divergente > comRelator){
-            this.tipoDecisao = TipoDecisao.INDEFERIDO;
-        }else{
-            this.tipoDecisao = TipoDecisao.DEFERIDO;
-        }
-        // mudar estado para julgado
-        this.dataDoParecer = new Date();
+        this.estadoProcesso.julgarProcesso();
     }
 
     @Override

@@ -1,4 +1,6 @@
 package sisyphus.src.models;
+
+import java.util.Date;
 public class EstadoEmJulgamento implements EstadoProcesso{
     private Processo processo;
 
@@ -8,32 +10,43 @@ public class EstadoEmJulgamento implements EstadoProcesso{
     
     @Override
     public void atualizarProcesso(String justificativaRelator, TipoDecisao tipoDecisao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizarProcesso'");
+        System.out.println("Processo não pode ser atualizado");
     }
 
     @Override
     public void atribuirProcesso(Professor relator, Colegiado colegiado) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atribuirProcesso'");
+        System.out.println("Processo já foi atribuído");
     }
 
     @Override
     public void colocarEmJulgamento() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'colocarEmJulgamento'");
+        System.out.println("Processo não pode ser colocado em julgamento");
     }
 
     @Override
     public void votar(Voto voto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'votar'");
+        this.processo.listaDeVotos.add(voto);
     }
 
     @Override
     public void julgarProcesso() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'julgarProcesso'");
+        int comRelator = 1;
+        int divergente = 0;
+        for(Voto voto: this.processo.listaDeVotos){
+            if(voto.getTipoVoto() == TipoVoto.DIVERGENTE){
+                divergente++;
+            }
+            if(voto.getTipoVoto() == TipoVoto.COM_RELATOR){
+                comRelator++;
+            }
+        }
+        if(divergente > comRelator){
+            this.processo.tipoDecisao = TipoDecisao.INDEFERIDO;
+        }else{
+            this.processo.tipoDecisao = TipoDecisao.DEFERIDO;
+        }
+        // mudar estado para julgado
+        this.processo.dataDoParecer = new Date();
     }
     
 }

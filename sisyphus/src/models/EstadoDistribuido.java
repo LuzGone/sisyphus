@@ -9,26 +9,22 @@ public class EstadoDistribuido implements EstadoProcesso{
 
     @Override
     public void atualizarProcesso(String justificativaRelator, TipoDecisao tipoDecisao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizarProcesso'");
+        System.out.println("Processo não pode ser atualizado");
     }
 
     @Override
     public void atribuirProcesso(Professor relator, Colegiado colegiado) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atribuirProcesso'");
+        System.out.println("Processo já foi atribuído");
     }
 
     @Override
     public void colocarEmJulgamento() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'colocarEmJulgamento'");
+        this.processo.estadoProcesso = new EstadoEmJulgamento(this.processo);
     }
 
     @Override
     public void votar(Voto voto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'votar'");
+        System.out.println("Processo não pode ser votado");
     }
 
     @Override

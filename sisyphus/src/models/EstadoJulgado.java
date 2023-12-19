@@ -9,32 +9,28 @@ public class EstadoJulgado implements EstadoProcesso{
 
     @Override
     public void atualizarProcesso(String justificativaRelator, TipoDecisao tipoDecisao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizarProcesso'");
+        this.processo.justificativaRelator = justificativaRelator;
+        this.processo.tipoDecisao = tipoDecisao;
     }
 
     @Override
     public void atribuirProcesso(Professor relator, Colegiado colegiado) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atribuirProcesso'");
+        System.out.println("Processo já foi atribuído");
     }
 
     @Override
     public void colocarEmJulgamento() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'colocarEmJulgamento'");
+        System.out.println("Processo não pode ser colocado em julgamento");
     }
 
     @Override
     public void votar(Voto voto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'votar'");
+        System.out.println("Processo não pode ser votado");
     }
 
     @Override
     public void julgarProcesso() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'julgarProcesso'");
+        System.out.println("Processo já foi julgado");
     }
     
 }

@@ -1,4 +1,8 @@
 package sisyphus.src.models;
+
+import java.util.Date;
+
+
 public class EstadoCriado implements EstadoProcesso {
 
     private Processo processo;
@@ -9,26 +13,25 @@ public class EstadoCriado implements EstadoProcesso {
 
     @Override
     public void atualizarProcesso(String justificativaRelator, TipoDecisao tipoDecisao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizarProcesso'");
+        System.out.println("Processo não pode ser atualizado");
     }
 
     @Override
     public void atribuirProcesso(Professor relator, Colegiado colegiado) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atribuirProcesso'");
+        this.processo.relator = relator;
+        this.processo.colegiado = colegiado;
+        this.processo.dataDeDistribuicao = new Date();
+        this.processo.estadoProcesso = new EstadoDistribuido(this.processo);
     }
 
     @Override
     public void colocarEmJulgamento() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'colocarEmJulgamento'");
+        System.out.println("Processo não pode ser colocado em julgamento");
     }
 
     @Override
     public void votar(Voto voto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'votar'");
+        System.out.println("Processo não pode ser votado");
     }
 
     @Override
