@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professor</title>
+    <title>Coordenador</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
@@ -21,13 +21,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}(id=${professor.id})}">Home</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}(coordenadorId=${coordenador.id})}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}/processos(id=${professor.id})}">Processos</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}/reunioes(id=${professor.id})}">Reuniões</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
                         </li>
                     </ul>
                 </div>

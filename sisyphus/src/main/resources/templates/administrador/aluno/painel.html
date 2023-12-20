@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenadores}">Coordenadores</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/cursos}">Cursos</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -57,7 +60,7 @@
         <div role="alert" id="alerta-sucesso" class="alert d-flex align-items-center alert-dismissible fade show" th:if="${mensagem ne null}" th:classappend="${alunoSalvo} ? 'alert-success' : ''">
             <div th:text="${mensagem}"></div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        </div>
             
         <table class="table">
             <thead>
@@ -65,6 +68,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Matrícula</th>
+                <th scope="col">Curso</th>
                 <th scope="col">Telefone</th>
                 <th scope="col">Opções</th>
               </tr>
@@ -74,7 +78,8 @@
                 <td>[[${aluno.id}]]</td>
                 <td th:text="${aluno.nome}"></td>
                 <td th:text="${aluno.matricula}"></td>
-                <td th:text="${aluno.fone}"></td>
+                <td th:text="${aluno.curso}"></td>
+                <td th:text="${aluno.telefone}"></td>
                 <td>
                     <div class="btn-group">
                         <form style="margin-right: 10px;" th:action="@{alunos/{id}/delete(id=${aluno.id})}">

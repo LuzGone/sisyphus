@@ -1,16 +1,21 @@
-package br.edu.ifpb.pweb2.sisyphus.controller;
+package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.edu.ifpb.pweb2.sisyphus.model.Curso;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
+import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
 import jakarta.validation.Valid;
 
@@ -20,8 +25,16 @@ public class ProfessoresController {
     @Autowired
     private ProfessorService professorService;
 
+    @Autowired
+    private CursoService cursoService;
+
+    @ModelAttribute("cursos")
+    public List<Curso> getListaDeCursos(){
+        return this.cursoService.getCursos();
+    }
+
     @GetMapping
-    public ModelAndView listProfessores(ModelAndView model){
+    public ModelAndView listarProfessores(ModelAndView model){
         model.addObject("professores", professorService.getProfessores());
         model.addObject("professor", new Professor());
         model.setViewName("administrador/professor/painel");
@@ -29,15 +42,16 @@ public class ProfessoresController {
     }
 
     @GetMapping("criar")
-    public ModelAndView createProfessor(ModelAndView model, RedirectAttributes redirectAttributes ){
+    public ModelAndView criarProfessor(ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("professor", new Professor());
+        model.addObject("cursos", this.cursoService.getCursos());
         model.addObject("acao", "salvar");
         model.setViewName("administrador/professor/form");
         return model;
     }
 
     @PostMapping("criar")
-    public ModelAndView saveProfessor(
+    public ModelAndView salvarProfessor(
         @Valid Professor professor,
         BindingResult validation, 
         ModelAndView model, 
@@ -57,17 +71,16 @@ public class ProfessoresController {
     }
 
     @GetMapping("{id}")
-    public ModelAndView editProfessor(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView editarProfessor(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         model.addObject("professor", professorService.getProfessorPorId(id));
         model.addObject("acao", "editar");
+        model.addObject("cursos", this.cursoService.getCursos());
         model.setViewName("administrador/professor/form");
-        redirectAttributes.addFlashAttribute("mensagem","Professor Editado com Sucesso");
-        redirectAttributes.addFlashAttribute("professoresEditado", true);
         return model;
     }
 
     @PostMapping("{id}")
-    public ModelAndView updateProfessor(
+    public ModelAndView atualizarProfessor(
         @Valid Professor professor, 
         BindingResult validation,
         @PathVariable("id") Long id,
@@ -88,7 +101,7 @@ public class ProfessoresController {
     }
 
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteProfessor(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView deletarProfessor(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         professorService.deletarProfessor(id);
         model.addObject("professores", professorService.getProfessores());
         model.addObject("professor", new Professor());
@@ -97,8 +110,5 @@ public class ProfessoresController {
         redirectAttributes.addFlashAttribute("professoresDeletado", true);
         return model;
     }
-
-    
-
     
 }

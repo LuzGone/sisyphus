@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ColegiadoRepository;
 import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
+import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 
 import java.util.Date;
@@ -23,11 +24,18 @@ public class ColegiadoService {
         return this.colegiadoRepository.findById(id).orElse(null);
     }
 
+    public Colegiado getColegiadoPorCoordenador(Coordenador coordenador){
+        return this.colegiadoRepository.findByCoordenador(coordenador).get(0);
+    }
+
     public Colegiado salvarColegiado(Colegiado colegiado){
+        Coordenador coordenador = colegiado.getCoordenador();
+        Professor professorCoordenador = coordenador.getProfessor();
+        professorCoordenador.adicionarColegiado(colegiado);
         for(Professor professor : colegiado.getMembros() ){
             professor.adicionarColegiado(colegiado);
         }
-        colegiado.setDataInicio(new Date());
+        colegiado.setDataDoInicio(new Date());
         return this.colegiadoRepository.save(colegiado);
     }
 

@@ -1,5 +1,7 @@
 package br.edu.ifpb.pweb2.sisyphus.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,17 +21,9 @@ import br.edu.ifpb.pweb2.sisyphus.service.AssuntoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProcessoService;
 import jakarta.validation.Valid;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("/aluno/{id}/processos")
+@RequestMapping("/aluno/{id}")
 public class AlunoController {
-    
-    @RequestMapping("/aluno")
-    public String showHomePage(){
-        return "aluno/home";
-    }
-
     @Autowired
     private AlunoService alunoService;
 
@@ -43,18 +37,27 @@ public class AlunoController {
     public List<Assunto> getAssuntos(){
         return this.assuntoService.getAssuntos();
     }
-
+   
     @GetMapping
-    public ModelAndView listProcessos(ModelAndView model, @PathVariable("id")Long id){
+    public ModelAndView paginaInicial(ModelAndView model, @PathVariable("id")Long id){
         Aluno aluno = this.alunoService.getAlunoPorId(id);
         model.addObject("aluno", aluno);
-        model.addObject("processos", processoService.getProcessosPorAluno(aluno));
-        model.setViewName("/aluno/processo");
+        model.setViewName("/aluno/home");
         return model;
     }
 
-    @GetMapping("criar")
-    public ModelAndView createProcesso(ModelAndView model,@PathVariable("id")Long id, RedirectAttributes redirectAttributes ){
+
+    @GetMapping("/processos")
+    public ModelAndView listarProcessos(ModelAndView model, @PathVariable("id")Long id){
+        Aluno aluno = this.alunoService.getAlunoPorId(id);
+        model.addObject("aluno", aluno);
+        model.addObject("processos", processoService.getProcessosPorAluno(aluno));
+        model.setViewName("/aluno/painel-processos");
+        return model;
+    }
+
+    @GetMapping("/processos/criar")
+    public ModelAndView criarProcesso(ModelAndView model,@PathVariable("id")Long id, RedirectAttributes redirectAttributes ){
         Aluno aluno = this.alunoService.getAlunoPorId(id);
         model.addObject("aluno", aluno);
         model.addObject("processo", new Processo(aluno,new Assunto()));
@@ -62,21 +65,24 @@ public class AlunoController {
         return model;
     }
 
-    @PostMapping("criar")
-    public ModelAndView saveProcesso(
+    @PostMapping("/processos/criar")
+    public ModelAndView salvarProcesso(
         @Valid Processo processo,
         BindingResult validation, 
         @PathVariable("id")Long id,
         ModelAndView model, 
         RedirectAttributes redirectAttributes
         ){
+            System.out.println("ESTOU TENANDO CRIAR UM PROCESSO");
         Aluno aluno = this.alunoService.getAlunoPorId(id);
         if (validation.hasErrors()) {
+            System.out.println("MEU PROCESSO TEM ERROS");
             model.addObject("aluno", aluno);
             model.addObject("processo", new Processo(aluno,new Assunto()));
             model.setViewName("/aluno/criar-processo");
             return model;
-        }    
+        }
+        System.out.println("MEU PROCESSO NÃO TEM ERROS");    
         processo.setAluno(aluno);    
         processoService.salvarProcesso(processo);
         model.addObject("aluno", aluno);

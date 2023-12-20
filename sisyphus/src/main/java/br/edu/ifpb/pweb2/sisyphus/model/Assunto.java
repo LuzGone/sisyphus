@@ -16,11 +16,16 @@ public class Assunto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank(message="Campo obrigatório!")
-    private String nome;
+    @NotBlank(message="É necessário informar do que o assunto se trata.")
+    private String assunto;
 
-    public Assunto(String nome) {
-        this.nome = nome;
+    public Assunto(String assunto) {
+        this.assunto = assunto;
+    }
+
+    @Override
+    public String toString(){
+        return this.assunto;
     }
 
 }

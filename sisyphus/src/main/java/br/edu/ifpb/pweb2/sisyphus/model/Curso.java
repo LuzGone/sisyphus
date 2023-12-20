@@ -6,16 +6,26 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 
-@Data
 @NoArgsConstructor
+@Data
 @Entity
-public class Administrador {
+public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String usuario;
+    @NotBlank(message="É necessário informar o nome do Curso.")
+    private String nome;
 
-    private String senha;
+    public Curso(String nome) {
+        this.nome = nome;
+    }
+
+    @Override
+    public String toString(){
+        return this.nome;
+    }
+
 }

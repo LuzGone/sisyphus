@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.sisyphus.controller;
+package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class AssuntosController {
     private AssuntoService assuntoService;
 
     @GetMapping
-    public ModelAndView listAssuntos(ModelAndView model){
+    public ModelAndView listarAssuntos(ModelAndView model){
         model.addObject("assuntos", assuntoService.getAssuntos());
         model.addObject("assunto", new Assunto());
         model.setViewName("administrador/assunto/painel");
@@ -29,7 +29,7 @@ public class AssuntosController {
     }
 
     @GetMapping("criar")
-    public ModelAndView createAssunto(ModelAndView model, RedirectAttributes redirectAttributes ){
+    public ModelAndView criarAssunto(ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("assunto", new Assunto());
         model.addObject("acao", "salvar");
         model.setViewName("administrador/assunto/form");
@@ -37,7 +37,7 @@ public class AssuntosController {
     }
 
     @PostMapping("criar")
-    public ModelAndView saveAssunto(
+    public ModelAndView salvarAssunto(
         @Valid Assunto assunto,
         BindingResult validation, 
         ModelAndView model, 
@@ -51,23 +51,21 @@ public class AssuntosController {
         assuntoService.salvarAssunto(assunto);
         model.addObject("assuntos", assuntoService.getAssuntos());
         model.setViewName("redirect:/assuntos");
-        redirectAttributes.addFlashAttribute("mensagem", "Assunto Criado com Sucesso");
+        redirectAttributes.addFlashAttribute("mensagem", "Assunto foi criado com sucesso");
         redirectAttributes.addFlashAttribute("assuntosSalvo", true);
         return model;
     }
 
     @GetMapping("{id}")
-    public ModelAndView editAssunto(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView editarAssunto(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         model.addObject("assunto", assuntoService.getAssuntoPorId(id));
         model.addObject("acao", "editar");
         model.setViewName("administrador/assunto/form");
-        redirectAttributes.addFlashAttribute("mensagem","Assunto Editado com Sucesso");
-        redirectAttributes.addFlashAttribute("assuntosEditado", true);
         return model;
     }
 
     @PostMapping("{id}")
-    public ModelAndView updateAssunto(
+    public ModelAndView atualizarAssunto(
         @Valid Assunto assunto, 
         BindingResult validation,
         @PathVariable("id") Long id,
@@ -82,19 +80,19 @@ public class AssuntosController {
         assuntoService.salvarAssunto(assunto);
         model.addObject("assuntos", assuntoService.getAssuntos());
         model.setViewName("redirect:/assuntos");
-        redirectAttributes.addFlashAttribute("mensagem", "Assunto Editado com Sucesso");
+        redirectAttributes.addFlashAttribute("mensagem", "Assunto foi editado com sucesso.");
         redirectAttributes.addFlashAttribute("assuntosEditado", true);
         return model;
     }
 
 
     @RequestMapping("{id}/delete")
-    public ModelAndView deleteAssunto(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
+    public ModelAndView deletarAssunto(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         assuntoService.deletarAssunto(id);
         model.addObject("assuntos", assuntoService.getAssuntos());
         model.addObject("assunto", new Assunto());
         model.setViewName("redirect:/assuntos");
-        redirectAttributes.addFlashAttribute("mensagem", "Assunto Deletado com Sucesso");
+        redirectAttributes.addFlashAttribute("mensagem", "Assunto foi deletado com sucesso.");
         redirectAttributes.addFlashAttribute("assuntosDeletado", true);
         return model;
     }

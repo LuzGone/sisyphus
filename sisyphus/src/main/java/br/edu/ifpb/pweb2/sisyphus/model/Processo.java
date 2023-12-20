@@ -1,6 +1,7 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
 import java.util.List;
+
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -20,17 +21,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Processo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
     private String numero;
-    private Date dataCriacao;
-    private Date dataDistribuicao;
-    private Date dataParecer;
-    private byte[] parecer;
-    private byte[] documento;
+
+    private Date dataDeCriacao;
+
+    private Date dataDeDistribuicao;
+
+    private Date dataDoParecer;
+
+    private byte[] documentos;
 
     @ManyToOne
     private Professor relator;
@@ -51,17 +55,22 @@ public class Processo {
     @OneToMany(mappedBy = "processo")
     private List<Voto> listaDeVotos;
 
-    @NotBlank(message="Campo obrigatório!")
+    @NotBlank(message="É necessário informar o motivo da abertura do processo.")
     private String textoRequerimento;
+
+    private String justificativaRelator;
 
     @Enumerated(EnumType.STRING)
     private EstadoProcesso estadoProcesso;
+
+    @ManyToOne
+    private Reuniao reuniao;
 
     public Processo( Aluno aluno, Assunto assunto, String textoRequerimento, Colegiado colegiado) {
         this.aluno = aluno;
         this.numero = Integer.toString(this.id);
         this.estadoProcesso = EstadoProcesso.CRIADO;
-        this.dataCriacao = new Date();
+        this.dataDeCriacao = new Date();
         this.assunto = assunto;
         this.textoRequerimento = textoRequerimento;
         this.colegiado = colegiado;
@@ -70,6 +79,11 @@ public class Processo {
     public Processo(Aluno aluno,Assunto assunto){
         this.aluno = aluno;
         this.assunto = assunto;
+    }
+
+    @Override
+    public String toString(){
+        return ""+this.numero+";"+this.aluno+";"+this.estadoProcesso;
     }
 
 }

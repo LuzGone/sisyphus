@@ -41,6 +41,9 @@
                     <li class="nav-item">
                         <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenadores}">Coordenadores</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/cursos}">Cursos</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -67,8 +70,8 @@
                         <!--FONE-->
                         <div class="mb-3">
                             <label for="telefone" class="form-label">Telefone:</label>
-                            <input type="text" id="telefone" th:field="*{fone}" class="form-control">
-                            <p th:if="${#fields.hasErrors('fone')}" th:errorclass="error" th:errors="*{fone}" class="alert alert-danger"></p>
+                            <input type="text" id="telefone" th:field="*{telefone}" class="form-control">
+                            <p th:if="${#fields.hasErrors('telefone')}" th:errorclass="error" th:errors="*{telefone}" class="alert alert-danger"></p>
                         </div>
 
                         <!--MATRICULA-->
@@ -78,11 +81,19 @@
                             <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}" class="alert alert-danger"></p>
                         </div>
 
+                        <!--CURSO-->
+                        <div class="mb-3">
+                            <label for="curso" class="form-label">Curso:</label>
+                            <select class="form-select" required id="curso" th:field="*{curso}">
+                                <option th:each="curso: ${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+                            </select>
+                        </div>
+
                         <!--LOGIN-->
                         <div class="mb-3">
                             <label for="login" class="form-label">Login:</label>
-                            <input type="text" id="login" th:field="*{login}" class="form-control">
-                            <p th:if="${#fields.hasErrors('login')}" th:errorclass="error" th:errors="*{login}" class="alert alert-danger"></p>
+                            <input type="text" id="login" th:field="*{usuario}" class="form-control">
+                            <p th:if="${#fields.hasErrors('usuario')}" th:errorclass="error" th:errors="*{usuario}" class="alert alert-danger"></p>
                             
                         </div>
 

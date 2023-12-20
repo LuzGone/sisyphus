@@ -7,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,9 +18,8 @@ public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private boolean ausente;
 
-    @OneToOne
+    @ManyToOne
     private Professor professor;
 
     @ManyToOne
@@ -29,9 +27,5 @@ public class Voto {
 
     @Enumerated(EnumType.STRING)
     private TipoVoto tipoVoto;
-
-    public Voto(boolean ausente) {
-        this.ausente = ausente;
-    }
 
 }

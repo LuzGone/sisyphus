@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Assuntos</title>
+    <title>Painel de Cursos</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/aluno.css}">
     
@@ -54,26 +54,26 @@
     
     <main>
         <div class="container">
-            <h1 class="teste" style="margin-top: 20px;margin-bottom: 20px;">Painel de Assuntos</h1>
+            <h1 class="teste" style="margin-top: 20px;margin-bottom: 20px;">Painel de Cursos</h1>
             <hr>
-            <a th:href="@{assuntos/criar}" class="btn btn-primary"
-              style="margin-bottom: 20px;">Cadastrar Assunto</a>
+            <a th:href="@{cursos/criar}" class="btn btn-primary"
+              style="margin-bottom: 20px;">Cadastrar Curso</a>
 
                 <!-- <div role="alert" id="alerta-sucesso" class="alert d-flex align-items-center alert-dismissible fade show"th:classappend="${assuntoSalvo} ? 'alert-success' : ''">
                     <div th:text="${mensagem}"></div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div> -->
-                <div role="alert" class="alert d-flex align-items-center alert-dismissible fade show alert-success" th:if="${assuntosSalvo}">
+                <div role="alert" class="alert d-flex align-items-center alert-dismissible fade show alert-success" th:if="${cursosSalvo}">
                     <div th:text="${mensagem}"></div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 
-                <div role="alert" class="alert d-flex align-items-center alert-dismissible fade show alert-danger" th:if="${assuntosDeletado}">
+                <div role="alert" class="alert d-flex align-items-center alert-dismissible fade show alert-danger" th:if="${cursosDeletado}">
                     <div th:text="${mensagem}"></div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 
-                <div role="alert" class="alert d-flex align-items-center alert-dismissible fade show alert-info" th:if="${assuntosEditado}">
+                <div role="alert" class="alert d-flex align-items-center alert-dismissible fade show alert-info" th:if="${cursosEditado}">
                     <div th:text="${mensagem}"></div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -87,15 +87,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr th:each="assunto:${assuntos}">
-                    <td>[[${assunto.id}]]</td>
-                    <td th:text="${assunto.assunto}"></td>
+                  <tr th:each="curso:${cursos}">
+                    <td>[[${curso.id}]]</td>
+                    <td th:text="${curso.nome}"></td>
                     <td>
                         <div class="btn-group">
-                            <form style="margin-right: 10px;" th:action="@{assuntos/{id}/delete(id=${assunto.id})}">
+                            <form style="margin-right: 10px;" th:action="@{cursos/{id}/delete(id=${curso.id})}">
                                 <button type="submit"  class="btn btn-danger">Excluir</button>
                             </form>
-                            <form th:action="@{assuntos/{id}(id=${assunto.id})}">
+                            <form th:action="@{cursos/{id}(id=${curso.id})}">
                                 <button type="submit" class="btn btn-primary">Editar</button>
                             </form>
                         </div>            

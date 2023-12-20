@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Colegiado - Página do Coordenador - Reuniões</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <!-- NAV BAR-->
+    <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
+        <div class="container-fluid justify-content-center" id="navbarSupportedContent">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img th:src="@{/imagens/sisyphus.png}" alt="Ícone" width="50" height="50">
+                </a>
+                <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}(coordenadorId=${coordenador.id})}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--LISTAGEM--->
+    <div style="margin: 30px;">
+        <h1 style="margin-top: 20px">Painel de Reuniões - [[${coordenador.professor.nome}]]</h1>
+        <hr>
+        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
+            <div class="btn-group">
+                <div class="input-group mb-3" style="margin-right: 10px;">
+                    <label class="input-group-text" for="filterStatus">Status da Reunião</label>
+                    <select class="form-select" id="filterStatus">
+                        <option value="" selected>Todos</option>
+                        <option value="Encerrada">Encerrada</option>
+                        <option value="Programada">Programada</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <a th:href="@{reunioes/criar}" class="btn btn-primary justify-self-center">Criar Reunião</a>
+        <div role="alert" id="alerta" class="alert d-flex align-items-center alert-dismissible fade show" th:if="${mensagem ne null}">
+            <div th:text="${mensagem}"></div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <!--TABELA DE PROCESSOS-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Status da Reunião</th>
+                    <th scope="col">Quantidade de Processos</th>
+                    <th scope="col">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reuniao:${reunioes}">
+                    <td th:text="${reuniao.id}?:'-'"></td>
+
+                    <td th:if="${reuniao.dataReuniao} == null">-</td>
+                    <td th:unless="${reuniao.dataReuniao} == null" th:text="${reuniao.dataReuniao}?:'-'"></td>
+                    
+                    <td th:text="${reuniao.status}?:'-'"></td>
+
+                    <td th:if="${reuniao.processos} == null">-</td>
+                    <td th:unless="${reuniao.processos} == null" th:text="${reuniao.processos.size()}"></td>
+                    <td class="d-flex gap-1">
+                        <form th:if="${reuniao.status}==${programada}" th:action="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/iniciar(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" method="post" th:object="${reuniao}">
+                            <button type="submit" class="btn btn-success">Iniciar</button>
+                        </form>
+                        <a th:if="${reuniao.status}==${emAndamento}" th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" type="button" class="btn btn-success">Entrar</a>
+                        <a th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" type="button" class="btn btn-primary">Consultar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <!-- FILTRO POR STATUS-->
+    <script>
+     $(document).ready(function () {
+        $('#filterStatus').on('change', function () {
+            var status = $('#filterStatus').val().toLowerCase();
+            filterTable(status);
+        });
+
+        function filterTable(status) {
+            var rows = $('table tbody tr');
+            rows.show();
+
+            rows.filter(function () {
+                var text = $(this).text().toLowerCase();
+                return (status && text.indexOf(status) === -1);
+            }).hide();
+        }
+    });
+    </script>
+
+</body>
+</html>

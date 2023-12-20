@@ -6,7 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,19 +24,24 @@ public class Professor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank(message="Campo obrigatório!")
+    @NotBlank(message="É necessário informar o nome do Professor.")
     protected String nome;
     
-    @NotBlank(message="Campo obrigatório!")
-    protected String fone;
+    @NotBlank(message="É necessário informar o telefone do Professor.")
+    protected String telefone;
 
-    @NotBlank(message="Campo obrigatório!")
+    @NotBlank(message="É necessário informar a matrícula do Professor.")
     @Pattern(regexp= "[0-9]{6}", message="Matrícula deve conter exatamente 6 números!")
     protected String matricula;
-    
-    @NotBlank(message="Campo obrigatório!")
-    protected String login;
 
+    @ManyToOne
+    @JoinColumn(name = "curso")
+    protected Curso curso;
+    
+    @NotBlank(message="É necessário informar um nome de usuário para o Professor.")
+    protected String usuario;
+
+    @NotBlank(message="É necessário informar a senha para o Professor.")
     @Size(min=3, max=42 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 42")
     protected String senha;
 
@@ -43,16 +50,6 @@ public class Professor {
 
     @ManyToMany(mappedBy = "membros")
     protected List<Colegiado> listaColegiados;
-
-
-    public Professor(int id, String nome, String fone, String matricula, String login, String senha){
-        this.id = id;
-        this.nome = nome;
-        this.fone = fone;
-        this.matricula = matricula;
-        this.login = login;
-        this.senha = senha;
-    }
 
     public void adicionarProcesso(Processo processo){
         this.listaDeProcessos.add(processo);
@@ -64,7 +61,7 @@ public class Professor {
 
     @Override
     public String toString(){
-        return "Professor " + this.nome;
+        return this.nome;
     }
 
 }

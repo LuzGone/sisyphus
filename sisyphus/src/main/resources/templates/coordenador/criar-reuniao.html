@@ -26,10 +26,13 @@
                 <div class="collapse navbar-collapse nav justify-content-center" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/aluno/{id}(id=${aluno.id})}">Home</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}(coordenadorId=${coordenador.id})}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disable text-white" aria-current="page" th:href="@{/aluno/{id}/processos(id=${aluno.id})}">Processos</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
                         </li>
                     </ul>
                 </div>
@@ -39,40 +42,40 @@
 
     <main>
         <div style="margin: 30px;">
-            <h1 style="margin-top: 20px">Criar Processo de [[${aluno.nome}]]</h1>
+            <h1 style="margin-top: 20px">Criar Reuniao de [[${colegiado.descricao}]]</h1>
             <hr>
         </div>
         <!--FORM DE PROCESSO-->
-        <form class="container" th:action="@{/aluno/{idAluno}/processos/criar(idAluno=${aluno.id})}" method="post" th:object="${processo}">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalLabel">Cadastrar processo</h1>
-            </div>
-            <div class="modal-body">
+        <form class="container" th:action="@{'/coordenador/' + ${coordenador.id} + '/reunioes/criar'}" method="post" th:object="${reuniao}">
+            <div>
                 <div class="row">
                     <input type="hidden" th:field="*{id}"><br>
                     <div class="mb-3">
-                        <label for="assunto" class="form-label">Assunto:</label>
-                        <select required id="assunto" th:field="*{assunto}">
-                            <option th:each="assunto:${assuntos}" th:value="${assunto.id}" th:text="${assunto.assunto}"></option>
-                        </select>
+                        <label for="data" class="form-label">Data da Reunião:</label>
+                        <input class="form-control" type="date" id="data" th:field="*{dataReuniao}"></input>
+                        <p th:if="${#fields.hasErrors('dataReuniao')}" th:errorclass="error" th:errors="*{dataReuniao}" class="alert alert-danger"></p>
                     </div>
                     <div class="mb-3">
-                        <label for="justificativa" class="form-label">Justificativa:</label>
-                        <textarea  class="form-control" th:field="*{textoRequerimento}" id="justificativa" rows="3"></textarea>
-                        <p th:if="${#fields.hasErrors('textoRequerimento')}" th:errorclass="error" th:errors="*{textoRequerimento}" class="alert alert-danger"></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="documento" class="form-label">Adicionar Documento:</label>
-                        <input type="file" id="documento" th:field="*{documentos}"></input>
+                        <label for="colegiado" class="form-label">Colegiado:</label>
+                        <input class="form-control" disabled type="text" id="colegiado" th:value="${colegiado.descricao}"></input>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <a th:href="@{'/aluno/' + ${aluno.id} + '/processos'}" type="button" class="btn btn-secondary">Fechar</a>
-                <button type="submit" class="btn btn-primary"
-                    style="padding-left: 25px; padding-right:25px">Salvar</button>
+            <div>
+                <h3>Selecione a Pauta:</h3>
+                <p>Obs.: Até 5 processos.</p>
+                <div class="col-md-6" th:each="processo, itemStat : ${processosEscolhidos}">
+                    <div class="mb-3">
+                        <label for="processo" class="form-label">Processo [[${itemStat.index+1}]]: </label>
+                        <select class="form-select" id="processo" th:field="*{processos[__${itemStat.index}__]}">
+                            <option th:value="null">-</option>
+                            <option th:each="processo: ${processosDisponiveis}" th:value="${processo.id}" th:text="${processo}"></option>
+                        </select>
+                    </div>
+                </div>
             </div>
-        </form>
+            <button type="submit" class="btn btn-primary">Criar</button>
+        </form>       
     </main>
 
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">

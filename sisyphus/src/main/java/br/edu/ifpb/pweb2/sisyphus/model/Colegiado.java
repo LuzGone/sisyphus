@@ -6,11 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.NotBlank;
 
 @Data
@@ -20,16 +25,24 @@ public class Colegiado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Date dataInicio;
-    private Date dataFim;
 
-    @NotBlank(message="Campo obrigatório!")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataDoInicio;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataDoFim;
+
+    @NotBlank(message="É necessário informar a descrição do Colegiado.")
     private String descricao;
 
-    private String portaria;
+    @OneToOne
+    @JoinColumn(name = "curso")
+    private Curso curso;
 
-    @NotBlank(message="Campo obrigatório!")
-    private String curso;
+    @OneToOne
+    @JoinColumn(name="coordenador")
+    private Coordenador coordenador;
+
 
     @ManyToMany
     private List<Professor> membros;
@@ -37,13 +50,8 @@ public class Colegiado {
     @OneToMany(mappedBy = "colegiado")
     private List<Processo> processos;
 
-    public Colegiado(Date dataInicio, Date dataFim, String descricao, String portaria, String curso) {
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.descricao = descricao;
-        this.portaria = portaria;
-        this.curso = curso;
-    }
+    @OneToMany(mappedBy = "colegiado")
+    private List<Reuniao> reuniaos;
 
     public Colegiado(List<Professor> professores){
         this.membros = professores;
@@ -52,7 +60,15 @@ public class Colegiado {
     @Override
     public String toString(){
         return "Colegiado de " + this.curso;
-    } 
+    }
+
+    public void adicionarReuniao(Reuniao reuniao){
+        this.reuniaos.add(reuniao);
+    }
+
+    public void adicionarProcesso(Processo processo){
+        this.processos.add(processo);
+    }
 
 
 }

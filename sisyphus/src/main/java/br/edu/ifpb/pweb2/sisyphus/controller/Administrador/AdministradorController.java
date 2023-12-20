@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.sisyphus.controller;
+package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdministradorController {
     
     @GetMapping
-    public ModelAndView showHomepage(ModelAndView model) {
+    public ModelAndView mostrarPaginaInicial(ModelAndView model) {
         model.setViewName("administrador/home");
         return model;
     }
+
 }

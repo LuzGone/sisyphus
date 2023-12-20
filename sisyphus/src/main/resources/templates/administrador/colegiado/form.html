@@ -41,6 +41,9 @@
                         <li class="nav-item">
                             <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenadores}">Coordenadores</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/cursos}">Cursos</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -60,8 +63,17 @@
                         <!--CURSO-->
                         <div class="mb-3">
                             <label for="curso" class="form-label">Curso:</label>
-                            <input type="text" id="curso" th:field="*{curso}" class="form-control">
-                            <p th:if="${#fields.hasErrors('curso')}" th:errorclass="error" th:errors="*{curso}" class="alert alert-danger"></p>
+                            <select class="form-select" required id="curso" th:field="*{curso}">
+                                <option th:each="curso: ${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+                            </select>
+                        </div>
+
+                        <!--COORDENADOR-->
+                        <div class="mb-3">
+                            <label for="coordenador" class="form-label">Coordenador:</label>
+                            <select class="form-select" required id="coordenador" th:field="*{coordenador}">
+                                <option th:each="coordenador: ${coordenadores}" th:value="${coordenador.id}" th:text="${coordenador}"></option>
+                            </select>
                         </div>
 
                         <!--Descrição-->
@@ -72,10 +84,10 @@
                         </div>
 
                         <!--MEMBROS-->
-                                
+                        <p>Membros:</p>
                         <div class="col-md-6" th:each="membro, itemStat : ${membros}">
                             <div class="mb-3">
-                                <label for="membro" class="form-label"></label>
+                                <label for="membro" class="form-label">Professor [[${itemStat.index+1}]]: </label>
                                 <select class="form-select" required id="membro" th:field="*{membros[__${itemStat.index}__]}">
                                     <option th:each="professor: ${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
                                 </select>

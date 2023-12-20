@@ -26,16 +26,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}(coordenadorId=${coordenador.id})}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled text-white" aria-current="page" href="#">Processos</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
+                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
                         </li>
                     </ul>
                 </div>
@@ -45,7 +42,7 @@
     <main>
         <!--LISTAGEM--->
         <div style="margin: 30px;">
-            <h1 style="margin-top: 20px">Processo #[[${processo.numero}]]</h1>
+            <h1 style="margin-top: 20px">Distribuir Processo - #[[${processo.numero}]]</h1>
             <hr>
         </div>
         <!-- PROCESSO -->
@@ -63,20 +60,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="container col fs-4 border border-black">Data de Criação: [[${processo.dataCriacao}]]</div>
-                <div class="container col fs-4 border border-black">Data de Distribuição: [[${processo.dataDistribuicao}?:'-']]</div>
-                <div class="container col fs-4 border border-black">Data do Parecer: [[${processo.dataParecer}?:'-']]</div>
+                <div class="container col fs-4 border border-black">Data de Criação: [[${processo.dataDeCriacao}]]</div>
+                <div class="container col fs-4 border border-black">Data de Distribuição: [[${processo.dataDeDistribuicao}?:'-']]</div>
+                <div class="container col fs-4 border border-black">Data do Parecer: [[${processo.dataDoParecer}?:'-']]</div>
             </div>
             <div class="row">
-                <div class="container col fs-4 border border-black p-4">Documento do Parecer: [[${processo.parecer}?:'-']]</div>
+                <div class="container col fs-4 border border-black p-4">Documento do Parecer: [[${processo.justificativaRelator}?:'-']]</div>
                 <div class="container col fs-4 border border-black p-4">Documentos do Aluno: 
-                    <span th:if="${processo.documento} != null">1 Documento</span>
-                    <span th:unless="${processo.documento} != null">Nenhum Documento Anexado</span>
+                    <span th:if="${processo.documentos} != null">1 Documento</span>
+                    <span th:unless="${processo.documentos} != null">Nenhum Documento Anexado</span>
                 </div>  
             </div>
             <div class="row">
                 <div class="container col fs-4 border border-black p-4">Colegiado: [[${processo.colegiado}?:'-']]</div>
-                <div class="container col fs-4 border border-black p-4">Assunto: [[${processo.assunto.nome}]]</div>
+                <div class="container col fs-4 border border-black p-4">Assunto: [[${processo.assunto.assunto}]]</div>
             </div>
             <div class="row">
                 <div class="container col fs-4 border border-black p-4">Decisão: [[${processo.tipoDecisao}?:'-']]</div>
@@ -92,7 +89,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!--FORM DO RELATOR-->
-                    <form th:action="@{/coordenador/processos/{id}(id=${processo.id})}" method="post" th:object="${processo}">
+                    <form th:action="@{/coordenador/{idCoordenador}/processos/{id}(idCoordenador=${coordenador.id},id=${processo.id})}" method="post" th:object="${processo}">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="modalLabel">Atribuir Relator</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

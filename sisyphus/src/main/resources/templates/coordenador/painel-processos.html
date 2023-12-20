@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Colegiado - Página do Professor</title>
+    <title>Sistema de Colegiado - Página do Coordenador</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -25,16 +25,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}(coordenadorId=${coordenador.id})}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled text-white" aria-current="page" href="#">Processos</a>
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Assuntos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Reuniões</a>
+                        <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
                     </li>
                 </ul>
             </div>
@@ -42,14 +39,14 @@
     </nav>
     <!--LISTAGEM--->
     <div style="margin: 30px;">
-        <h1 style="margin-top: 20px">Processos de [[${professor.nome}]]</h1>
+        <h1 style="margin-top: 20px">Painel de Distribuição de Processos - [[${coordenador.professor.nome}]]</h1>
         <hr>
         <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
             <div class="btn-group">
                 <div class="input-group mb-3" style="margin-right: 10px;">
                     <label class="input-group-text" for="filterStatus">Status</label>
                     <select class="form-select" id="filterStatus">
-                        <option selected>Todos</option>
+                        <option value="" selected>Todos</option>
                         <option value="Criado">Criado</option>
                         <option value="Distribuido">Distribuído</option>
                         <option value="Em pauta">Em pauta</option>
@@ -60,17 +57,15 @@
                 <div class="input-group mb-3" style="margin-right: 10px;">
                     <label class="input-group-text" for="filterAluno">Aluno</label>
                     <select class="form-select" id="filterAluno">
-                        <option selected>Todos</option>
-                        <option value="João Moreira">João Moreira</option>
-                        <option value="Ana">Ana</option>
+                        <option value="">Todos</option>
+                        <option th:each="aluno:${alunos}" th:value="${aluno.nome}">[[${aluno.nome}]]</option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="filterRelator">Relator</label>
                     <select class="form-select" id="filterRelator">
-                        <option selected>Todos</option>
-                        <option value="Frederico">Frederico</option>
-                        <option value="Jose">Jose</option>
+                        <option selected value="-">Todos</option>
+                        <option th:each="relator:${relatores}" th:value="${relator.nome}">[[${relator.nome}]]</option>
                     </select>
                 </div>
             </div>
@@ -85,20 +80,37 @@
                     <th scope="col">Assunto</th>
                     <th scope="col">Data de Criação</th>
                     <th scope="col">Relator</th>
+                    <th scope="col">Decisão</th>
+                    <th scope="col">Relator Votou?</th>
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="processo:${processos}">
-                    <td th:text="${processo.numero}"></td>
-                    <td th:text="${processo.aluno.nome}"></td>
-                    <td th:text="${processo.estadoProcesso}"></td>
-                    <td th:text="${processo.assunto.nome}"></td>
-                    <td th:text="${processo.dataCriacao}"></td>
+                    <td th:text="${processo.numero}?:'-'"></td>
+
+                    <td th:if="${processo.aluno} == null">-</td>
+                    <td th:unless="${processo.aluno} == null" th:text="${processo.aluno.nome}?:'-'"></td>
+                    
+                    <td th:text="${processo.estadoProcesso}?:'-'"></td>
+
+                    <td th:if="${processo.assunto} == null">-</td>
+                    <td th:unless="${processo.assunto} == null" th:text="${processo.assunto.assunto}"></td>
+                    
+                    <td th:text="${processo.dataDeCriacao}?:'-'"></td>
+
                     <td th:if="${processo.relator} == null">-</td>
                     <td th:unless="${processo.relator} == null" th:text="${processo.relator.nome}"></td>
+                    <td th:if="${processo.tipoDecisao} == null" >-</td>
+                    <td th:unless="${processo.tipoDecisao} == null" th:text="${processo.tipoDecisao}"></td>
+                    <td th:if="${processo.tipoDecisao} == null">
+                        <img style="width: 2rem;" th:src="@{/imagens/nao-votou.svg}" class="icon">
+                    </td>
+                    <td th:unless="${processo.tipoDecisao} == null">
+                        <img style="width: 2rem;" th:src="@{/imagens/votou.svg}" class="icon">
+                    </td>
                     <td>
-                        <button type="button" class="btn btn-primary">Consultar</button>
+                        <a th:href="@{processos/{idProcesso}(idProcesso=${processo.id})}" type="button" class="btn btn-primary">Consultar</a>
                     </td>
                 </tr>
             </tbody>

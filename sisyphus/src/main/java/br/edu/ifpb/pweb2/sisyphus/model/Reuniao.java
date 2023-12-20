@@ -1,49 +1,61 @@
 package br.edu.ifpb.pweb2.sisyphus.model;
 
 import java.util.Date;
+import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@Entity
 public class Reuniao {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    private String codigo;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future(message = "A data precisa ser futura.")
+    @NotNull(message="É necessário informar uma data para Reunião")
     private Date dataReuniao;
+
+    @Enumerated(EnumType.STRING)
     private StatusReuniao status;
-    private byte[] ata;
 
-    public Reuniao(int id, Date dataReuniao, StatusReuniao status, byte[] ata){
-        this.id = id;
-        this.dataReuniao = dataReuniao;
-        this.status = status;
-        this.ata= ata;
+    @OneToMany(mappedBy = "reuniao")
+    private List<Processo> processos;
+
+    @ManyToOne
+    private Colegiado colegiado;
+
+    public Reuniao(Colegiado colegiado,List<Processo> processos){
+        this.colegiado = colegiado;
+        this.processos = processos;
+        this.status = StatusReuniao.PROGRAMADA;
     }
 
-    public int getId() {
-        return id;
+    public void adicionarProcesso(Processo processo) {
+        this.processos.add(processo);
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString(){
+        return "Reunião de "+ this.colegiado+" - "+ this.dataReuniao;
     }
 
-    public Date getDataReuniao() {
-        return dataReuniao;
-    }
-
-    public void setDataReuniao(Date dataReuniao) {
-        this.dataReuniao = dataReuniao;
-    }
-
-    public StatusReuniao getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusReuniao status) {
-        this.status = status;
-    }
-
-    public byte[] getAta() {
-        return ata;
-    }
-
-    public void setAta(byte[] ata) {
-        this.ata = ata;
-    }
+    
 }
