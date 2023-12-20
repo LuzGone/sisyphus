@@ -45,9 +45,10 @@ public class AssuntosController {
         ){
         if (validation.hasErrors()) {
             model.setViewName("administrador/assunto/form");
+            model.addObject("assunto", assunto);
             model.addObject("acao", "salvar");
             return model;
-        }    
+        }
         assuntoService.salvarAssunto(assunto);
         model.addObject("assuntos", assuntoService.getAssuntos());
         model.setViewName("redirect:/assuntos");

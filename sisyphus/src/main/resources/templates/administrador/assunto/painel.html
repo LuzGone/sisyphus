@@ -89,7 +89,7 @@
                 <tbody>
                   <tr th:each="assunto:${assuntos}">
                     <td>[[${assunto.id}]]</td>
-                    <td th:text="${assunto.assunto}"></td>
+                    <td th:text="${assunto.nomeDoAssunto}"></td>
                     <td>
                         <div class="btn-group">
                             <form style="margin-right: 10px;" th:action="@{assuntos/{id}/delete(id=${assunto.id})}">

@@ -77,12 +77,12 @@ public class CursosController {
         ){
         if (validation.hasErrors()) {
             model.addObject("curso", cursoService.getCursoPorId(id));
-            model.setViewName("redirect:/assuntos/"+id);
+            model.setViewName("redirect:/cursos/"+id);
             return model;
         }
         cursoService.salvarCurso(curso);
         model.addObject("assuntos", cursoService.getCursos());
-        model.setViewName("redirect:/assuntos");
+        model.setViewName("redirect:/cursos");
         redirectAttributes.addFlashAttribute("mensagem", "Curso Editado com Sucesso");
         redirectAttributes.addFlashAttribute("cursosEditado", true);
         return model;

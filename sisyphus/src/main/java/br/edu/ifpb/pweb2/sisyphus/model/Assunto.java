@@ -17,15 +17,15 @@ public class Assunto {
     private int id;
 
     @NotBlank(message="É necessário informar do que o assunto se trata.")
-    private String assunto;
+    private String nomeDoAssunto;
 
-    public Assunto(String assunto) {
-        this.assunto = assunto;
+    public Assunto(String nomeDoAssunto) {
+        this.nomeDoAssunto = nomeDoAssunto;
     }
 
     @Override
     public String toString(){
-        return this.assunto;
+        return this.nomeDoAssunto;
     }
 
 }

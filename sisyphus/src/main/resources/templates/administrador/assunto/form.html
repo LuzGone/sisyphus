@@ -51,7 +51,7 @@
     </header>
     <main>
         <div class="container" >
-            <h1 style="margin-bottom: 20px;margin-top: 20px;">Editar Assunto</h1>
+            <h1 style="margin-bottom: 20px;margin-top: 20px;">[[${acao} == 'salvar' ? 'Criar' : 'Editar']] Assunto</h1>
             <!-- INICIO DO FORM -->
             <form th:action="${acao} == 'salvar' ? @{/assuntos/criar} : @{/assuntos/{id}(id=${assunto.id})}" method="post" th:object="${assunto}">
         
@@ -61,14 +61,14 @@
                         <!--NOME-->
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome do Assunto:</label>
-                            <input type="text" id="nome" th:field="*{assunto}" class="form-control">
-                            <p th:if="${#fields.hasErrors('assunto')}" th:errorclass="error" th:errors="*{assunto}" class="alert alert-danger"></p>
+                            <input type="text" id="nome" th:field="*{nomeDoAssunto}" class="form-control">
+                            <p th:if="${#fields.hasErrors('nomeDoAssunto')}" th:errorclass="error" th:errors="*{nomeDoAssunto}" class="alert alert-danger"></p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <a th:href="@{/assuntos}"  class="btn btn-secondary" style="margin-right: 10px;">Fechar</a>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                    <button type="submit" class="btn btn-primary"
                         style="padding-left: 25px; padding-right:25px">Salvar</button>
                 </div>
             </form>
