@@ -1,4 +1,4 @@
-package sisyphus.src.models;
+package src.main.java.br.edu.ifpb.sisyphus;
 
 
 public enum StatusReuniao{

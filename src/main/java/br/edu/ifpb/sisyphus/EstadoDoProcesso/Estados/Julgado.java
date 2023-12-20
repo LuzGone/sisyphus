@@ -1,4 +1,5 @@
-package sisyphus.src.models;
+package src.main.java.br.edu.ifpb.sisyphus.EstadoDoProcesso.Estados;
+
 public class EstadoJulgado implements EstadoProcesso{
 
     private Processo processo;

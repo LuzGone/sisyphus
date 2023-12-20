@@ -1,4 +1,4 @@
-package sisyphus.src.models;
+package src.main.java.br.edu.ifpb.sisyphus;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ public class Processo {
     private Date dataDeCriacao;
     private Date dataDeDistribuicao;
     private Date dataDoParecer;
-
     private Professor relator;
     private Aluno aluno;
     private Colegiado colegiado;

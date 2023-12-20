@@ -1,9 +1,13 @@
-package sisyphus.src.models;
+package src.main.java.br.edu.ifpb.sisyphus.EstadoDoProcesso.Estados;
 
-public class EstadoDistribuido implements EstadoProcesso{
+import java.util.Date;
+
+
+public class EstadoCriado implements EstadoProcesso {
+
     private Processo processo;
 
-    public EstadoDistribuido(Processo processo) {
+    public EstadoCriado(Processo processo) {
         this.processo = processo;
     }
 
@@ -14,12 +18,15 @@ public class EstadoDistribuido implements EstadoProcesso{
 
     @Override
     public void atribuirProcesso(Professor relator, Colegiado colegiado) {
-        System.out.println("Processo já foi atribuído");
+        this.processo.relator = relator;
+        this.processo.colegiado = colegiado;
+        this.processo.dataDeDistribuicao = new Date();
+        this.processo.estadoProcesso = new EstadoDistribuido(this.processo);
     }
 
     @Override
     public void colocarEmJulgamento() {
-        this.processo.estadoProcesso = new EstadoEmJulgamento(this.processo);
+        System.out.println("Processo não pode ser colocado em julgamento");
     }
 
     @Override
@@ -32,5 +39,7 @@ public class EstadoDistribuido implements EstadoProcesso{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'julgarProcesso'");
     }
-    
+
+
 }
+    
