@@ -1,88 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" 
+layout:decorate="~{layout/layout-aluno}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Colegiado - Página do Aluno</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta th:insert="~{fragments/head-fragment :: head(titulo='Página do Aluno')}">
 </head>
 
 <body>
-    <header>
-        <!--NAV BAR-->
-        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-                <div>
-                    <a class="navbar-brand" href="#">
-                        <img th:src="@{/imagens/sisyphus.png}" width="50" height="50">
-                    </a>
-                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse nav justify-content-center" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/aluno/{id}(id=${aluno.id})}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disable text-white" aria-current="page" th:href="@{/aluno/{id}/processos(id=${aluno.id})}">Processos</a>
-                        </li>
-                    </ul>
-                </div>
+    <header th:replace="~{fragments/aluno/menu :: menu-aluno}"></header>
+    <div layout:fragment="content">
+        <main>
+            <div style="margin: 30px;">
+                <h1 style="margin-top: 20px">Criar Processo de [[${aluno.nome}]]</h1>
+                <hr>
             </div>
-        </nav>
-    </header>
+            <!--FORM DE PROCESSO-->
+            <form class="container" th:action="@{/aluno/{idAluno}/processos/criar(idAluno=${aluno.id})}" method="post" th:object="${processo}">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">Cadastrar processo</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" th:field="*{id}"><br>
+                        <div class="mb-3">
+                            <label for="assunto" class="form-label">Assunto:</label>
+                            <select required id="assunto" th:field="*{assunto}">
+                                <option th:each="assunto:${assuntos}" th:value="${assunto.id}" th:text="${assunto.assunto}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="justificativa" class="form-label">Justificativa:</label>
+                            <textarea  class="form-control" th:field="*{textoRequerimento}" id="justificativa" rows="3"></textarea>
+                            <p th:if="${#fields.hasErrors('textoRequerimento')}" th:errorclass="error" th:errors="*{textoRequerimento}" class="alert alert-danger"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="documento" class="form-label">Adicionar Documento:</label>
+                            <input type="file" id="documento" th:field="*{documentos}"></input>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a th:href="@{'/aluno/' + ${aluno.id} + '/processos'}" type="button" class="btn btn-secondary">Fechar</a>
+                    <button type="submit" class="btn btn-primary"
+                        style="padding-left: 25px; padding-right:25px">Salvar</button>
+                </div>
+            </form>
+        </main>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>   
 
-    <main>
-        <div style="margin: 30px;">
-            <h1 style="margin-top: 20px">Criar Processo de [[${aluno.nome}]]</h1>
-            <hr>
-        </div>
-        <!--FORM DE PROCESSO-->
-        <form class="container" th:action="@{/aluno/{idAluno}/processos/criar(idAluno=${aluno.id})}" method="post" th:object="${processo}">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalLabel">Cadastrar processo</h1>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <input type="hidden" th:field="*{id}"><br>
-                    <div class="mb-3">
-                        <label for="assunto" class="form-label">Assunto:</label>
-                        <select required id="assunto" th:field="*{assunto}">
-                            <option th:each="assunto:${assuntos}" th:value="${assunto.id}" th:text="${assunto.assunto}"></option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="justificativa" class="form-label">Justificativa:</label>
-                        <textarea  class="form-control" th:field="*{textoRequerimento}" id="justificativa" rows="3"></textarea>
-                        <p th:if="${#fields.hasErrors('textoRequerimento')}" th:errorclass="error" th:errors="*{textoRequerimento}" class="alert alert-danger"></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="documento" class="form-label">Adicionar Documento:</label>
-                        <input type="file" id="documento" th:field="*{documentos}"></input>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a th:href="@{'/aluno/' + ${aluno.id} + '/processos'}" type="button" class="btn btn-secondary">Fechar</a>
-                <button type="submit" class="btn btn-primary"
-                    style="padding-left: 25px; padding-right:25px">Salvar</button>
-            </div>
-        </form>
-    </main>
-
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-        </a>
-        <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Sisyphus - IFPB </span>
-      </div>
-    </footer>
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>

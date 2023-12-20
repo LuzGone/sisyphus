@@ -1,91 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" 
+layout:decorate="~{layout/layout-coord}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Colegiado - Página do Aluno</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta th:insert="~{fragments/head-fragment :: head(titulo='Página do Coordenador')}">
 </head>
 
 <body>
-    <header>
-        <!--NAV BAR-->
-        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
+    <header th:replace="~{fragments/menu-coord :: menu-coord}"></header>
+    <div layout:fragment="content">
+        <main>
+            <div style="margin: 30px;">
+                <h1 style="margin-top: 20px">Criar Reuniao de [[${colegiado.descricao}]]</h1>
+                <hr>
+            </div>
+            <!--FORM DE PROCESSO-->
+            <form class="container" th:action="@{'/coordenador/' + ${coordenador.id} + '/reunioes/criar'}" method="post" th:object="${reuniao}">
                 <div>
-                    <a class="navbar-brand" href="#">
-                        <img th:src="@{/imagens/sisyphus.png}" width="50" height="50">
-                    </a>
-                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
+                    <div class="row">
+                        <input type="hidden" th:field="*{id}"><br>
+                        <div class="mb-3">
+                            <label for="data" class="form-label">Data da Reunião:</label>
+                            <input class="form-control" type="date" id="data" th:field="*{dataReuniao}"></input>
+                            <p th:if="${#fields.hasErrors('dataReuniao')}" th:errorclass="error" th:errors="*{dataReuniao}" class="alert alert-danger"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="colegiado" class="form-label">Colegiado:</label>
+                            <input class="form-control" disabled type="text" id="colegiado" th:value="${colegiado.descricao}"></input>
+                        </div>
+                    </div>
                 </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse nav justify-content-center" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}(coordenadorId=${coordenador.id})}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
-                        </li>
-                    </ul>
+                <div>
+                    <h3>Selecione a Pauta:</h3>
+                    <p>Obs.: Até 5 processos.</p>
+                    <div class="col-md-6" th:each="processo, itemStat : ${processosEscolhidos}">
+                        <div class="mb-3">
+                            <label for="processo" class="form-label">Processo [[${itemStat.index+1}]]: </label>
+                            <select class="form-select" id="processo" th:field="*{processos[__${itemStat.index}__]}">
+                                <option th:value="null">-</option>
+                                <option th:each="processo: ${processosDisponiveis}" th:value="${processo.id}" th:text="${processo}"></option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+                <button type="submit" class="btn btn-primary">Criar</button>
+            </form>       
+        </main>
+    </div>
 
-    <main>
-        <div style="margin: 30px;">
-            <h1 style="margin-top: 20px">Criar Reuniao de [[${colegiado.descricao}]]</h1>
-            <hr>
-        </div>
-        <!--FORM DE PROCESSO-->
-        <form class="container" th:action="@{'/coordenador/' + ${coordenador.id} + '/reunioes/criar'}" method="post" th:object="${reuniao}">
-            <div>
-                <div class="row">
-                    <input type="hidden" th:field="*{id}"><br>
-                    <div class="mb-3">
-                        <label for="data" class="form-label">Data da Reunião:</label>
-                        <input class="form-control" type="date" id="data" th:field="*{dataReuniao}"></input>
-                        <p th:if="${#fields.hasErrors('dataReuniao')}" th:errorclass="error" th:errors="*{dataReuniao}" class="alert alert-danger"></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="colegiado" class="form-label">Colegiado:</label>
-                        <input class="form-control" disabled type="text" id="colegiado" th:value="${colegiado.descricao}"></input>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h3>Selecione a Pauta:</h3>
-                <p>Obs.: Até 5 processos.</p>
-                <div class="col-md-6" th:each="processo, itemStat : ${processosEscolhidos}">
-                    <div class="mb-3">
-                        <label for="processo" class="form-label">Processo [[${itemStat.index+1}]]: </label>
-                        <select class="form-select" id="processo" th:field="*{processos[__${itemStat.index}__]}">
-                            <option th:value="null">-</option>
-                            <option th:each="processo: ${processosDisponiveis}" th:value="${processo.id}" th:text="${processo}"></option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Criar</button>
-        </form>       
-    </main>
+    <div th:replace="~{fragments/footer :: footer}"></div>   
 
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-        </a>
-        <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Sisyphus - IFPB </span>
-      </div>
-    </footer>
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>

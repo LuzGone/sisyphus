@@ -1,133 +1,82 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edição de Aluno</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-                <div>
-                    <a class="navbar-brand" href="#">
-                        <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
-                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/administrador}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/assuntos}">Assuntos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/alunos}">Aluno</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professores}">Professor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disable text-white" aria-current="page" href="#">Processos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/colegiados}">Colegiado</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenadores}">Coordenadores</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/cursos}">Cursos</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    
-    <main>
-        <div class="container" >
-            <h1 style="margin-top: 20px;margin-bottom: 20px;">[[${acao} == 'salvar' ? 'Criar' : 'Editar']] Aluno</h1>
-            <hr>
-            <!-- INICIO DO FORM -->
-            <form th:action="${acao} == 'salvar' ? @{/alunos/criar} : @{/alunos/{id}(id=${aluno.id})}" method="POST" th:object="${aluno}">
-                <div class="modal-header">
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <input type="hidden" th:field="*{id}"><br>
-                        <!--NOME-->
-                        <div class="mb-3">
-                            <label for="nomeAluno" class="form-label">Nome:</label>
-                            <input type="text" id="nomeAluno" th:field="*{nome}" class="form-control">
-                            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}" class="alert alert-danger"></p>
-                        </div>
-    
-                        <!--FONE-->
-                        <div class="mb-3">
-                            <label for="telefoneAluno" class="form-label">Telefone:</label>
-                            <input type="text" id="telefoneAluno" th:field="*{telefone}" class="form-control">
-                            <p th:if="${#fields.hasErrors('telefone')}" th:errorclass="error" th:errors="*{telefone}" class="alert alert-danger"></p>
-                        </div>
-    
-                        <!--MATRICULA-->
-                        <div class="mb-3">
-                            <label for="matriculaAluno" class="form-label">Matricula:</label>
-                            <input type="text" id="matriculaAluno" th:field="*{matricula}" class="form-control">
-                            <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}" class="alert alert-danger"></p>
-                        </div>
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" 
+layout:decorate="~{layout/layout-aluno}">
 
-                        <!--CURSO-->
-                        <div class="mb-3">
-                            <label for="curso" class="form-label">Curso:</label>
-                            <select class="form-select" required id="curso" th:field="*{curso}">
-                                <option th:each="curso: ${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
-                            </select>
-                        </div>
-    
-                        <!--LOGIN-->
-                        <div class="mb-3">
-                            <label for="loginAluno" class="form-label">Login:</label>
-                            <input type="text" id="loginAluno" th:field="*{usuario}" class="form-control">
-                            <p th:if="${#fields.hasErrors('usuario')}" th:errorclass="error" th:errors="*{usuario}" class="alert alert-danger"></p>
-                        </div>
-    
-                        <!--SENHA-->
-                        <div class="mb-3">
-                            <label for="senhaAluno" class="form-label">Senha:</label>
-                            <input type="password" id="senhaAluno" th:field="*{senha}" class="form-control">
-                            <p th:if="${#fields.hasErrors('senha')}" th:errorclass="error" th:errors="*{senha}" class="alert alert-danger"></p>
-                        </div>
-                    
-    
+<head>
+    <meta th:insert="~{fragments/head-fragment :: head(titulo='Página do Aluno')}">
+</head>
+
+<body>
+    <header th:replace="~{fragments/adm/menu-fragment :: adm-head}"></header>
+    <div layout:fragment="content">
+        <main>
+            <div class="container" >
+                <h1 style="margin-top: 20px;margin-bottom: 20px;">[[${acao} == 'salvar' ? 'Criar' : 'Editar']] Aluno</h1>
+                <hr>
+                <!-- INICIO DO FORM -->
+                <form th:action="${acao} == 'salvar' ? @{/alunos/criar} : @{/alunos/{id}(id=${aluno.id})}" method="POST" th:object="${aluno}">
+                    <div class="modal-header">
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a th:href="@{/alunos}" style="margin-right: 10px;" class="btn btn-secondary" ma>Fechar</a>
-                    <button type="submit" class="btn btn-primary"
-                        style="padding-left: 25px; padding-right:25px">Salvar</button>
-                </div>
-            </form>
-            
-        </div>
-    </main>
-    
-     <!-- FOOTER -->
-  <div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-        </a>
-        <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Sisyphus - IFPB </span>
-      </div>
-    </footer>
-  </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="hidden" th:field="*{id}"><br>
+                            <!--NOME-->
+                            <div class="mb-3">
+                                <label for="nomeAluno" class="form-label">Nome:</label>
+                                <input type="text" id="nomeAluno" th:field="*{nome}" class="form-control">
+                                <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}" class="alert alert-danger"></p>
+                            </div>
+        
+                            <!--FONE-->
+                            <div class="mb-3">
+                                <label for="telefoneAluno" class="form-label">Telefone:</label>
+                                <input type="text" id="telefoneAluno" th:field="*{telefone}" class="form-control">
+                                <p th:if="${#fields.hasErrors('telefone')}" th:errorclass="error" th:errors="*{telefone}" class="alert alert-danger"></p>
+                            </div>
+        
+                            <!--MATRICULA-->
+                            <div class="mb-3">
+                                <label for="matriculaAluno" class="form-label">Matricula:</label>
+                                <input type="text" id="matriculaAluno" th:field="*{matricula}" class="form-control">
+                                <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}" class="alert alert-danger"></p>
+                            </div>
+
+                            <!--CURSO-->
+                            <div class="mb-3">
+                                <label for="curso" class="form-label">Curso:</label>
+                                <select class="form-select" required id="curso" th:field="*{curso}">
+                                    <option th:each="curso: ${cursos}" th:value="${curso.id}" th:text="${curso.nome}"></option>
+                                </select>
+                            </div>
+        
+                            <!--LOGIN-->
+                            <div class="mb-3">
+                                <label for="loginAluno" class="form-label">Login:</label>
+                                <input type="text" id="loginAluno" th:field="*{usuario}" class="form-control">
+                                <p th:if="${#fields.hasErrors('usuario')}" th:errorclass="error" th:errors="*{usuario}" class="alert alert-danger"></p>
+                            </div>
+        
+                            <!--SENHA-->
+                            <div class="mb-3">
+                                <label for="senhaAluno" class="form-label">Senha:</label>
+                                <input type="password" id="senhaAluno" th:field="*{senha}" class="form-control">
+                                <p th:if="${#fields.hasErrors('senha')}" th:errorclass="error" th:errors="*{senha}" class="alert alert-danger"></p>
+                            </div>
+                        
+        
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a th:href="@{/alunos}" style="margin-right: 10px;" class="btn btn-secondary" ma>Fechar</a>
+                        <button type="submit" class="btn btn-primary"
+                            style="padding-left: 25px; padding-right:25px">Salvar</button>
+                    </div>
+                </form>
+                
+            </div>
+        </main>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>   
     
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>

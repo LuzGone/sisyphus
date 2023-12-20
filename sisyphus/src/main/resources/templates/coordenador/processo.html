@@ -1,121 +1,92 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" 
+layout:decorate="~{layout/layout-coord}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Processo #[[${processo.numero}]]</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta th:insert="~{fragments/head-fragment :: head(titulo='Página do Coordenador')}">
 </head>
 
 <body>
-    <header>
-        <!-- NAV BAR-->
-        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-                <div>
-                    <a class="navbar-brand" href="#">
-                        <img th:src="@{/imagens/sisyphus.png}" alt="Ícone" width="50" height="50">
-                    </a>
-                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}(coordenadorId=${coordenador.id})}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
-                        </li>
-                    </ul>
-                </div>
+  <header th:replace="~{fragments/menu-coord :: menu-coord}"></header>
+    <div layout:fragment="content">
+        <main>
+            <!--LISTAGEM--->
+            <div style="margin: 30px;">
+                <h1 style="margin-top: 20px">Distribuir Processo - #[[${processo.numero}]]</h1>
+                <hr>
             </div>
-        </nav>
-    </header>
-    <main>
-        <!--LISTAGEM--->
-        <div style="margin: 30px;">
-            <h1 style="margin-top: 20px">Distribuir Processo - #[[${processo.numero}]]</h1>
-            <hr>
-        </div>
-        <!-- PROCESSO -->
-        <div class="container">
-            <div class="row">
-                <div class="container col fs-4 border border-black p-4">Aluno: [[${processo.aluno.nome}]]</div>
-                <div class="container col fs-4 border border-black p-4">
-                    Relator: <button 
-                                th:if="${processo.relator} == null" 
-                                data-bs-target="#modal"
-                                data-bs-toggle="modal" 
-                                class="btn btn-primary"
-                                >Atribuir Relator</button>
-                                <span th:unless="${processo.relator} == null">[[${processo.relator.nome}]]</span>
+            <!-- PROCESSO -->
+            <div class="container">
+                <div class="row">
+                    <div class="container col fs-4 border border-black p-4">Aluno: [[${processo.aluno.nome}]]</div>
+                    <div class="container col fs-4 border border-black p-4">
+                        Relator: <button 
+                                    th:if="${processo.relator} == null" 
+                                    data-bs-target="#modal"
+                                    data-bs-toggle="modal" 
+                                    class="btn btn-primary"
+                                    >Atribuir Relator</button>
+                                    <span th:unless="${processo.relator} == null">[[${processo.relator.nome}]]</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container col fs-4 border border-black">Data de Criação: [[${processo.dataDeCriacao}]]</div>
+                    <div class="container col fs-4 border border-black">Data de Distribuição: [[${processo.dataDeDistribuicao}?:'-']]</div>
+                    <div class="container col fs-4 border border-black">Data do Parecer: [[${processo.dataDoParecer}?:'-']]</div>
+                </div>
+                <div class="row">
+                    <div class="container col fs-4 border border-black p-4">Documento do Parecer: [[${processo.justificativaRelator}?:'-']]</div>
+                    <div class="container col fs-4 border border-black p-4">Documentos do Aluno: 
+                        <span th:if="${processo.documentos} != null">1 Documento</span>
+                        <span th:unless="${processo.documentos} != null">Nenhum Documento Anexado</span>
+                    </div>  
+                </div>
+                <div class="row">
+                    <div class="container col fs-4 border border-black p-4">Colegiado: [[${processo.colegiado}?:'-']]</div>
+                    <div class="container col fs-4 border border-black p-4">Assunto: [[${processo.assunto.assunto}]]</div>
+                </div>
+                <div class="row">
+                    <div class="container col fs-4 border border-black p-4">Decisão: [[${processo.tipoDecisao}?:'-']]</div>
+                    <div class="container col fs-4 border border-black p-4">Estado do Processo: [[${processo.estadoProcesso}]]</div>
+                </div>
+                <div class="row">
+                    <div class="container col fs-4 border border-black p-4">Texto de Requerimento: [[${processo.textoRequerimento}]]</div>
                 </div>
             </div>
-            <div class="row">
-                <div class="container col fs-4 border border-black">Data de Criação: [[${processo.dataDeCriacao}]]</div>
-                <div class="container col fs-4 border border-black">Data de Distribuição: [[${processo.dataDeDistribuicao}?:'-']]</div>
-                <div class="container col fs-4 border border-black">Data do Parecer: [[${processo.dataDoParecer}?:'-']]</div>
-            </div>
-            <div class="row">
-                <div class="container col fs-4 border border-black p-4">Documento do Parecer: [[${processo.justificativaRelator}?:'-']]</div>
-                <div class="container col fs-4 border border-black p-4">Documentos do Aluno: 
-                    <span th:if="${processo.documentos} != null">1 Documento</span>
-                    <span th:unless="${processo.documentos} != null">Nenhum Documento Anexado</span>
-                </div>  
-            </div>
-            <div class="row">
-                <div class="container col fs-4 border border-black p-4">Colegiado: [[${processo.colegiado}?:'-']]</div>
-                <div class="container col fs-4 border border-black p-4">Assunto: [[${processo.assunto.assunto}]]</div>
-            </div>
-            <div class="row">
-                <div class="container col fs-4 border border-black p-4">Decisão: [[${processo.tipoDecisao}?:'-']]</div>
-                <div class="container col fs-4 border border-black p-4">Estado do Processo: [[${processo.estadoProcesso}]]</div>
-            </div>
-            <div class="row">
-                <div class="container col fs-4 border border-black p-4">Texto de Requerimento: [[${processo.textoRequerimento}]]</div>
-            </div>
-        </div>
 
-        <!-- MODAL PRA ESCOLHER O RELATOR -->
-        <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!--FORM DO RELATOR-->
-                    <form th:action="@{/coordenador/{idCoordenador}/processos/{id}(idCoordenador=${coordenador.id},id=${processo.id})}" method="post" th:object="${processo}">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalLabel">Atribuir Relator</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <input type="hidden" th:field="*{id}"><br>
-                                <div class="mb-3">
-                                    <label for="relator" class="form-label">Selecione um Relator:</label>
-                                    <select required id="relator" th:field="*{relator}">
-                                        <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
-                                    </select>
+            <!-- MODAL PRA ESCOLHER O RELATOR -->
+            <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!--FORM DO RELATOR-->
+                        <form th:action="@{/coordenador/{idCoordenador}/processos/{id}(idCoordenador=${coordenador.id},id=${processo.id})}" method="post" th:object="${processo}">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="modalLabel">Atribuir Relator</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <input type="hidden" th:field="*{id}"><br>
+                                    <div class="mb-3">
+                                        <label for="relator" class="form-label">Selecione um Relator:</label>
+                                        <select required id="relator" th:field="*{relator}">
+                                            <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                                style="padding-left: 25px; padding-right:25px">Atribuir Relator</button>
-                        </div>
-                    </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                                    style="padding-left: 25px; padding-right:25px">Atribuir Relator</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <footer></footer>
+        </main>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>   
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
