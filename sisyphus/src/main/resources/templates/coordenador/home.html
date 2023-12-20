@@ -3,11 +3,11 @@
 layout:decorate="~{layout/layout-coord}">
 
 <head>
-    <meta th:insert="~{fragments/head-fragment :: head(titulo='Página do Coordenador')}">
+    <meta th:insert="~{fragments/head-fragment :: head(titulo='Home do Coordenador')}">
 </head>
 
 <body>
-  <header th:replace="~{fragments/menu-coord :: menu-coord}"></header>
+  <header th:replace="~{fragments/coordenador/menu-coord :: menu-coord}"></header>
     <div layout:fragment="content">
       <main>
         <div class="container d-flex flex-column align-items-center">
