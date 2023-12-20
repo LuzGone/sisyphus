@@ -51,6 +51,7 @@ layout:decorate="~{layout/layout-adm}">
                 </tr>
                 </tbody>
             </table>
+            <div th:replace="~{/fragments/paging ::paginator('alunos', ${navPage})}"/>
         </div>
     </div>
     <div th:replace="~{fragments/footer :: footer}"></div>   

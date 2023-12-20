@@ -3,6 +3,9 @@ package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +13,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 import br.edu.ifpb.pweb2.sisyphus.model.Curso;
+import br.edu.ifpb.pweb2.sisyphus.repository.AlunoRepository;
 import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
 import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavPage;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavePageBuilder;
 import jakarta.validation.Valid;
 
 @Controller
@@ -35,9 +42,14 @@ public class AlunosController {
     }
 
     @GetMapping
-    public ModelAndView listarAlunos(ModelAndView model){
+    public ModelAndView listarAlunos(ModelAndView model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size){
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Aluno> alunos = AlunoRepository.findAll(paging);
+        NavPage navPage = NavePageBuilder.newNavPage(alunos.getNumber() + 1,  alunos.getTotalElements(), alunos.getTotalPages(), size);
+        model.addObject("menu", "aluno");
         model.addObject("alunos", alunoService.getAlunos());
         model.setViewName("administrador/aluno/painel");
+        model.addObject("navPage", navPage);
         return model;
     }
 

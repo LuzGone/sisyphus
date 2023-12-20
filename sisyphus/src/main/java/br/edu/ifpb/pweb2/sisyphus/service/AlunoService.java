@@ -1,6 +1,8 @@
 package br.edu.ifpb.pweb2.sisyphus.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.AlunoRepository;
@@ -16,6 +18,11 @@ public class AlunoService {
 
     public List<Aluno> getAlunos(){
         return this.alunoRepository.findAll();
+    }
+
+    @Override
+    public Page<Aluno>findAll(Pageable page){
+        return AlunoRepository.findAll(page);
     }
 
     public Aluno getAlunoPorId(Long id){
