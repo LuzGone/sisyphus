@@ -1,6 +1,3 @@
-package src.main.java.br.edu.ifpb.sisyphus;
-
-
 public class Coordenador{
 
     private Professor professor;
@@ -10,7 +7,15 @@ public class Coordenador{
     }
 
     public void delegarProcesso(Processo processo, Professor professor){
-        professor.adicionarProcesso(processo);
+        try{
+            processo.atribuirProcessoAoRelator(professor);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Professor getProfessor() {
+        return professor;
     }
 
     @Override

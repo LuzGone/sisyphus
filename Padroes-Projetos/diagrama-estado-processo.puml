@@ -1,0 +1,10 @@
+@startuml
+
+[*] --> Criado
+Criado --> Distribuido
+Distribuido --> EmPauta
+EmPauta --> EmJulgamento
+EmJulgamento --> Julgado
+Julgado --> [*]
+
+@enduml

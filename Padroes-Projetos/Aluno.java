@@ -1,5 +1,4 @@
-package src.main.java.br.edu.ifpb.sisyphus;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno {
@@ -10,16 +9,15 @@ public class Aluno {
     private Curso curso;
     private String usuario;
     private String senha;
-    private List<Processo> listaDeProcessos;
+    private List<Processo> listaDeProcessos = new ArrayList<Processo>();
 
-    public Aluno(String nome, String telefone, String matricula, Curso curso, String usuario, String senha, List<Processo> listaDeProcessos) {
+    public Aluno(String nome, String telefone, String matricula, Curso curso, String usuario, String senha) {
         this.nome = nome;
         this.telefone = telefone;
         this.matricula = matricula;
         this.curso = curso;
         this.usuario = usuario;
         this.senha = senha;
-        this.listaDeProcessos = listaDeProcessos;
     }
     
     public void adicionarProcesso(Processo processo){

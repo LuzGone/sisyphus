@@ -1,5 +1,3 @@
-package src.main.java.br.edu.ifpb.sisyphus;
-
 public class Curso {
 
     private String nome;

@@ -1,5 +1,4 @@
-package src.main.java.br.edu.ifpb.sisyphus;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,19 +10,16 @@ public class Colegiado {
     private String descricao;
     private Curso curso;
     private Coordenador coordenador;
-    private List<Professor> membros;
-    private List<Processo> processos;
-    private List<Reuniao> reuniaos;
+    private List<Professor> membros =  new ArrayList<Professor>();
+    private List<Processo> processos = new ArrayList<Processo>();
+    private List<Reuniao> reuniaos = new ArrayList<Reuniao>();
 
-    public Colegiado(Date dataDoInicio, Date dataDoFim, String descricao, Curso curso, Coordenador coordenador, List<Professor> membros, List<Processo> processos, List<Reuniao> reuniaos) {
+    public Colegiado(Date dataDoInicio, Date dataDoFim, Curso curso, Coordenador coordenador) {
         this.dataDoInicio = dataDoInicio;
         this.dataDoFim = dataDoFim;
-        this.descricao = descricao;
+        this.descricao = "Colegiado de " + curso;
         this.curso = curso;
         this.coordenador = coordenador;
-        this.membros = membros;
-        this.processos = processos;
-        this.reuniaos = reuniaos;
     }
 
     public void adicionarMembro(Professor professor){
@@ -41,6 +37,10 @@ public class Colegiado {
 
     public void adicionarProcesso(Processo processo){
         this.processos.add(processo);
+    }
+
+    public Curso getCurso() {
+        return curso;
     }
 
 

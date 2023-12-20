@@ -1,5 +1,3 @@
-package src.main.java.br.edu.ifpb.sisyphus;
-
 public class Voto {
 
     private Professor professor;

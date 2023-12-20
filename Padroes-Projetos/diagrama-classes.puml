@@ -1,0 +1,352 @@
+@startuml
+skinparam classAttributeIconSize 0
+class ProfessorRepositorio{
+- {static} instancia : ProfessorRepositorio
+- cursoRepositorio : CursoRepositorio
+- listaDeProfessores : List<Professor>
+- ProfessorRepositorio()
++ {static} getInstancia() : ProfessorRepositorio
++ adicionarProfessor(professor : Professor) : void
++ removerProfessor(professor : Professor) : void
++ buscarProfessor(matricula : String) : Professor
++ getListaDeProfessores() : List<Professor>
++ toString() : String
+}
+class AssuntoRepositorio{
+- {static} instancia : AssuntoRepositorio
+- repositorio : List<Assunto>
+- AssuntoRepositorio()
++ {static} getInstancia() : AssuntoRepositorio
++ getRepositorio() : List<Assunto>
++ toString() : String
+}
+class Colegiado{
+- dataDoInicio : Date
+- dataDoFim : Date
+- descricao : String
+- curso : Curso
+- coordenador : Coordenador
+- membros : List<Professor>
+- processos : List<Processo>
+- reuniaos : List<Reuniao>
++ Colegiado(dataDoInicio : Date, dataDoFim : Date, curso : Curso, coordenador : Coordenador)
++ adicionarMembro(professor : Professor) : void
++ toString() : String
++ adicionarReuniao(reuniao : Reuniao) : void
++ adicionarProcesso(processo : Processo) : void
++ getCurso() : Curso
+}
+class CoordenadorRepositorio{
+- {static} instancia : CoordenadorRepositorio
+- repositorio : List<Coordenador>
+- professorRepositorio : ProfessorRepositorio
+- CoordenadorRepositorio()
++ {static} getInstancia() : CoordenadorRepositorio
++ buscarCoordenador(professor : Professor) : Coordenador
++ getRepositorio() : List<Coordenador>
++ toString() : String
+}
+class Criado{
+- processo : Processo
++ Criado(processo : Processo)
++ proximoEstado(estadoProcesso : EstadoProcesso) : void
++ atribuirProcessoAoRelator(relator : Professor) : void
++ pautarProcesso() : void
++ colocarEmJulgamento() : void
++ julgarProcesso(listaDeVotos : List<Voto>) : void
++ toString() : String
+}
+Criado ..|> EstadoProcesso
+class Distribuido{
+- processo : Processo
++ Distribuido(processo : Processo)
++ proximoEstado(estadoProcesso : EstadoProcesso) : void
++ atribuirProcessoAoRelator(relator : Professor) : void
++ pautarProcesso() : void
++ colocarEmJulgamento() : void
++ julgarProcesso(listaDeVotos : List<Voto>) : void
++ toString() : String
+}
+Distribuido ..|> EstadoProcesso
+class Julgado{
+- processo : Processo
++ Julgado(processo : Processo)
++ proximoEstado(estadoProcesso : EstadoProcesso) : void
++ atribuirProcessoAoRelator(relator : Professor) : void
++ pautarProcesso() : void
++ colocarEmJulgamento() : void
++ julgarProcesso(listaDeVotos : List<Voto>) : void
++ toString() : String
+}
+Julgado ..|> EstadoProcesso
+class Processo{
+- numero : String
+- dataDeCriacao : Date
+- dataDeDistribuicao : Date
+- dataDoParecer : Date
+- relator : Professor
+- aluno : Aluno
+- colegiado : Colegiado
+- assunto : Assunto
+- tipoDecisao : TipoDecisao
+- listaDeVotos : List<Voto>
+- textoRequerimento : String
+- justificativaRelator : String
+- estadoProcesso : EstadoProcesso
+- reuniao : Reuniao
++ Processo(aluno : Aluno, assunto : Assunto, textoRequerimento : String, colegiado : Colegiado)
++ alterarEstadoProcesso(estadoProcesso : EstadoProcesso) : void
++ getEstadoProcesso() : EstadoProcesso
++ atribuirProcessoAoRelator(relator : Professor) : void
++ pautarProcesso() : void
++ adicionarDecisao(justificativaRelator : String, tipoDecisao : TipoDecisao) : void
++ colocarEmJulgamento() : void
++ julgarProcesso(listaDeVotos : List<Voto>) : void
++ toString() : String
+}
+class Encerrada{
+- reuniao : Reuniao
++ Encerrada(reuniao : Reuniao)
++ proximoStatus(status : StatusReuniao) : void
++ inicarReuniao() : void
++ encerrarReuniao() : void
++ toString() : String
+}
+Encerrada ..|> StatusReuniao
+class EmJulgamento{
+- processo : Processo
++ EmJulgamento(processo : Processo)
++ proximoEstado(estadoProcesso : EstadoProcesso) : void
++ atribuirProcessoAoRelator(relator : Professor) : void
++ pautarProcesso() : void
++ colocarEmJulgamento() : void
++ julgarProcesso(listaDeVotos : List<Voto>) : void
++ toString() : String
+}
+EmJulgamento ..|> EstadoProcesso
+class Assunto{
+- assunto : String
++ Assunto(assunto : String)
++ toString() : String
++ getAssunto() : String
++ setAssunto(assunto : String) : void
+}
+class Curso{
+- nome : String
++ Curso(nome : String)
++ getCurso() : String
++ setCurso(nome : String) : void
++ toString() : String
+}
+class EmAndamento{
+- reuniao : Reuniao
++ EmAndamento(reuniao : Reuniao)
++ proximoStatus(status : StatusReuniao) : void
++ inicarReuniao() : void
++ encerrarReuniao() : void
++ toString() : String
+}
+EmAndamento ..|> StatusReuniao
+class Reuniao{
+- codigo : String
+- dataReuniao : Date
+- status : StatusReuniao
+- processos : List<Processo>
+- colegiado : Colegiado
++ Reuniao(dataReuniao : Date, processos : List<Processo>, colegiado : Colegiado)
++ pautarProcessosParaJulgamento() : void
++ inicarReuniao() : void
++ encerrarReuniao() : void
++ getStatus() : StatusReuniao
++ setStatus(status : StatusReuniao) : void
++ adicionarProcesso(processo : Processo) : void
++ toString() : String
+}
+class CursoRepositorio{
+- {static} instancia : CursoRepositorio
+- repositorio : List<Curso>
+- CursoRepositorio()
++ {static} getInstancia() : CursoRepositorio
++ buscarCurso(nome : String) : Curso
++ getRepositorio() : List<Curso>
++ toString() : String
+}
+class ProcessoRepositorio{
+- {static} instancia : ProcessoRepositorio
+- repositorio : List<Processo>
+- ProcessoRepositorio()
++ {static} getInstancia() : ProcessoRepositorio
++ getRepositorio() : List<Processo>
++ adicionarProcesso(processo : Processo) : void
++ toString() : String
+}
+class ColegiadoRepositorio{
+- {static} instancia : ColegiadoRepositorio
+- repositorio : List<Colegiado>
+- cursoRepositorio : CursoRepositorio
+- coordenadorRepositorio : CoordenadorRepositorio
+- professorRepositorio : ProfessorRepositorio
+- ColegiadoRepositorio()
++ {static} getInstancia() : ColegiadoRepositorio
++ getRepositorio() : List<Colegiado>
++ buscarColegiadoPorCurso(curso : Curso) : Colegiado
++ toString() : String
+}
+class Coordenador{
+- professor : Professor
++ Coordenador(professor : Professor)
++ delegarProcesso(processo : Processo, professor : Professor) : void
++ getProfessor() : Professor
++ toString() : String
+}
+class EmPauta{
+- processo : Processo
++ EmPauta(processo : Processo)
++ proximoEstado(estadoProcesso : EstadoProcesso) : void
++ atribuirProcessoAoRelator(relator : Professor) : void
++ pautarProcesso() : void
++ colocarEmJulgamento() : void
++ julgarProcesso(listaDeVotos : List<Voto>) : void
++ toString() : String
+}
+EmPauta ..|> EstadoProcesso
+class Professor{
+# nome : String
+# telefone : String
+# matricula : String
+# curso : Curso
+# usuario : String
+# senha : String
+# listaDeProcessos : List<Processo>
+# listaColegiados : List<Colegiado>
++ Professor(nome : String, telefone : String, matricula : String, curso : Curso, usuario : String, senha : String)
++ adicionarProcesso(processo : Processo) : void
++ adicionarColegiado(colegiado : Colegiado) : void
++ getNome() : String
++ getTelefone() : String
++ getMatricula() : String
++ getCurso() : Curso
++ getUsuario() : String
++ getSenha() : String
++ getListaDeProcessos() : List<Processo>
++ getListaColegiados() : List<Colegiado>
++ toString() : String
+}
+class AlunoRepositorio{
+- {static} instancia : AlunoRepositorio
+- alunos : List<Aluno>
+- cursoRepositorio : CursoRepositorio
++ AlunoRepositorio()
++ getRepositorio() : List<Aluno>
++ adicionarAluno(aluno : Aluno) : void
++ removerAluno(aluno : Aluno) : void
++ buscarAluno(matricula : String) : Aluno
++ {static} getInstancia() : AlunoRepositorio
++ toString() : String
+}
+class main{
++ {static} main(args : String[]) : void
+}
+class Aluno{
+- nome : String
+- telefone : String
+- matricula : String
+- curso : Curso
+- usuario : String
+- senha : String
+- listaDeProcessos : List<Processo>
++ Aluno(nome : String, telefone : String, matricula : String, curso : Curso, usuario : String, senha : String)
++ adicionarProcesso(processo : Processo) : void
++ getNome() : String
++ setNome(nome : String) : void
++ getTelefone() : String
++ setTelefone(telefone : String) : void
++ getMatricula() : String
++ setMatricula(matricula : String) : void
++ getCurso() : Curso
++ setCurso(curso : Curso) : void
++ getUsuario() : String
++ setUsuario(usuario : String) : void
++ getSenha() : String
++ setSenha(senha : String) : void
++ getListaDeProcessos() : List<Processo>
++ setListaDeProcessos(listaDeProcessos : List<Processo>) : void
++ toString() : String
+}
+class Programada{
+- reuniao : Reuniao
++ Programada(reuniao : Reuniao)
++ proximoStatus(status : StatusReuniao) : void
++ inicarReuniao() : void
++ encerrarReuniao() : void
++ toString() : String
+}
+Programada ..|> StatusReuniao
+class Voto{
+- professor : Professor
+- processo : Processo
+- tipoVoto : TipoVoto
++ Voto(professor : Professor, processo : Processo, tipoVoto : TipoVoto)
++ getTipoVoto() : TipoVoto
+}
+ProfessorRepositorio--"- {static} instancia" ProfessorRepositorio
+ProfessorRepositorio--"- cursoRepositorio" CursoRepositorio
+AssuntoRepositorio--"- {static} instancia" AssuntoRepositorio
+Colegiado--"- curso" Curso
+Colegiado--"- coordenador" Coordenador
+CoordenadorRepositorio--"- {static} instancia" CoordenadorRepositorio
+CoordenadorRepositorio--"- professorRepositorio" ProfessorRepositorio
+Criado--"- processo" Processo
+Distribuido--"- processo" Processo
+Julgado--"- processo" Processo
+Processo--"- relator" Professor
+Processo--"- aluno" Aluno
+Processo--"- colegiado" Colegiado
+Processo--"- assunto" Assunto
+Processo--"- tipoDecisao" TipoDecisao
+Processo--"- estadoProcesso" EstadoProcesso
+Processo--"- reuniao" Reuniao
+Encerrada--"- reuniao" Reuniao
+EmJulgamento--"- processo" Processo
+EmAndamento--"- reuniao" Reuniao
+Reuniao--"- status" StatusReuniao
+Reuniao--"- colegiado" Colegiado
+CursoRepositorio--"- {static} instancia" CursoRepositorio
+ProcessoRepositorio--"- {static} instancia" ProcessoRepositorio
+ColegiadoRepositorio--"- {static} instancia" ColegiadoRepositorio
+ColegiadoRepositorio--"- cursoRepositorio" CursoRepositorio
+ColegiadoRepositorio--"- coordenadorRepositorio" CoordenadorRepositorio
+ColegiadoRepositorio--"- professorRepositorio" ProfessorRepositorio
+Coordenador--"- professor" Professor
+EmPauta--"- processo" Processo
+Professor--"# curso" Curso
+AlunoRepositorio--"- {static} instancia" AlunoRepositorio
+AlunoRepositorio--"- cursoRepositorio" CursoRepositorio
+Aluno--"- curso" Curso
+Programada--"- reuniao" Reuniao
+Voto--"- professor" Professor
+Voto--"- processo" Processo
+Voto--"- tipoVoto" TipoVoto
+interface StatusReuniao{
++ proximoStatus(status : StatusReuniao) : void
++ inicarReuniao() : void
++ encerrarReuniao() : void
+}
+interface EstadoProcesso{
++ proximoEstado(estado : EstadoProcesso) : void
++ atribuirProcessoAoRelator(relator : Professor) : void
++ pautarProcesso() : void
++ colocarEmJulgamento() : void
++ julgarProcesso(listaDeVotos : List<Voto>) : void
++ toString() : String
+}
+enum TipoVoto{
+COM_RELATOR
+DIVERGENTE
+AUSENTE
+}
+enum TipoDecisao{
+DEFERIDO
+INDEFERIDO
+}
+@enduml

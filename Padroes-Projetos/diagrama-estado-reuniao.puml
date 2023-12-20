@@ -1,0 +1,8 @@
+@startuml
+
+[*] --> Programada
+Programada --> EmAndamento
+EmAndamento --> Encerrada
+Encerrada --> [*]
+
+@enduml
