@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,5 +18,6 @@ public class Administrador {
 
     private String usuario;
 
+    @Size(min=3, max=60 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 60")
     private String senha;
 }

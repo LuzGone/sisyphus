@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.AlunoRepository;
+import br.edu.ifpb.pweb2.sisyphus.util.PasswordUtil;
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
 
 import java.util.ArrayList;
@@ -33,11 +34,16 @@ public class AlunoService {
     }
 
     public Aluno salvarAluno(Aluno aluno){
-        System.out.println(aluno);
+        aluno.setSenha(PasswordUtil.hashPassword(aluno.getSenha()));
         return this.alunoRepository.save(aluno);
     }
 
     public void apagarAluno(Long id){
         this.alunoRepository.deleteById(id);
+    }
+
+    public Aluno getAlunoPorUsuario(String usuario){
+
+        return this.alunoRepository.findByUsuario(usuario);
     }
 }

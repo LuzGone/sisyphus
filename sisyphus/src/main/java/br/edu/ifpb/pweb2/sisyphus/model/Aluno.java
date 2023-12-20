@@ -41,7 +41,7 @@ public class Aluno {
     private String usuario;
 
     @NotBlank(message="É necessário informar a senha para o Aluno.")
-    @Size(min=3, max=42 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 42")
+    @Size(min=3, max=60 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 60")
     private String senha;
 
     @OneToMany(mappedBy = "aluno")

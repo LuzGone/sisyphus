@@ -8,28 +8,15 @@
     <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 <body class="text-center">
-    <form class="form-signin" th:action="@{/auth}" method="POST" th:object=${usuario}>
-        <div class="centered">
-        <img class="mb-4" th:src="@{/imagens/sisyphus.png}">
-        <h1 class="h3 mb-3 font-weight-normal autentique">Por favor, autentique-se</h1>
-        <div 
-            th:if="${not #strings.isEmpty(mensagem)}"
-            th:utext="${mensagem} +'<button type=&quot;button&quot; class=&quot;close&quot; 
-        data-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;><span aria-hidden=&quot;true&quot;>&times;</span></button>'"
-        class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="container d-flex flex-column">
+        <h1>Quem é você?</h1>
+        <br>
+        <div class="container d-flex gap-3 align-self-center">
+            <a th:href="@{/auth/aluno}" class="btn btn-lg btn-primary">Aluno</a>
+            <a th:href="@{/auth/professor}" class="btn btn-lg btn-primary">Professor</a>
+            <a th:href="@{/auth/coordenador}" class="btn btn-lg btn-primary">Coordenador</a>
+            <a th:href="@{/auth/administrador}" class="btn btn-lg btn-primary">Administrador</a>
         </div>
-        <label for="email" class="sr-only">Email</label> 
-        <input type="email" class="form-control input-login" placeholder="Email" required autofocus th:field="*{email}"> 
-        <label for="senha"class="sr-only">Senha</label>
-        <input type="password" class="form-control input-login" placeholder="Senha" required th:field="*{senha}">
-        <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="lembrar">
-            Lembrar-me
-        </label>
-        </div>
-            <button class="btn btn-lg btn-primary" type="submit">Entrar</button>
-        </div>
-    </form>
+    </div>
 </body>
 </html>

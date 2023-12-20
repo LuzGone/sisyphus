@@ -8,7 +8,7 @@
     <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 <body class="text-center">
-    <form class="form-signin" th:action="@{/auth}" method="POST" th:object=${administrador}>
+    <form class="form-signin" th:action="@{/auth/coordenador}" method="POST" th:object=${coordenador}>
         <div class="centered">
             <img class="mb-4" th:src="@{/imagens/sisyphus.png}">
             <h1 class="h3 mb-3 font-weight-normal autentique">Por favor, autentique-se</h1>
@@ -18,10 +18,10 @@
             data-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;><span aria-hidden=&quot;true&quot;>&times;</span></button>'"
             class="alert alert-danger alert-dismissible fade show" role="alert">
             </div>
-            <label for="usuario" class="sr-only">Usuário</label> 
-            <input type="text" class="form-control input-login" placeholder="Usuário" required autofocus th:field="*{usuario}"> 
-            <label for="senha" class="sr-only">Senha</label>
-            <input type="password" class="form-control input-login" placeholder="Senha" required th:field="*{senha}">
+            <label for="text" class="sr-only">Usuário</label> 
+            <input type="text" class="form-control input-login" placeholder="Usuário" required autofocus th:field="*{professor.usuario}"> 
+            <label for="senha"class="sr-only">Senha</label>
+            <input type="password" class="form-control input-login" placeholder="Senha" required th:field="*{professor.senha}">
             <button class="btn btn-lg btn-primary" type="submit">Entrar</button>
         </div>
     </form>

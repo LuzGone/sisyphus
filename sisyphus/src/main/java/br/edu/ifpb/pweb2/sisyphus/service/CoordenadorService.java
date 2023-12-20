@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
+import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 import br.edu.ifpb.pweb2.sisyphus.repository.CoordenadorRepository;
 
 @Service
@@ -19,6 +20,10 @@ public class CoordenadorService {
 
     public Coordenador getCoordenadorPorId(Long id){
         return this.coordenadorRepository.findById(id).orElse(null);
+    }
+
+    public Coordenador getCoordenadorPorProfessor(Professor professor){
+        return this.coordenadorRepository.findByProfessor(professor);
     }
 
     public Coordenador salvarCoordenador(Coordenador coordenador){

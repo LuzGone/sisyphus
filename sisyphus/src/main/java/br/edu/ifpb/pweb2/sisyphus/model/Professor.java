@@ -42,7 +42,7 @@ public class Professor {
     protected String usuario;
 
     @NotBlank(message="É necessário informar a senha para o Professor.")
-    @Size(min=3, max=42 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 42")
+    @Size(min=3, max=60 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 42")
     protected String senha;
 
     @OneToMany(mappedBy = "relator")

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ProfessorRepository;
+import br.edu.ifpb.pweb2.sisyphus.util.PasswordUtil;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class ProfessorService {
     }
 
     public Professor salvarProfessor(Professor professor){
+        professor.setSenha(PasswordUtil.hashPassword(professor.getSenha()));
         return this.professorRepository.save(professor);
     }
 
@@ -50,5 +52,7 @@ public class ProfessorService {
         this.professorRepository.deleteById(id);
     }
 
-    
+    public Professor getProfessorPorUsuario(String usuario){
+        return this.professorRepository.findByUsuario(usuario);
+    }
 }
