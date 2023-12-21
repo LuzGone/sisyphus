@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,6 +64,7 @@ public class ColegiadosController {
     }
 
     //GETS E POSTS
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping
     public ModelAndView listarColegiados(ModelAndView model,
     @RequestParam(defaultValue = "1") int page,
@@ -76,6 +78,7 @@ public class ColegiadosController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping("criar")
     public ModelAndView criarColegiado(ModelAndView model, RedirectAttributes redirectAttributes ){
         List<Professor> membros = new ArrayList<Professor>();
@@ -89,6 +92,7 @@ public class ColegiadosController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @PostMapping("criar")
     public ModelAndView salvarColegiado(
         @Valid Colegiado colegiado,
@@ -114,6 +118,7 @@ public class ColegiadosController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping("{id}")
     public ModelAndView editarColegiado(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         List<Professor> membros = new ArrayList<Professor>();
@@ -127,6 +132,7 @@ public class ColegiadosController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @PostMapping("{id}")
     public ModelAndView atualizarColegiado(
         @Valid Colegiado colegiado, 
@@ -154,6 +160,7 @@ public class ColegiadosController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @RequestMapping("{id}/delete")
     public ModelAndView deletarColegiado(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         colegiadoService.deletarColegiado(id);

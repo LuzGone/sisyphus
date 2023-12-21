@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class ProfessoresController {
         return this.cursoService.getCursos();
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping
     public ModelAndView listarProfessores(ModelAndView model,
     @RequestParam(defaultValue = "1") int page,
@@ -53,6 +55,7 @@ public class ProfessoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping("criar")
     public ModelAndView criarProfessor(ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("professor", new Professor());
@@ -62,6 +65,7 @@ public class ProfessoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @PostMapping("criar")
     public ModelAndView salvarProfessor(
         @Valid Professor professor,
@@ -82,6 +86,7 @@ public class ProfessoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping("{id}")
     public ModelAndView editarProfessor(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         model.addObject("professor", professorService.getProfessorPorId(id));
@@ -91,6 +96,7 @@ public class ProfessoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @PostMapping("{id}")
     public ModelAndView atualizarProfessor(
         @Valid Professor professor, 
@@ -112,6 +118,7 @@ public class ProfessoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @RequestMapping("{id}/delete")
     public ModelAndView deletarProfessor(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         professorService.deletarProfessor(id);

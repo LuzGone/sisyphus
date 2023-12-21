@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +51,7 @@ public class CoordenadoresController {
         return this.cursoService.getCursos();
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping
     public ModelAndView listarCoordenadores(ModelAndView model,
     @RequestParam(defaultValue = "1") int page,
@@ -63,6 +65,7 @@ public class CoordenadoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping("criar")
     public ModelAndView criarCoordenador(ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("coordenador", new Coordenador());
@@ -71,6 +74,7 @@ public class CoordenadoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @PostMapping("criar")
     public ModelAndView salvarCoordenador(
         @Valid Coordenador coordenador,
@@ -91,6 +95,7 @@ public class CoordenadoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping("{id}")
     public ModelAndView editarCoordenador(@PathVariable("id") long id, ModelAndView model){
         model.addObject("coordenador", coordenadorService.getCoordenadorPorId(id));
@@ -99,6 +104,7 @@ public class CoordenadoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @PostMapping("{id}")
     public ModelAndView atualizarCoordenador(
         @Valid Coordenador coordenador, 
@@ -120,6 +126,7 @@ public class CoordenadoresController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @RequestMapping("{id}/delete")
     public ModelAndView deletarCoordenador(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         coordenadorService.deletarCoordenador(id);

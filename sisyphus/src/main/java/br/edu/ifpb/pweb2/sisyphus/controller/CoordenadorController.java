@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,7 @@ import br.edu.ifpb.pweb2.sisyphus.model.Voto;
 
 @Controller
 @RequestMapping("/coordenador/{id}")
+@PreAuthorize("hasAnyRole('ADMIN', 'COORDENADOR')")
 public class CoordenadorController {
 
     @Autowired

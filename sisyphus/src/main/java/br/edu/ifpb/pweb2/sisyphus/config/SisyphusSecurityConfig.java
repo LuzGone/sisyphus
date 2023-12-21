@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SisyphusSecurityConfig {
     @Autowired
     private DataSource dataSource;
@@ -51,7 +53,7 @@ public class SisyphusSecurityConfig {
         UserDetails jard = User.withUsername("jard").password(passwordEncoder().encode("jard")).roles("ALUNO").build();
         UserDetails fred = User.withUsername("fred").password(passwordEncoder().encode("fred")).roles("PROFESSOR").build();
         UserDetails candido = User.withUsername("candido").password(passwordEncoder().encode("candido")).roles("PROFESSOR","COORDENADOR").build();
-        UserDetails admin = User.withUsername("admin").password(passwordEncoder().encode("admin")).roles("ALUNO","PROFESSOR","COORDENADOR","ADMIN").build();
+        UserDetails admin = User.withUsername("admin").password(passwordEncoder().encode("admin")).roles("ADMIN").build();
 
         // Evita duplicação dos usuários no banco
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);

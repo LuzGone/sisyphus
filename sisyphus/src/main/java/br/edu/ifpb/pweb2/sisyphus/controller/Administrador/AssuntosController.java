@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class AssuntosController {
     @Autowired
     private AssuntoService assuntoService;
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping
     public ModelAndView listarAssuntos(ModelAndView model,
     @RequestParam(defaultValue = "1") int page,
@@ -40,6 +42,7 @@ public class AssuntosController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping("criar")
     public ModelAndView criarAssunto(ModelAndView model, RedirectAttributes redirectAttributes ){
         model.addObject("assunto", new Assunto());
@@ -48,6 +51,7 @@ public class AssuntosController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @PostMapping("criar")
     public ModelAndView salvarAssunto(
         @Valid Assunto assunto,
@@ -69,6 +73,7 @@ public class AssuntosController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @GetMapping("{id}")
     public ModelAndView editarAssunto(@PathVariable("id") long id, ModelAndView model, RedirectAttributes redirectAttributes){
         model.addObject("assunto", assuntoService.getAssuntoPorId(id));
@@ -77,6 +82,7 @@ public class AssuntosController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @PostMapping("{id}")
     public ModelAndView atualizarAssunto(
         @Valid Assunto assunto, 
@@ -99,6 +105,7 @@ public class AssuntosController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')") 
     @RequestMapping("{id}/delete")
     public ModelAndView deletarAssunto(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirectAttributes){
         assuntoService.deletarAssunto(id);
