@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Greekish-aP6g';
+    src: url('@{/fonts/Greekish-aP6g.ttf}') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.background  {
+    background-image: url('../imagens/sisi.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: rgb(0, 0, 0);
+    height: 50vh; 
+    margin-top: -56px; 
+    padding-top: 56px; 
+}
+
+.text {
+  text-align: left; 
+  padding-top: 10vh;
+  font-family: 'Greekish-aP6g', sans-serif;
+}

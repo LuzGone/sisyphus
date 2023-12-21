@@ -1,39 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+layout:decorate="~{layout/layout-prof}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professor</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <meta th:insert="~{fragments/head-fragment :: head(titulo)}">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-                <div>
-                    <a class="navbar-brand" href="#">
-                        <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
-                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}(id=${professor.id})}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}/processos(id=${professor.id})}">Processos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}/reunioes(id=${professor.id})}">Reuniões</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <header th:replace="~{fragments/menu-prof :: menu-prof}"></header>
+    <div layout:fragment="content">
     <main>
         <div style="margin: 30px;">
             <h1 style="margin-top: 20px">Processo de [[${processo.aluno.nome}]] - #[[${processo.numero}]]</h1>
@@ -43,52 +16,47 @@
         <form th:action="@{/professor/{id}/processos/{idProcesso}(id=${professor.id},idProcesso=${processo.id})}" class="container" method="post" th:object="${processo}">
             <div class="row">
                 <!--Número-->
-                <div class="mb-3">
+                <div class="mb-3 col-md-3">
                     <label for="data" class="form-label">Número do Processo:</label>
-                    <input disabled class="form-control" type="number" id="data" th:field="*{numero}"></input>
+                    <input disabled class="form-control" type="number" id="data" th:field="*{numero}">
                 </div>
                 <!--Data Criação-->
-                <div class="mb-3">
-                    <label for="data" class="form-label">Data da Criação:</label>
-                    <input disabled class="form-control" type="text" id="data" th:field="*{dataDeCriacao}"></input>
+                <div class="mb-3 col-md-3">
+                    <label for="dataCriacao" class="form-label">Data da Criação:</label>
+                    <input disabled class="form-control" type="text" id="dataCriacao" th:field="*{dataDeCriacao}">
                 </div>
                 <!--Data Distribuição-->
-                <div class="mb-3">
-                    <label for="data" class="form-label">Data da Distribuição:</label>
-                    <input disabled class="form-control" type="text" id="data" th:field="*{dataDeDistribuicao}"></input>
+                <div class="mb-3 col-md-3">
+                    <label for="dataDistribuicao" class="form-label">Data da Distribuição:</label>
+                    <input disabled class="form-control" type="text" id="dataDistribuicao" th:field="*{dataDeDistribuicao}">
                 </div>
                 <!--Data do Parecer-->
-                <div class="mb-3">
-                    <label for="data" class="form-label">Data do Parecer:</label>
-                    <input disabled class="form-control" type="text" id="data" th:field="*{dataDoParecer}"></input>
-                </div>
-                <!--Nome do Relator-->
-                <div class="mb-3">
-                    <label for="data" class="form-label">Relator:</label>
-                    <input disabled class="form-control" type="text" id="data" th:field="*{relator.nome}"></input>
+                <div class="mb-3 col-md-3">
+                    <label for="dataParecer" class="form-label">Data do Parecer:</label>
+                    <input disabled class="form-control" type="text" id="dataParecer" th:field="*{dataDoParecer}">
                 </div>
                 <!--Nome do Aluno-->
-                <div class="mb-3">
+                <div class="mb-3 col-md-4">
                     <label for="data" class="form-label">Aluno:</label>
                     <input disabled class="form-control" type="text" id="data" th:field="*{aluno.nome}"></input>
                 </div>
+                <!--Nome do Relator-->
+                <div class="mb-3 col-md-4">
+                    <label for="data" class="form-label">Relator:</label>
+                    <input disabled class="form-control" type="text" id="data" th:field="*{relator.nome}"></input>
+                </div>
                 <!--Nome do Colegiado-->
-                <div class="mb-3">
+                <div class="mb-3 col-md-4">
                     <label for="data" class="form-label">Colegiado:</label>
                     <input disabled class="form-control" type="text" id="data" th:field="*{colegiado.descricao}"></input>
                 </div>
                 <!--Assunto-->
-                <div class="mb-3">
+                <div class="mb-3 col-md-6">
                     <label for="data" class="form-label">Assunto:</label>
                     <input disabled class="form-control" type="text" id="data" th:field="*{assunto.nomeDoAssunto}"></input>
                 </div>
-                <!--Texto de Requerimento-->
-                <div class="mb-3">
-                    <label for="data" class="form-label">Motivo do Requerimento:</label>
-                    <textarea disabled class="form-control" type="text" id="data" th:field="*{textoRequerimento}" rows="4"></textarea>
-                </div>
                 <!--Tipo de Decisão-->
-                <div class="mb-3">
+                <div class="mb-3 col-md-6">
                     <label for="data" class="form-label">Decisão do Processo:</label>
                     <select th:if="${processo.tipoDecisao} == null" class="form-select" id="processo" th:field="*{tipoDecisao}">
                         <option th:value="${Deferido}" th:text="DEFERIDO"></option>
@@ -96,8 +64,13 @@
                     </select>
                     <input th:unless="${processo.tipoDecisao} == null" disabled class="form-control" type="text" id="data" th:field="*{tipoDecisao}"></input>
                 </div>
+                <!--Texto de Requerimento-->
+                <div class="mb-3 col-md-6">
+                    <label for="data" class="form-label">Motivo do Requerimento:</label>
+                    <textarea disabled class="form-control" type="text" id="data" th:field="*{textoRequerimento}" rows="4"></textarea>
+                </div>
                 <!--Justificativa da Decisão -->
-                <div class="mb-3">
+                <div class="mb-3 col-md-6">
                     <label for="data" class="form-label">Justificativa do Relator:</label>
                     <textarea th:if="${processo.justificativaRelator} == null" class="form-control" type="text" id="data" th:field="*{justificativaRelator}" rows="4"></textarea>
                     <textarea th:unless="${processo.justificativaRelator} == null" disabled class="form-control" type="text" id="data" th:field="*{justificativaRelator}" rows="4"></textarea>
@@ -106,20 +79,17 @@
                     <button type="submit" class="btn btn-primary">Atribuir Decisão</button>
                     <a th:ref="@{/professor/{id}/processos(id=${professor.id})}" class="btn btn-danger">Cancelar</a>
                 </div>
+                
                 <div th:unless="${processo.tipoDecisao} == null"  class="mb-3">
                     <a th:href="@{/professor/{id}/processos(id=${professor.id})}" class="btn btn-secondary">Voltar</a>
                 </div>
             </div>
+            
+            
+                
+            </div>
         </form>   
     </main>
-    <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-          </a>
-          <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Sisyphus - IFPB </span>
-        </div>
-    </footer>
 
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
