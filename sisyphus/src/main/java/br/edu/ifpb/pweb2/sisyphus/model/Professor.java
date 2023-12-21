@@ -2,6 +2,7 @@ package br.edu.ifpb.pweb2.sisyphus.model;
 
 import java.util.List;
 
+import br.edu.ifpb.pweb2.sisyphus.validator.OnlyNumberMat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +31,8 @@ public class Professor {
     @NotBlank(message="É necessário informar o telefone do Professor.")
     protected String telefone;
 
+    @OnlyNumberMat(message="A matrícula inserida é inválida. Por favor, insira apenas números na matrícula.\" ")
+    
     @NotBlank(message="É necessário informar a matrícula do Professor.")
     @Pattern(regexp= "[0-9]{6}", message="Matrícula deve conter exatamente 6 números!")
     protected String matricula;
