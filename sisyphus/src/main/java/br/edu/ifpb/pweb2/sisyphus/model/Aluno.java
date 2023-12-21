@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -43,6 +44,10 @@ public class Aluno {
     @NotBlank(message="É necessário informar a senha para o Aluno.")
     @Size(min=3, max=60 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 60")
     private String senha;
+
+    @OneToOne
+    @JoinColumn(name = "username")
+    private User user;
 
     @OneToMany(mappedBy = "aluno")
     private List<Processo> listaDeProcessos;

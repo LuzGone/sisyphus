@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Administrador;
+import br.edu.ifpb.pweb2.sisyphus.model.User;
 import br.edu.ifpb.pweb2.sisyphus.repository.AdministradorRepository;
-import br.edu.ifpb.pweb2.sisyphus.util.PasswordUtil;
+import br.edu.ifpb.pweb2.sisyphus.repository.UserRepository;
 
 @Service
 public class AdministradorService {
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Autowired
     private AdministradorRepository administradorRepository;
 
@@ -27,11 +32,14 @@ public class AdministradorService {
     }
 
     public Administrador salvarAdministrador(Administrador administrador){
-        administrador.setSenha(PasswordUtil.hashPassword(administrador.getSenha()));
         return this.administradorRepository.save(administrador);
     }
 
     public void deletarAdministrador(Long id){
         this.administradorRepository.deleteById(id);
+    }
+
+    public List<User> findEnabledUsers(){
+        return userRepository.findByEnabledTrue();
     }
 }

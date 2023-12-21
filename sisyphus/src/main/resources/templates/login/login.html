@@ -8,15 +8,22 @@
     <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 <body class="text-center">
-    <div class="container d-flex flex-column">
-        <h1>Quem é você?</h1>
-        <br>
-        <div class="container d-flex gap-3 align-self-center">
-            <a th:href="@{/auth/aluno}" class="btn btn-lg btn-primary">Aluno</a>
-            <a th:href="@{/auth/professor}" class="btn btn-lg btn-primary">Professor</a>
-            <a th:href="@{/auth/coordenador}" class="btn btn-lg btn-primary">Coordenador</a>
-            <a th:href="@{/auth/administrador}" class="btn btn-lg btn-primary">Administrador</a>
+    <form class="form-signin" th:action="@{/auth/login}" method="POST">
+        <div class="centered">
+            <img class="mb-4" th:src="@{/imagens/sisyphus.png}">
+            <h1 class="h3 mb-3 font-weight-normal autentique">Por favor, autentique-se</h1>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.error} ">
+                Login e/ou senha inválidos!
+            </div>
+            
+            <label for="username" class="sr-only">Usuário</label> 
+            <input type="text" class="form-control input-login" placeholder="Usuário" required autofocus name="username"> 
+            
+            <label for="password" class="sr-only">Senha</label>
+            <input type="password" class="form-control input-login" placeholder="Senha" required name="password">
+            
+            <button class="btn btn-lg btn-primary" type="submit">Entrar</button>
         </div>
-    </div>
+    </form>
 </body>
 </html>
