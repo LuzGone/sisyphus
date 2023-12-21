@@ -48,6 +48,7 @@ public class SisyphusSecurityConfig {
         // Alguns usuários básicos, criados quando da 1a. execução da aplicaçao
         UserDetails luiz = User.withUsername("luiz").password(passwordEncoder().encode("luiz")).roles("ALUNO").build();
         UserDetails louise = User.withUsername("louise").password(passwordEncoder().encode("louise")).roles("ALUNO").build();
+        UserDetails jard = User.withUsername("jard").password(passwordEncoder().encode("jard")).roles("ALUNO").build();
         UserDetails fred = User.withUsername("fred").password(passwordEncoder().encode("fred")).roles("PROFESSOR").build();
         UserDetails candido = User.withUsername("candido").password(passwordEncoder().encode("candido")).roles("PROFESSOR","COORDENADOR").build();
         UserDetails admin = User.withUsername("admin").password(passwordEncoder().encode("admin")).roles("ALUNO","PROFESSOR","COORDENADOR","ADMIN").build();
@@ -57,6 +58,7 @@ public class SisyphusSecurityConfig {
         if (!users.userExists(luiz.getUsername())) {
             users.createUser(luiz);
             users.createUser(louise);
+            users.createUser(jard);
             users.createUser(fred);
             users.createUser(candido);
             users.createUser(admin);

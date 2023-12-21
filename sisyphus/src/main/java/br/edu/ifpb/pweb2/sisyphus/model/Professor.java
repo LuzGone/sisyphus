@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotBlank;
@@ -44,6 +45,10 @@ public class Professor {
     @NotBlank(message="É necessário informar a senha para o Professor.")
     @Size(min=3, max=60 ,message="A senha deverá ter pelo menos 3 caracteres e no máximo 42")
     protected String senha;
+
+    @OneToOne
+    @JoinColumn(name = "username")
+    private User user;
 
     @OneToMany(mappedBy = "relator")
     protected List<Processo> listaDeProcessos;

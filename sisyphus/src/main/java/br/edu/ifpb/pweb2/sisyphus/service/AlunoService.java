@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import br.edu.ifpb.pweb2.sisyphus.repository.AlunoRepository;
 import br.edu.ifpb.pweb2.sisyphus.util.PasswordUtil;
 import br.edu.ifpb.pweb2.sisyphus.model.Aluno;
+import br.edu.ifpb.pweb2.sisyphus.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,8 @@ public class AlunoService {
 
     public Aluno salvarAluno(Aluno aluno){
         aluno.setSenha(PasswordUtil.hashPassword(aluno.getSenha()));
+        User user = new User(aluno.getUsuario(), aluno.getSenha());
+        aluno.setUser(user);
         return this.alunoRepository.save(aluno);
     }
 

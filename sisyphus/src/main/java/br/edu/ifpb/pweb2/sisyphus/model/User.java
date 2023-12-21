@@ -26,4 +26,9 @@ public class User {
     @OneToMany(mappedBy = "username")
     @ToString.Exclude
     List<Authority> authorities;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
