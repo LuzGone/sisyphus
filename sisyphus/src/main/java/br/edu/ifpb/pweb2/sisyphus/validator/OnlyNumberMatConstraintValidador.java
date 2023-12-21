@@ -1,3 +1,4 @@
+package br.edu.ifpb.pweb2.sisyphus.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -19,4 +20,4 @@ public class OnlyNumberMatConstraintValidador implements ConstraintValidator<Onl
     }
 }
 
- */
+ 
