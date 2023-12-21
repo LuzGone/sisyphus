@@ -1,4 +1,3 @@
-/*
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -7,7 +6,6 @@ public class OnlyNumberMatConstraintValidador implements ConstraintValidator<Onl
     
     @Override
     public void initialize(OnlyNumberMat constraintAnnotation) {
-        // Configuração inicial, se necessário
     }
 
     @Override
