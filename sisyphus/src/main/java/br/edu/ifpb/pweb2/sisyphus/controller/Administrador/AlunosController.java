@@ -22,6 +22,8 @@ import br.edu.ifpb.pweb2.sisyphus.model.Curso;
 import br.edu.ifpb.pweb2.sisyphus.repository.AlunoRepository;
 import br.edu.ifpb.pweb2.sisyphus.service.AlunoService;
 import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavPage;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavePageBuilder;
 import jakarta.validation.Valid;
 
 @Controller
