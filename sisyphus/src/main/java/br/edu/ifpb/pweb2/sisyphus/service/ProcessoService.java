@@ -1,6 +1,8 @@
 package br.edu.ifpb.pweb2.sisyphus.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ProcessoRepository;
@@ -29,12 +31,24 @@ public class ProcessoService {
         return this.processoRepository.findAll();
     }
 
+    public Page<Processo> getProcessos(Pageable pageable){
+        return this.processoRepository.findAll(pageable);
+    }
+
     public List<Processo> getProcessosPorAluno(Aluno aluno){
         return this.processoRepository.findByAluno(aluno);
     }
 
+    public Page<Processo> getProcessosPorAluno(Aluno aluno, Pageable pageable){
+        return this.processoRepository.findByAluno(aluno,pageable);
+    }
+
     public List<Processo> getProcessosPorProfessor(Professor professor){
         return this.processoRepository.findByRelator(professor);
+    }
+
+    public Page<Processo> getProcessosPorProfessor(Professor professor, Pageable pageable){
+        return this.processoRepository.findByRelator(professor,pageable);
     }
 
     public Processo getProcessoPorId(Long id){

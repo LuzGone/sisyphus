@@ -1,17 +1,23 @@
 package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Assunto;
 import br.edu.ifpb.pweb2.sisyphus.service.AssuntoService;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavPage;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavePageBuilder;
 import jakarta.validation.Valid;
 
 @Controller
@@ -21,8 +27,14 @@ public class AssuntosController {
     private AssuntoService assuntoService;
 
     @GetMapping
-    public ModelAndView listarAssuntos(ModelAndView model){
-        model.addObject("assuntos", assuntoService.getAssuntos());
+    public ModelAndView listarAssuntos(ModelAndView model,
+    @RequestParam(defaultValue = "1") int page,
+    @RequestParam(defaultValue = "5") int size){
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Assunto> pageAssuntos = assuntoService.getAssuntos(paging);
+        NavPage navPage = NavePageBuilder.newNavPage(pageAssuntos.getNumber() + 1, pageAssuntos.getTotalElements(), pageAssuntos.getTotalPages(), size);
+        model.addObject("assuntos", pageAssuntos);
+        model.addObject("navPage", navPage);
         model.addObject("assunto", new Assunto());
         model.setViewName("administrador/assunto/painel");
         return model;

@@ -1,39 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+layout:decorate="~{layout/layout-aluno}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Colegiado - Página do Aluno</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta th:insert="~{fragments/head-fragment :: head(titulo)}">
 </head>
 
 <body>
-    <!--NAV BAR-->
-    <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-        <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-            <div>
-                <a class="navbar-brand" href="#">
-                    <img th:src="@{/imagens/sisyphus.png}" width="50" height="50">
-                </a>
-                <a class="navbar-brand text-white" href="#">SISYPHUS</a>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse nav justify-content-center" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/aluno/{id}(id=${aluno.id})}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disable text-white" aria-current="page" th:href="@{/aluno/{id}/processos(id=${aluno.id})}">Processos</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <header th:replace="~{fragments/aluno/menu :: menu-aluno}"></header>
+    <div layout:fragment="content">
     <!-- LISTAGEM DE PROCESSOS-->
     <div style="margin: 30px;">
         <h1 style="margin-top: 20px">Processos [[${aluno.nome}]]</h1>
@@ -82,11 +57,12 @@
                     <td th:text="${processo.assunto.nomeDoAssunto}"></td>
                     <td th:text="${processo.dataDeCriacao}"></td>
                     <td>
-                        <button type="button" class="btn btn-primary">Consultar</button>
+                        <a th:href="@{/aluno/{id}/processos/{idProcesso}(id=${aluno.id},idProcesso=${processo.id})}" class="btn btn-primary">Consultar</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div th:replace="~{/fragments/paging :: paginator('aluno/'+${aluno.id}+'/processos', ${navPage})}" />
     </div>
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
@@ -145,18 +121,5 @@
             }
         });
     </script>
-
-<!-- FOOTER -->
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-        </a>
-        <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Sisyphus - IFPB </span>
-      </div>
-    </footer>
-    </div>
-
 </body>
 </html>

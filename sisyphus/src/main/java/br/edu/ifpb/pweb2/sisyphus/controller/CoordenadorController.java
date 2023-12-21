@@ -1,6 +1,9 @@
 package br.edu.ifpb.pweb2.sisyphus.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,6 +21,8 @@ import br.edu.ifpb.pweb2.sisyphus.service.CoordenadorService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProcessoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
 import br.edu.ifpb.pweb2.sisyphus.service.ReuniaoService;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavPage;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavePageBuilder;
 import jakarta.validation.Valid;
 
 import java.util.ArrayList;
@@ -123,8 +129,14 @@ public class CoordenadorController {
     //------ PROCESSOS ---------
 
     @GetMapping("processos")
-    public ModelAndView mostrarPainelDeProcessos(ModelAndView model){
-        model.addObject("processos", processoService.getProcessos());
+    public ModelAndView mostrarPainelDeProcessos(ModelAndView model,
+    @RequestParam(defaultValue = "1") int page,
+    @RequestParam(defaultValue = "5") int size){
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Processo> pageProcesso = processoService.getProcessos(paging);
+        NavPage navPage = NavePageBuilder.newNavPage(pageProcesso.getNumber() + 1, pageProcesso.getTotalElements(), pageProcesso.getTotalPages(), size);
+        model.addObject("navPage", navPage);
+        model.addObject("processos", pageProcesso);
         model.setViewName("/coordenador/painel-processos");
         return model;
     }
@@ -154,10 +166,17 @@ public class CoordenadorController {
     //------ REUNIÕES ---------
 
     @GetMapping("reunioes")
-    public ModelAndView mostrarPainelDeReuniaos(ModelAndView model, @PathVariable("id") Long id){
+    public ModelAndView mostrarPainelDeReuniaos(ModelAndView model, 
+    @PathVariable("id") Long id,
+    @RequestParam(defaultValue = "1") int page,
+    @RequestParam(defaultValue = "5") int size){
         Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
         Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
-        model.addObject("reunioes", colegiado.getReuniaos());
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Reuniao> pageReunioes = reuniaoService.getReunioesPorColegiado(colegiado,paging);
+        NavPage navPage = NavePageBuilder.newNavPage(pageReunioes.getNumber() + 1, pageReunioes.getTotalElements(), pageReunioes.getTotalPages(), size);
+        model.addObject("navPage", navPage);
+        model.addObject("reunioes", pageReunioes);
         model.setViewName("/coordenador/painel-reunioes");
         return model;
     }
@@ -335,7 +354,7 @@ public class CoordenadorController {
         Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
         Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
         model.addObject("reunioes", colegiado.getReuniaos());
-        model.setViewName("/coordenador/painel-reunioes");
+        model.setViewName("redirect:/coordenador/"+id+"/reunioes");
         return model;
     }
     

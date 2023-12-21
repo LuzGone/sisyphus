@@ -1,42 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+layout:decorate="~{layout/layout-prof}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Colegiado - Página do Professor</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <meta th:insert="~{fragments/head-fragment :: head(titulo)}">
 </head>
-
 <body>
-    <header th:fragment="menu-home">
-        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-                <div>
-                    <a class="navbar-brand" href="#">
-                        <img th:src="@{/imagens/sisyphus.png}" alt="Ícone" width="50" height="50">
-                    </a>
-                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}(id=${professor.id})}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}/processos(id=${professor.id})}">Processos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/professor/{id}/reunioes(id=${professor.id})}">Reuniões</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <header th:replace="~{fragments/menu-prof :: menu-prof}"></header>
+    <div layout:fragment="content">
     <!--LISTAGEM DE REUNIÕES--->
     <div style="margin: 30px;">
         <h1 style="margin-top: 20px">Painel de Reuniões - [[${professor.nome}]]</h1>
@@ -82,6 +52,7 @@
                 </tr>
             </tbody>
         </table>
+        <div th:replace="~{/fragments/paging :: paginator('professor/'+${professor.id}+'/reunioes', ${navPage})}" />
     </div>
     
     <!-- FILTRO POR PESQUISA-->

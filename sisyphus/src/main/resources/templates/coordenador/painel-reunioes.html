@@ -1,42 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+layout:decorate="~{layout/layout-coord}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Colegiado - Página do Coordenador - Reuniões</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta th:insert="~{fragments/head-fragment :: head(titulo)}">
 </head>
 
 <body>
-    <!-- NAV BAR-->
-    <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-        <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-            <div>
-                <a class="navbar-brand" href="#">
-                    <img th:src="@{/imagens/sisyphus.png}" alt="Ícone" width="50" height="50">
-                </a>
-                <a class="navbar-brand text-white" href="#">SISYPHUS</a>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}(coordenadorId=${coordenador.id})}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <header th:replace="~{fragments/menu-home :: menu-home}"></header>
+    <div layout:fragment="content">
     <!--LISTAGEM--->
     <div style="margin: 30px;">
         <h1 style="margin-top: 20px">Painel de Reuniões - [[${coordenador.professor.nome}]]</h1>
@@ -53,11 +25,14 @@
                 </div>
             </div>
         </div>
-        <a th:href="@{reunioes/criar}" class="btn btn-primary justify-self-center">Criar Reunião</a>
-        <div role="alert" id="alerta" class="alert d-flex align-items-center alert-dismissible fade show" th:if="${mensagem ne null}">
+        <a th:href="@{reunioes/criar}" class="btn btn-primary justify-self-center" style="margin-bottom: 10px;">Criar Reunião</a>
+        <div role="alert" id="alerta" class="alert alert-primary d-flex align-items-center alert-dismissible fade show" th:if="${mensagem}">
             <div th:text="${mensagem}"></div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+
+        
+        
         <!--TABELA DE PROCESSOS-->
         <table class="table">
             <thead>
@@ -90,6 +65,7 @@
                 </tr>
             </tbody>
         </table>
+        <div th:replace="~{/fragments/paging :: paginator('coordenador/'+${coordenador.id}+'/reunioes', ${navPage})}" />
     </div>
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>

@@ -1,8 +1,11 @@
 package br.edu.ifpb.pweb2.sisyphus.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
 import br.edu.ifpb.pweb2.sisyphus.model.EstadoProcesso;
 import br.edu.ifpb.pweb2.sisyphus.model.Processo;
 import br.edu.ifpb.pweb2.sisyphus.model.Reuniao;
@@ -19,6 +22,14 @@ public class ReuniaoService {
     
     public List<Reuniao> getReunioes(){
         return this.reuniaoRepository.findAll();
+    }
+
+    public Page<Reuniao> getReunioes(Pageable pageable){
+        return this.reuniaoRepository.findAll(pageable);
+    }
+
+    public Page<Reuniao> getReunioesPorColegiado(Colegiado colegiado, Pageable pageable){
+        return this.reuniaoRepository.findByColegiado(colegiado, pageable);
     }
 
     public Reuniao getReuniaoPorId(Long id){

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+    <meta th:insert="~{fragments/head-fragment :: head(titulo)}">
+</head>
+
+<body>
+    <header th:replace="~{fragments/adm/menu-fragment :: adm-head}"></header>
+    <div layout:fragment="content">
+    
+    
+    
+    </div>
+    <header th:replace="~{fragments/footer :: footer}"></header>    
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

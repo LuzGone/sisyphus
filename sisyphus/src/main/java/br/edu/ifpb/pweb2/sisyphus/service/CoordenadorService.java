@@ -3,6 +3,8 @@ package br.edu.ifpb.pweb2.sisyphus.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Coordenador;
@@ -16,6 +18,10 @@ public class CoordenadorService {
 
     public List<Coordenador> getCoordenadores(){
         return this.coordenadorRepository.findAll();
+    }
+
+    public Page<Coordenador> getCoordenadores(Pageable pageable){
+        return this.coordenadorRepository.findAll(pageable);
     }
 
     public Coordenador getCoordenadorPorId(Long id){

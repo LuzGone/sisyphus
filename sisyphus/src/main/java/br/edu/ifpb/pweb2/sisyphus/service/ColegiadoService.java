@@ -1,6 +1,8 @@
 package br.edu.ifpb.pweb2.sisyphus.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.pweb2.sisyphus.repository.ColegiadoRepository;
@@ -18,6 +20,10 @@ public class ColegiadoService {
 
     public List<Colegiado> getColegiados(){
         return this.colegiadoRepository.findAll();
+    }
+
+    public Page<Colegiado> getColegiados(Pageable pageable){
+        return this.colegiadoRepository.findAll(pageable);
     }
 
     public Colegiado getColegiadoPorId(Long id){

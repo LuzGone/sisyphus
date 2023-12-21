@@ -1,126 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+layout:decorate="~{layout/layout-coord}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coordenador</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <meta th:insert="~{fragments/head-fragment :: head(titulo)}">
+    <link rel="stylesheet" th:href="@{/css/painelReuniao.css}">
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-success p-2 text-white">
-            <div class="container-fluid justify-content-center" id="navbarSupportedContent">
-                <div>
-                    <a class="navbar-brand" href="#">
-                        <img th:src="@{/imagens/sisyphus.png}"  width="50" height="50"/>
-                    <a class="navbar-brand text-white" href="#">SISYPHUS</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}(coordenadorId=${coordenador.id})}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/processos(coordenadorId=${coordenador.id})}">Processos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" th:href="@{/coordenador/{coordenadorId}/reunioes(coordenadorId=${coordenador.id})}">Reuniões</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <header th:replace="~{fragments/menu-home :: menu-home}"></header>
+    <div layout:fragment="content">
     <main>
         <div style="margin: 30px;">
             <h1 style="margin-top: 20px">Reuniao de [[${reuniao.colegiado.descricao}]] - [[${reuniao.dataReuniao}]]</h1>
             <hr>
         </div>
-        <div class="container">
+        <div class="container d-flex">
             <div id="pauta">
-                Pauta:
-                <div id="numsProcessos" th:each="processo:${reuniao.processos}">
-                    <a th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel/{idProcesso}(coordenadorId=${coordenador.id},idReuniao=${reuniao.id},idProcesso=${processo.id})}">[[${processo.numero}]]</a>
+                <h4>Pauta:</h4>
+                <div id="numsProcessos" th:each="processoPauta:${reuniao.processos}">
+                    <a class="numprocesso" th:href="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel/{idProcesso}(coordenadorId=${coordenador.id},idReuniao=${reuniao.id},idProcesso=${processoPauta.id})}">[[${processoPauta.numero}==${processo.numero}?'> ':'']][[${processoPauta.numero}]]</a>
                 </div>
                 <form th:action="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel/encerrar(coordenadorId=${coordenador.id},idReuniao=${reuniao.id})}" method="post">
-                    <button type="submit">Encerrar Reunião</button>
+                    <button style="margin-top: 1rem;" class="btn btn-primary" type="submit">Encerrar Reunião</button>
                 </form>
             </div>
-            <div id="ProcessoEmJulgamento">
-                Processo em Julgamento:
+            <div id="ProcessoEmJulgamento" class="container">
+                <h4>Processo em Julgamento:</h4>
                 <div id="DadosProcesso">
-                    <form>
-                        <!--Número do Processo-->
-                        <div class="row">
-                            <label for="">Número:</label>
-                            <input type="text" th:value="${processo.numero}">
+                    <form class="container">
+                        <div class="row mt-2">
+                            <!--Número do Processo-->
+                            <div class="col">
+                                <label class="form-label" >Número:</label>
+                                <input disabled class="form-control" type="text" th:value="${processo.numero}">
+                            </div>
+                            <!--Assunto-->
+                            <div class="col">
+                                <label class="form-label" for="">Assunto:</label>
+                                <input disabled class="form-control" type="text" th:value="${processo.assunto}">
+                            </div>
                         </div>
-                        <!--Aluno-->
-                        <div class="row">
-                            <label for="">Aluno:</label>
-                            <input type="text" th:value="${processo.aluno.nome}">
+                        <div class="row mt-2">
+                            <!--Aluno-->
+                            <div class="col">
+                                <label class="form-label" for="">Aluno:</label>
+                                <input disabled class="form-control" type="text" th:value="${processo.aluno.nome}">
+                            </div>
+                            <!--Relator-->
+                            <div class="col">
+                                <label class="form-label" for="">Relator:</label>
+                                <input disabled class="form-control" type="text" th:value="${processo.relator.nome}">
+                            </div>
                         </div>
-                        <!--Assunto-->
-                        <div class="row">
-                            <label for="">Assunto:</label>
-                            <input type="text" th:value="${processo.assunto}">
-                        </div>
-                        <!--Relator-->
-                        <div class="row">
-                            <label for="">Relator:</label>
-                            <input type="text" th:value="${processo.relator.nome}">
-                        </div>
-                        <!--Decisão do Relator-->
-                        <div class="row">
-                            <label for="">Decisão do Relator:</label>
-                            <input type="text" th:value="${processo.tipoDecisao}">
-                        </div>
-                        <!--Justificativa do Relator-->
-                        <div class="row">
-                            <label for="">Justificativa do Relator:</label>
-                            <textarea type="text" th:text="${processo.justificativaRelator}" rows="4"></textarea>
-                        </div>
+
+                        
+
                         <!--Justificativa do Aluno-->
-                        <div class="row">
-                            <label for="">Motivo do Requerimento:</label>
-                            <textarea type="text" th:text="${processo.textoRequerimento}" rows="4"></textarea>
+                        <div class="col">
+                            <label class="form-label">Motivo do Requerimento:</label>
+                            <textarea disabled class="form-control" type="text" th:text="${processo.textoRequerimento}" rows="4"></textarea>
                         </div>
+                        
+                        <!--Decisão do Relator-->
+                        <div class="col">
+                            <label class="form-label" for="">Decisão do Relator:</label>
+                            <input disabled class="form-control" type="text" th:value="${processo.tipoDecisao}">
+                        </div>
+
+                        <!--Justificativa do Relator-->
+                        <div class="col">
+                            <label class="form-label" for="">Justificativa do Relator:</label>
+                            <textarea disabled class="form-control" type="text" th:text="${processo.justificativaRelator}" rows="4"></textarea>
+                        </div>
+                        
                     </form>
                 </div>
-                <div id="votosMembros">
+                <div  id="votosMembros" class="container">
                     <hr>
-                    Votos:
-                    <form th:action="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel/{idProcesso}(coordenadorId=${coordenador.id},idReuniao=${reuniao.id},idProcesso=${processo.id})}" th:object="${processo}" method="post">
-                        <div class="row" th:each="voto,itemStat:${processo.listaDeVotos}">
+                    <h4>Votos:</h4>
+                    <form class="container row" th:action="@{/coordenador/{coordenadorId}/reunioes/{idReuniao}/painel/{idProcesso}(coordenadorId=${coordenador.id},idReuniao=${reuniao.id},idProcesso=${processo.id})}" th:object="${processo}" method="post">
+                        <div class="col-sm-6" th:each="voto,itemStat:${processo.listaDeVotos}">
                             <input type="hidden" th:field="*{listaDeVotos[__${itemStat.index}__].id}">
                             <input type="hidden" th:field="*{listaDeVotos[__${itemStat.index}__].professor}" th:value="${voto.professor.id}">
                             <input type="hidden" th:field="*{listaDeVotos[__${itemStat.index}__].processo}" th:value="${processo.id}">
-                            <label>[[${voto.professor.nome}]]:</label>
-                            <select th:field="*{listaDeVotos[__${itemStat.index}__].tipoVoto}">
+                            <label class="form-label">[[${voto.professor.nome}]]:</label>
+                            <select class="form-select" th:field="*{listaDeVotos[__${itemStat.index}__].tipoVoto}">
                                 <option th:value="${comRelator}">Com Relator</option>
                                 <option th:value="${divergente}">Divergente</option>
                                 <option th:value="${ausente}">Ausente</option>
                             </select>
                         </div>
-                        <button th:if="${processo.estadoProcesso}==${emJulgamento}" type="submit">Concluir Processo</button>
-                        <p th:unless="${processo.estadoProcesso}==${emJulgamento}"> Processo Concluído</p>
+                        <div class="col d-flex" style="margin-top: 1rem;">
+                            <button class="btn btn-success" th:if="${processo.estadoProcesso}==${emJulgamento}" type="submit">Concluir Processo</button>
+                            <button disabled class="btn btn-success align-self-center" th:unless="${processo.estadoProcesso}==${emJulgamento}"> Processo Concluído</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </main>
-    <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-          </a>
-          <span class="mb-3 mb-md-0 text-muted">&copy; 2023 Sisyphus - IFPB </span>
-        </div>
-    </footer>
-
+    
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
