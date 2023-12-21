@@ -42,12 +42,14 @@ layout:decorate="~{layout/layout-coord}">
                 <div class="col">
                     <h3>Relator</h3>
                     <div class="form-floating mb-3" style="font-size: 18px;">
-                        <input type="text" class="form-control" id="floatingInputDisabled" placeholder="" disabled th:value="${processo.relator.nome}">
+                        <input type="text" class="form-control" id="floatingInputDisabled" th:value="${processo.relator.nome}" disabled>
                         <label for="floatingInputDisabled"></label>
-                        <span th:if="${processo.relator} == null">
+                        <span th:if="${processo.relator} == null" >
                             <button data-bs-target="#modal"
                                     data-bs-toggle="modal"
                                     class="btn btn-primary">Atribuir Relator</button>
+                                    <span th:unless="${processo.relator} == null">[[${processo.relator.nome}]]</span>
+
                         </span>
                         
                     </div>

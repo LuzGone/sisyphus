@@ -29,7 +29,7 @@ public class Aluno {
     @NotBlank(message="É necessário informar o telefone do Aluno.")
     private String telefone;
 
-    @OnlyNumberMat
+    
     
     @NotBlank(message="É necessário informar a matrícula do Aluno.")
     @Pattern(regexp= "[0-9]{11}", message="Matrícula deve conter exatamente 11 números!")

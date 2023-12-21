@@ -1,9 +1,10 @@
+/*
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class OnlyNumberMatConstraintValidador implements ConstraintValidator<OnlyNumberMat, String> {
-
+    
     @Override
     public void initialize(OnlyNumberMat constraintAnnotation) {
         // Configuração inicial, se necessário
@@ -15,7 +16,9 @@ public class OnlyNumberMatConstraintValidador implements ConstraintValidator<Onl
         if (value == null) {
             return true; // Aceitar valores nulos, se aplicável
         }
-
+        
         return value.matches("\\d+"); // Verificar se contém apenas números
     }
 }
+
+ */
