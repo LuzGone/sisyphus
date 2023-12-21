@@ -19,12 +19,10 @@ layout:decorate="~{layout/layout-adm}">
                         <input type="hidden" th:field="*{id}">
                         <!-- PROFESSOR -->
                         <div class="col-md-6">
-                            <div class="input-group mb-4">
-                                <label for="professor" class="input-group-text" style="background-color:#198754 ;color: #ffff;">Professor:</label>
-                                <select required id="professor" th:field="*{professor.id}" class="form-select">
-                                    <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome} + ' - ' + ${professor.curso}"></option>
-                                </select>
-                            </div>
+                            <label for="professor" class="form-label">Professor:</label>
+                            <select required id="professor" th:field="*{professor.id}" class="form-select">
+                                <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome} + ' - ' + ${professor.curso}"></option>
+                            </select>
                         </div>
                     </div>
                 </div>

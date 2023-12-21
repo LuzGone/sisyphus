@@ -62,6 +62,7 @@ layout:decorate="~{layout/layout-prof}">
                 </tr>
             </tbody>
         </table>
+        <div th:replace="~{/fragments/paging :: paginator('professor/'+${professor.id}+'/processos', ${navPage})}" />
     </div>
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>

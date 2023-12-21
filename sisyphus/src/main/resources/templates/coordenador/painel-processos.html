@@ -87,6 +87,7 @@ layout:decorate="~{layout/layout-coord}">
                 </tr>
             </tbody>
         </table>
+        <div th:replace="~{/fragments/paging :: paginator('coordenador/'+${coordenador.id}+'/processos', ${navPage})}" />
     </div>
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt_BR" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-layout:decorate="~{layout/layout-coord}">
+layout:decorate="~{layout/layout-aluno}">
 
 <head>
     <meta th:insert="~{fragments/head-fragment :: head(titulo)}">
 </head>
 
 <body>
-    <header th:replace="~{fragments/menu-home :: menu-home}"></header>
+    <header th:replace="~{fragments/aluno/menu :: menu-aluno}"></header>
     <div layout:fragment="content">
     <main>
         <div style="margin: 30px">
@@ -42,15 +42,8 @@ layout:decorate="~{layout/layout-coord}">
                 <div class="col">
                     <h3>Relator</h3>
                     <div class="form-floating mb-3" style="font-size: 18px;">
-                        
-                        
-                        <span th:if="${processo.relator} == null">
-                            <button data-bs-target="#modal"
-                                    data-bs-toggle="modal"
-                                    class="btn btn-primary">Atribuir Relator</button>
-                        </span>
-                        <input th:unless="${processo.relator} == null"  type="text" class="form-control" id="floatingInputDisabled" placeholder="" disabled>
-                        <label th:unless="${processo.relator} == null" for="floatingInputDisabled">[[${processo.relator.nome}]]</label>
+                        <input  type="text" class="form-control" id="floatingInputDisabled" placeholder="" disabled>
+                        <label  for="floatingInputDisabled">[[${processo.relator} == null? '-' : ${processo.relator.nome}]]</label>
                     </div>
                 </div>
                 
@@ -126,39 +119,6 @@ layout:decorate="~{layout/layout-coord}">
                 </div>
             </div>
             
-        </div>
-
-        <!-- MODAL PRA ESCOLHER O RELATOR -->
-        <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!--FORM DO RELATOR-->
-                    <form th:action="@{/coordenador/{idCoordenador}/processos/{id}(idCoordenador=${coordenador.id},id=${processo.id})}" method="post" th:object="${processo}">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalLabel">Atribuir Relator</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <input type="hidden" th:field="*{id}"><br>
-                                <div class="mb-3">
-                                    <label for="relator" class="form-label"></label>
-                                    <select class="form-select" required id="relator" th:field="*{relator}" aria-label="Default select example">
-                                        <option th:each="professor:${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
-                                style="padding-left: 25px; padding-right:25px">Atribuir Relator</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
     </main>
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>

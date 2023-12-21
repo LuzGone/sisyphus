@@ -44,6 +44,7 @@ layout:decorate="~{layout/layout-adm}">
                   </tr>
                 </tbody>
               </table>
+              <div th:replace="~{/fragments/paging :: paginator('colegiados', ${navPage})}" />
         </div>
     </main>
     <footer></footer>

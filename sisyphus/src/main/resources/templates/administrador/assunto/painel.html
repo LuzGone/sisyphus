@@ -57,6 +57,7 @@ layout:decorate="~{layout/layout-adm}">
                   </tr>
                 </tbody>
               </table>
+              <div th:replace="~{/fragments/paging :: paginator('assuntos', ${navPage})}" />
         </div>
     </main>
     

@@ -3,6 +3,9 @@ package br.edu.ifpb.pweb2.sisyphus.controller.Administrador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,6 +21,8 @@ import br.edu.ifpb.pweb2.sisyphus.model.Curso;
 import br.edu.ifpb.pweb2.sisyphus.model.Professor;
 import br.edu.ifpb.pweb2.sisyphus.service.CursoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavPage;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavePageBuilder;
 import jakarta.validation.Valid;
 
 @Controller
@@ -34,8 +40,14 @@ public class ProfessoresController {
     }
 
     @GetMapping
-    public ModelAndView listarProfessores(ModelAndView model){
-        model.addObject("professores", professorService.getProfessores());
+    public ModelAndView listarProfessores(ModelAndView model,
+    @RequestParam(defaultValue = "1") int page,
+    @RequestParam(defaultValue = "5") int size){
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Professor> pageProfessores = professorService.getProfessores(paging);
+        NavPage navPage = NavePageBuilder.newNavPage(pageProfessores.getNumber() + 1, pageProfessores.getTotalElements(), pageProfessores.getTotalPages(), size);
+        model.addObject("navPage", navPage);
+        model.addObject("professores", pageProfessores);
         model.addObject("professor", new Professor());
         model.setViewName("administrador/professor/painel");
         return model;

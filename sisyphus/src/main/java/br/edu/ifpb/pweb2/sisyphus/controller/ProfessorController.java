@@ -1,14 +1,16 @@
 package br.edu.ifpb.pweb2.sisyphus.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.ifpb.pweb2.sisyphus.model.Colegiado;
@@ -19,6 +21,8 @@ import br.edu.ifpb.pweb2.sisyphus.model.TipoDecisao;
 import br.edu.ifpb.pweb2.sisyphus.service.ProcessoService;
 import br.edu.ifpb.pweb2.sisyphus.service.ProfessorService;
 import br.edu.ifpb.pweb2.sisyphus.service.ReuniaoService;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavPage;
+import br.edu.ifpb.pweb2.sisyphus.ui.NavePageBuilder;
 
 @Controller
 @RequestMapping("/professor/{id}")
@@ -57,9 +61,16 @@ public class ProfessorController {
 
     //----- PROCESSOS -----
     @GetMapping("/processos")
-    public ModelAndView mostrarPainelDeProcessos(ModelAndView model,@PathVariable("id") Long id){
+    public ModelAndView mostrarPainelDeProcessos(ModelAndView model,
+    @PathVariable("id") Long id,
+    @RequestParam(defaultValue = "1") int page,
+    @RequestParam(defaultValue = "5") int size){
         Professor professor = this.professorService.getProfessorPorId(id);
-        model.addObject("processos", processoService.getProcessosPorProfessor(professor));
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Processo> pageProcesso = processoService.getProcessosPorProfessor(professor,paging);
+        NavPage navPage = NavePageBuilder.newNavPage(pageProcesso.getNumber() + 1, pageProcesso.getTotalElements(), pageProcesso.getTotalPages(), size);
+        model.addObject("navPage", navPage);
+        model.addObject("processos", pageProcesso);
         model.setViewName("/professor/painel-processos");
         return model;
     }
@@ -82,11 +93,17 @@ public class ProfessorController {
 
     //----- REUNIÕES -----
     @GetMapping("/reunioes")
-    public ModelAndView mostrarPainelDeReunioes(ModelAndView model,@PathVariable("id") Long id){
+    public ModelAndView mostrarPainelDeReunioes(ModelAndView model,
+    @PathVariable("id") Long id,
+    @RequestParam(defaultValue = "1") int page,
+    @RequestParam(defaultValue = "5") int size){
         Professor professor = professorService.getProfessorPorId(id);
         Colegiado colegiado = professor.getListaColegiados().get(0);
-        List<Reuniao> reunioes = colegiado.getReuniaos();
-        model.addObject("reunioes", reunioes);
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<Reuniao> pageReunioes = reuniaoService.getReunioesPorColegiado(colegiado,paging);
+        NavPage navPage = NavePageBuilder.newNavPage(pageReunioes.getNumber() + 1, pageReunioes.getTotalElements(), pageReunioes.getTotalPages(), size);
+        model.addObject("navPage", navPage);
+        model.addObject("reunioes", pageReunioes);
         model.setViewName("/professor/painel-reunioes");
         return model;
     }

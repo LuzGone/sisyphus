@@ -77,7 +77,7 @@ layout:decorate="~{layout/layout-prof}">
                 </div>
                 <div th:if="${processo.tipoDecisao} == null"  class="mb-3">
                     <button type="submit" class="btn btn-primary">Atribuir Decisão</button>
-                    <a th:ref="@{/professor/{id}/processos(id=${professor.id})}" class="btn btn-danger">Cancelar</a>
+                    <a th:href="@{/professor/{id}/processos(id=${professor.id})}" class="btn btn-danger">Cancelar</a>
                 </div>
                 
                 <div th:unless="${processo.tipoDecisao} == null"  class="mb-3">

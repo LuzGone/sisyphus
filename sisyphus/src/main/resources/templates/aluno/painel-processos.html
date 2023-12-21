@@ -57,11 +57,12 @@ layout:decorate="~{layout/layout-aluno}">
                     <td th:text="${processo.assunto.nomeDoAssunto}"></td>
                     <td th:text="${processo.dataDeCriacao}"></td>
                     <td>
-                        <button type="button" class="btn btn-primary">Consultar</button>
+                        <a th:href="@{/aluno/{id}/processos/{idProcesso}(id=${aluno.id},idProcesso=${processo.id})}" class="btn btn-primary">Consultar</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div th:replace="~{/fragments/paging :: paginator('aluno/'+${aluno.id}+'/processos', ${navPage})}" />
     </div>
     <script th:src="@{/js/bootstrap.buddle.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
