@@ -354,7 +354,7 @@ public class CoordenadorController {
         Coordenador coordenador = coordenadorService.getCoordenadorPorId(id);
         Colegiado colegiado = colegiadoService.getColegiadoPorCoordenador(coordenador);
         model.addObject("reunioes", colegiado.getReuniaos());
-        model.setViewName("/coordenador/painel-reunioes");
+        model.setViewName("redirect:/coordenador/"+id+"/reunioes");
         return model;
     }
     
