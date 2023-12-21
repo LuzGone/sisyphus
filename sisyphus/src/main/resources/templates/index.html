@@ -17,12 +17,14 @@
                 </div>
                 <a class="navbar-brand text-white" href="#">SISYPHUS</a>
             </div>
-            <form class="form-inline my-2 my-lg-0" th:action="@{/auth/logout}" method="POST">
-              <span sec:authorize="isAuthenticated()" sec:authentication="name" style="margin-right: 3px; font-size: 0.8em;"></span>
-              <button type="submit" class="btn btn-primary my-2 my-sm-0">
-                  Sair
-              </button>
-            </form>  
+            <div>
+              <form class="container d-flex gap-3" th:action="@{/auth/logout}" method="POST">
+                  <button disabled class="btn btn-success" sec:authorize="isAuthenticated()" sec:authentication="name" style="margin-right: 3px; font-size: 1em;"></button>
+                  <button type="submit" class="btn btn-sucess my-2 my-sm-0" style="border: 1px solid white;">
+                      Sair
+                  </button>
+              </form>  
+          </div>  
         </nav>
     </header>
     <main>

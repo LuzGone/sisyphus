@@ -22,5 +22,13 @@
                 </ul>
             </div>
         </div>
+        <div>
+            <form class="container d-flex gap-3" th:action="@{/auth/logout}" method="POST">
+                <button disabled class="btn btn-success" sec:authorize="isAuthenticated()" sec:authentication="name" style="margin-right: 3px; font-size: 1em;"></button>
+                <button type="submit" class="btn btn-sucess my-2 my-sm-0" style="border: 1px solid white;">
+                    Sair
+                </button>
+            </form>  
+        </div>
     </nav>
 </header>
